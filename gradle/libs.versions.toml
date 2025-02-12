@@ -29,7 +29,7 @@ navigation = "2.8.0-alpha12"
 sortDependencies = "0.14"
 sqldelight = "2.0.2"
 truthish = "1.0.2"
-xr = "1.0.0-alpha02"
+xr = "1.0.0-alpha03"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
