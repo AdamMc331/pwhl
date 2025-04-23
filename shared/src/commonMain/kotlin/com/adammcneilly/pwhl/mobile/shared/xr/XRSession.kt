@@ -25,10 +25,12 @@ interface XRSession {
     /**
      * Minimize the app on a VR headset so it can be displayed alongside other applications.
      */
+    @Composable
     fun requestHomeSpaceMode()
 
     /**
      * Expand the application in a VR headset so it can be viewed in full screen.
      */
+    @Composable
     fun requestFullSpaceMode()
 }
