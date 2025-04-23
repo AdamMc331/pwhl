@@ -1,29 +1,26 @@
 package com.adammcneilly.pwhl.mobile.shared.xr
 
 import androidx.compose.runtime.Composable
-import androidx.xr.compose.platform.LocalSession
 import androidx.xr.compose.platform.LocalSpatialCapabilities
 import androidx.xr.compose.platform.LocalSpatialConfiguration
-import androidx.xr.scenecore.Session
+import androidx.xr.compose.platform.SpatialConfiguration
 
 @Composable
 actual fun currentXRSession(): XRSession? {
-    return LocalSession.current?.let(::AndroidXRSession)
+    return LocalSpatialConfiguration.current.let(::AndroidXRSession)
 }
 
 private class AndroidXRSession(
-    val xrSession: Session,
+    val spatialConfiguration: SpatialConfiguration,
 ) : XRSession {
     override val isSpatialUiEnabled: Boolean
         @Composable get() = LocalSpatialCapabilities.current.isSpatialUiEnabled
 
-    @Composable
     override fun requestHomeSpaceMode() {
-        LocalSpatialConfiguration.current.requestHomeSpaceMode()
+        spatialConfiguration.requestHomeSpaceMode()
     }
 
-    @Composable
     override fun requestFullSpaceMode() {
-        LocalSpatialConfiguration.current.requestFullSpaceMode()
+        spatialConfiguration.requestFullSpaceMode()
     }
 }
