@@ -21,6 +21,8 @@ import com.adammcneilly.pwhl.mobile.shared.gamedetail.GameDetailViewModel
 import com.adammcneilly.pwhl.mobile.shared.news.NewsScreen
 import com.adammcneilly.pwhl.mobile.shared.profile.ProfileScreen
 import com.adammcneilly.pwhl.mobile.shared.standings.StandingsScreen
+import com.adammcneilly.pwhl.mobile.shared.teamdetail.TeamDetailScreen
+import com.adammcneilly.pwhl.mobile.shared.teamdetail.TeamDetailViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -61,7 +63,11 @@ fun AppNavHost(
                 }
 
                 animatedComposable<StandingsScreen> {
-                    StandingsScreen()
+                    StandingsScreen(
+                        onTeamClicked = { teamId ->
+                            navController.navigate(TeamDetailScreen(teamId))
+                        },
+                    )
                 }
 
                 animatedComposable<ProfileScreen> {
@@ -78,6 +84,20 @@ fun AppNavHost(
                     )
 
                     GameDetailScreen(
+                        viewModel = viewModel,
+                    )
+                }
+
+                animatedComposable<TeamDetailScreen> { backStackEntry ->
+                    val screen: TeamDetailScreen = backStackEntry.toRoute()
+
+                    val viewModel: TeamDetailViewModel = koinViewModel(
+                        parameters = {
+                            parametersOf(screen.teamId)
+                        },
+                    )
+
+                    TeamDetailScreen(
                         viewModel = viewModel,
                     )
                 }

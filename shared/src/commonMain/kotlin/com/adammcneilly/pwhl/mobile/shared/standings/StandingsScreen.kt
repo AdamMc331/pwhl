@@ -12,6 +12,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Composable
 @OptIn(KoinExperimentalAPI::class)
 fun StandingsScreen(
+    onTeamClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StandingsViewModel = koinViewModel(),
 ) {
@@ -23,6 +24,7 @@ fun StandingsScreen(
     ) { scaffoldPadding ->
         StandingsContent(
             state = state.value,
+            onTeamClicked = onTeamClicked,
             modifier = Modifier
                 .padding(scaffoldPadding),
         )
