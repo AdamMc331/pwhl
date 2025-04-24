@@ -6,10 +6,11 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun TeamDetailContent(
+    state: TeamDetailState,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = "Team Detail Stub",
+        text = "Team Detail Stub - most recent game: ${state.mostRecentGame}",
         modifier = modifier,
     )
 }

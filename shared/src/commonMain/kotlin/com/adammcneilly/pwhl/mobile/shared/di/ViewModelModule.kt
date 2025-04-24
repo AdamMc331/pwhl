@@ -32,6 +32,7 @@ val viewModelModule = module {
     viewModel { parameters ->
         TeamDetailViewModel(
             teamId = parameters.get(),
+            fetchMostRecentGameUseCase = get(),
         )
     }
 }
