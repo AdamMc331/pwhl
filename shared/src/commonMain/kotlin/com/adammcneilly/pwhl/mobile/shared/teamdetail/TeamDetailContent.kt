@@ -16,7 +16,7 @@ fun TeamDetailContent(
     modifier: Modifier = Modifier,
 ) {
     PWHLTheme(
-        seedColor = PWHLColors.fromTeamId(state.teamId),
+        seedColor = PWHLColors.fromTeamId(state.team?.id.orEmpty()),
     ) {
         LazyColumn(
             contentPadding = PWHLTheme.dimensions.screenPadding,

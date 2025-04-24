@@ -3,6 +3,7 @@ package com.adammcneilly.pwhl.mobile.shared.teamdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchMostRecentGameForTeamUseCase
+import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchTeamUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -11,15 +12,29 @@ import kotlinx.coroutines.launch
 class TeamDetailViewModel(
     private val teamId: String,
     private val fetchMostRecentGameUseCase: FetchMostRecentGameForTeamUseCase,
+    private val fetchTeamUseCase: FetchTeamUseCase,
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(TeamDetailState.Default)
     val state = mutableState.asStateFlow()
 
     init {
-        requestMostRecent()
+        requestTeam()
+        requestMostRecentGame()
     }
 
-    private fun requestMostRecent() {
+    private fun requestTeam() {
+        val team = fetchTeamUseCase.invoke(teamId).getOrNull()
+
+        if (team != null) {
+            mutableState.update { currentState ->
+                currentState.copy(
+                    team = team,
+                )
+            }
+        }
+    }
+
+    private fun requestMostRecentGame() {
         viewModelScope.launch {
             val lastGame = fetchMostRecentGameUseCase.invoke(teamId).getOrNull()
 

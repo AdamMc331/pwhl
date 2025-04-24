@@ -16,7 +16,7 @@ fun TeamDetailScreen(
     val state = viewModel.state.collectAsState()
 
     PWHLScreenScaffold(
-        title = "TODO: Team Name",
+        title = state.value.team?.name.orEmpty(),
         modifier = modifier,
     ) { scaffoldPadding ->
         TeamDetailContent(

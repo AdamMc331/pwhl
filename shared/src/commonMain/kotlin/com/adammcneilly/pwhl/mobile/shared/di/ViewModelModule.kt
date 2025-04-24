@@ -33,6 +33,7 @@ val viewModelModule = module {
         TeamDetailViewModel(
             teamId = parameters.get(),
             fetchMostRecentGameUseCase = get(),
+            fetchTeamUseCase = get(),
         )
     }
 }

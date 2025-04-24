@@ -38,11 +38,9 @@ private fun SuccessContent(
             StandingsRowListItem(
                 standingsRow = standingsRow,
                 modifier = Modifier
-                    .clickable(
-                        onClick = {
-                            onTeamClicked.invoke(standingsRow.team.id)
-                        },
-                    ),
+                    .clickable {
+                        onTeamClicked.invoke(standingsRow.team.id)
+                    },
             )
 
             HorizontalDivider()
