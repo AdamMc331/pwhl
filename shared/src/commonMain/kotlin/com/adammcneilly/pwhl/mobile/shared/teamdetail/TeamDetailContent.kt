@@ -24,6 +24,8 @@ fun TeamDetailContent(
             modifier = modifier,
         ) {
             mostRecentGameSection(state)
+
+            nextGameSection(state)
         }
     }
 }
@@ -42,6 +44,25 @@ private fun LazyListScope.mostRecentGameSection(
         item {
             TeamDetailGameCard(
                 game = state.mostRecentGame,
+            )
+        }
+    }
+}
+
+private fun LazyListScope.nextGameSection(
+    state: TeamDetailState,
+) {
+    item {
+        Text(
+            text = "Next Game",
+            style = MaterialTheme.typography.titleLarge,
+        )
+    }
+
+    if (state.nextGame != null) {
+        item {
+            TeamDetailGameCard(
+                game = state.nextGame,
             )
         }
     }

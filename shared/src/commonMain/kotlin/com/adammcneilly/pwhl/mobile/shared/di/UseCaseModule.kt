@@ -2,6 +2,7 @@ package com.adammcneilly.pwhl.mobile.shared.di
 
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchGameDetailUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchMostRecentGameForTeamUseCase
+import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchNextGameForTeamUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchPlayByPlayUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchRecentGamesUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchStandingsUseCase
@@ -44,6 +45,13 @@ val useCaseModule = module {
 
     single {
         FetchMostRecentGameForTeamUseCase(
+            repository = get(),
+            timeProvider = get(),
+        )
+    }
+
+    single {
+        FetchNextGameForTeamUseCase(
             repository = get(),
             timeProvider = get(),
         )
