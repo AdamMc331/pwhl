@@ -1,9 +1,12 @@
 package com.adammcneilly.pwhl.mobile.shared.di
 
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchGameDetailUseCase
+import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchMostRecentGameForTeamUseCase
+import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchNextGameForTeamUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchPlayByPlayUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchRecentGamesUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchStandingsUseCase
+import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchTeamUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchUpcomingGamesUseCase
 import org.koin.dsl.module
 
@@ -38,5 +41,23 @@ val useCaseModule = module {
         FetchStandingsUseCase(
             repository = get(),
         )
+    }
+
+    single {
+        FetchMostRecentGameForTeamUseCase(
+            repository = get(),
+            timeProvider = get(),
+        )
+    }
+
+    single {
+        FetchNextGameForTeamUseCase(
+            repository = get(),
+            timeProvider = get(),
+        )
+    }
+
+    single {
+        FetchTeamUseCase()
     }
 }

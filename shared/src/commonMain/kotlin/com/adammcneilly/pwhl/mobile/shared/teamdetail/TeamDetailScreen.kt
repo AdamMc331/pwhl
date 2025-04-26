@@ -1,4 +1,4 @@
-package com.adammcneilly.pwhl.mobile.shared.standings
+package com.adammcneilly.pwhl.mobile.shared.teamdetail
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -7,32 +7,27 @@ import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.ui.components.PWHLScreenScaffold
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.annotation.KoinExperimentalAPI
 
 @Composable
-@OptIn(KoinExperimentalAPI::class)
-fun StandingsScreen(
-    onTeamClicked: (String) -> Unit,
+fun TeamDetailScreen(
     modifier: Modifier = Modifier,
-    viewModel: StandingsViewModel = koinViewModel(),
+    viewModel: TeamDetailViewModel = koinViewModel(),
 ) {
     val state = viewModel.state.collectAsState()
 
     PWHLScreenScaffold(
-        title = "Standings",
+        title = state.value.team?.name.orEmpty(),
         modifier = modifier,
     ) { scaffoldPadding ->
-        StandingsContent(
+        TeamDetailContent(
             state = state.value,
-            onTeamClicked = onTeamClicked,
-            modifier = Modifier
+            modifier = modifier
                 .padding(scaffoldPadding),
         )
     }
 }
 
-/**
- * Serializable route to the standings screen used by Compose navigation.
- */
 @Serializable
-object StandingsScreen
+data class TeamDetailScreen(
+    val teamId: String,
+)
