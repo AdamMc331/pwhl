@@ -99,7 +99,7 @@ private fun TeamRow(
                 modifier = Modifier
                     .size(PWHLTheme.dimensions.imageSizeUltraCompact)
                     .sharedElement(
-                        state = rememberSharedContentState(key = "${teamGameResult.team.name}_${gameId}_image"),
+                        sharedContentState = rememberSharedContentState(key = "${teamGameResult.team.name}_${gameId}_image"),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
                     ),
             )
