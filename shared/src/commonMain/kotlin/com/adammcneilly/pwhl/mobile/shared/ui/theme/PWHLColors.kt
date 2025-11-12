@@ -14,7 +14,9 @@ object PWHLColors {
     val Montreal = Color(0xFF852533)
     val NewYork = Color(0xFF041E42)
     val Ottawa = Color(0xFFA5192E)
+    val Seattle = Color(0XFF8CB7C9)
     val Toronto = Color(0xFF0166B9)
+    val Vancouver = Color(0xFF10447F)
 
     fun fromTeamId(
         id: String,
@@ -26,6 +28,8 @@ object PWHLColors {
             "4" -> NewYork
             "5" -> Ottawa
             "6" -> Toronto
+            "8" -> Seattle
+            "9" -> Vancouver
             else -> Purple
         }
     }

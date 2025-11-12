@@ -2,7 +2,6 @@ package com.adammcneilly.pwhl.mobile.shared.displaymodels
 
 import com.adammcneilly.pwhl.mobile.shared.LocalTeamImageProvider
 import com.adammcneilly.pwhl.mobile.shared.models.Team
-import com.adammcneilly.pwhl.mobile.shared.pwhl
 
 data class TeamDisplayModel(
     val id: String,

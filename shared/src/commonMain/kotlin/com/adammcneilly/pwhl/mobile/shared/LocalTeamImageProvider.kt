@@ -17,6 +17,8 @@ object LocalTeamImageProvider {
             "4" -> Res.drawable.newyork
             "5" -> Res.drawable.ottawa
             "6" -> Res.drawable.toronto
+            "8" -> Res.drawable.seattle
+            "9" -> Res.drawable.vancouver
             else -> Res.drawable.pwhl
         }
 
