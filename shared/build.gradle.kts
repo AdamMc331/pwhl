@@ -86,6 +86,10 @@ kotlin {
             implementation(libs.varabyte.truthish)
         }
     }
+
+    sourceSets.all {
+        languageSettings.optIn("kotlin.time.ExperimentalTime")
+    }
 }
 
 compose.resources {
