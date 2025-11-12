@@ -130,7 +130,6 @@ private fun Header(
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 private fun EnterHomeSpaceButton(
     xrSession: XRSession,
 ) {
@@ -154,7 +153,7 @@ private fun EnterHomeSpaceButton(
                     contentColor = MaterialTheme.colorScheme.onSurface,
                 ),
                 modifier = Modifier
-                    .size(IconButtonDefaults.mediumContainerSize()),
+                    .size(16.dp),
             ) {
                 Icon(
                     imageVector = Icons.Default.CloseFullscreen,
