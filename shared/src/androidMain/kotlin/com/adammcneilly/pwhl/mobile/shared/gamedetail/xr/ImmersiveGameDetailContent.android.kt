@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloseFullscreen
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -52,7 +51,6 @@ private val IMMERSIVE_GAME_DETAIL_WIDTH = 1400.dp
 private val IMMERSIVE_DETAIL_PANEL_HEIGHT = 1000.dp
 
 @Composable
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 actual fun ImmersiveGameDetailContent(
     state: GameDetailState,
     xrSession: XRSession,
