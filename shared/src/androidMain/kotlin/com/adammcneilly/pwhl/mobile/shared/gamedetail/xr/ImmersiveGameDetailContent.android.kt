@@ -153,7 +153,7 @@ private fun EnterHomeSpaceButton(
                     contentColor = MaterialTheme.colorScheme.onSurface,
                 ),
                 modifier = Modifier
-                    .size(16.dp),
+                    .size(PWHLTheme.dimensions.iconSizeDefault),
             ) {
                 Icon(
                     imageVector = Icons.Default.CloseFullscreen,
