@@ -24,6 +24,7 @@ ktor = "3.3.2"
 leakCanary = "2.14"
 material = "1.13.0"
 materialKolor = "4.0.4"
+material3Adaptive = "1.2.0-alpha07"
 minSdk = "34"
 navigation = "2.9.1"
 sortDependencies = "0.15"
@@ -52,6 +53,7 @@ cash-sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-material3-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "material3Adaptive"}
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
@@ -71,7 +73,6 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-testing = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
-material3-window-size-class1 = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "kmpCompose" }
 square-leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
 varabyte-truthish = { module = "com.varabyte.truthish:truthish", version.ref = "truthish" }
 

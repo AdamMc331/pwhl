@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.cash.sqldelight.runtime)
             implementation(libs.coil.compose)
             implementation(libs.coil.ktor)
+            implementation(libs.compose.material3.adaptive)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.core)
@@ -63,7 +64,6 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.material.kolor)
-            implementation(libs.material3.window.size.class1)
         }
 
         androidMain.dependencies {

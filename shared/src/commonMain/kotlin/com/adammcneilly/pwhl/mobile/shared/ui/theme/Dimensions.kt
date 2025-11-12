@@ -3,12 +3,11 @@
 package com.adammcneilly.pwhl.mobile.shared.ui.theme
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.window.core.layout.WindowSizeClass
 
 val LocalDimensions = staticCompositionLocalOf {
     Dimensions(
@@ -130,11 +129,16 @@ data class Dimensions(
         fun get(
             windowSizeClass: WindowSizeClass,
         ): Dimensions {
-            return when (windowSizeClass.widthSizeClass) {
-                WindowWidthSizeClass.Compact -> compact
-                WindowWidthSizeClass.Medium -> medium
-                WindowWidthSizeClass.Expanded -> expanded
-                else -> compact
+            return when {
+                windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND) -> {
+                    expanded
+                }
+                windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND) -> {
+                    medium
+                }
+                else -> {
+                    compact
+                }
             }
         }
     }

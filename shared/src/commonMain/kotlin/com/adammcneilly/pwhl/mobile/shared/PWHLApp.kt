@@ -3,6 +3,7 @@ package com.adammcneilly.pwhl.mobile.shared
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -12,7 +13,6 @@ import com.adammcneilly.pwhl.mobile.shared.di.appModules
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.Dimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.LocalDimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
-import com.adammcneilly.pwhl.mobile.shared.ui.util.currentWindowSizeClass
 import com.adammcneilly.pwhl.mobile.shared.xr.LocalXRSession
 import com.adammcneilly.pwhl.mobile.shared.xr.currentXRSession
 import org.koin.compose.KoinApplication
@@ -27,7 +27,7 @@ fun PWHLApp() {
     val dimensions = if (xrSession?.isSpatialUiEnabled == true) {
         Dimensions.immersive
     } else {
-        Dimensions.get(currentWindowSizeClass())
+        Dimensions.get(currentWindowAdaptiveInfo().windowSizeClass)
     }
 
     CompositionLocalProvider(
