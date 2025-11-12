@@ -26,6 +26,12 @@ class FetchTeamUseCase {
             "6" -> {
                 toronto(teamId)
             }
+            "8" -> {
+                seattle(teamId)
+            }
+            "9" -> {
+                vancouver(teamId)
+            }
             else -> {
                 null
             }
@@ -101,6 +107,28 @@ class FetchTeamUseCase {
             city = "Boston",
             name = "Boston Fleet",
             shortCode = "BOS",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun seattle(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Seattle",
+            name = "Seattle Torrent",
+            shortCode = "SEA",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun vancouver(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Vancouver",
+            name = "Vancouver Goldeneyes",
+            shortCode = "CAN",
             image = LocalTeamImageProvider.getTeamImage(teamId),
         )
 }
