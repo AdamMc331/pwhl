@@ -1,12 +1,17 @@
 package com.adammcneilly.pwhl.mobile.shared.xr
 
 import androidx.compose.runtime.Composable
+import androidx.xr.compose.platform.LocalSession
 import androidx.xr.compose.platform.LocalSpatialCapabilities
 import androidx.xr.compose.platform.LocalSpatialConfiguration
 import androidx.xr.compose.platform.SpatialConfiguration
 
 @Composable
 actual fun currentXRSession(): XRSession? {
+    if (LocalSession.current == null) {
+        return null
+    }
+
     return LocalSpatialConfiguration.current.let(::AndroidXRSession)
 }
 
