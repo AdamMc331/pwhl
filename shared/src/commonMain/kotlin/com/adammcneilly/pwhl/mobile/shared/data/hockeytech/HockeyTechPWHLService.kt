@@ -56,7 +56,7 @@ class HockeyTechPWHLService(
             HockeyTechParameterKeys.VIEW to "teams",
             HockeyTechParameterKeys.GROUP_TEAMS_BY to "division",
             HockeyTechParameterKeys.CONTEXT to "overall",
-            HockeyTechParameterKeys.SEASON to "6", // Is this needed?
+            HockeyTechParameterKeys.SEASON to "5", // Is this needed?
             HockeyTechParameterKeys.SPECIAL to "false", // What does this mean?
             HockeyTechParameterKeys.SORT to "points",
         )
