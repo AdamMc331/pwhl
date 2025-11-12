@@ -136,7 +136,7 @@ private fun TeamNameLogo(
                 modifier = Modifier
                     .size(PWHLTheme.dimensions.imageSizeDefault)
                     .sharedElement(
-                        state = rememberSharedContentState(key = "${team.name}_${gameId}_image"),
+                        sharedContentState = rememberSharedContentState(key = "${team.name}_${gameId}_image"),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
                     ),
             )
