@@ -1,6 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.time
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlin.time.Instant
 
 /**
