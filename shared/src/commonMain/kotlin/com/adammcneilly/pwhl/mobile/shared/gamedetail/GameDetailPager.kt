@@ -42,6 +42,7 @@ fun GameDetailPager(
                     modifier = pageModifier,
                 )
                 GameDetailTab.Stats -> GameDetailStatsTab(
+                    game = game,
                     modifier = pageModifier,
                 )
                 GameDetailTab.PlayByPlay -> PlayByPlayList(

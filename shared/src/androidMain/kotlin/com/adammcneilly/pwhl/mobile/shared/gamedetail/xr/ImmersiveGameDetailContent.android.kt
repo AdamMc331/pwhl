@@ -68,6 +68,7 @@ actual fun ImmersiveGameDetailContent(
                 .width(IMMERSIVE_GAME_DETAIL_WIDTH),
         ) {
             StatsPanel(
+                gameDetail = state.game,
                 modifier = SubspaceModifier
                     .height(IMMERSIVE_DETAIL_PANEL_HEIGHT)
                     .weight(1F),
@@ -203,12 +204,15 @@ private fun MVPPanel(
 
 @Composable
 private fun StatsPanel(
+    gameDetail: GameDetailDisplayModel,
     modifier: SubspaceModifier = SubspaceModifier,
 ) {
     SpatialSurface(
         modifier = modifier,
     ) {
-        GameDetailStatsTab()
+        GameDetailStatsTab(
+            game = gameDetail,
+        )
     }
 }
 
