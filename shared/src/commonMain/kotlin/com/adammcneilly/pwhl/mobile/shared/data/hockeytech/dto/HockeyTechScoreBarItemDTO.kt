@@ -3,9 +3,9 @@ package com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto
 import com.adammcneilly.pwhl.mobile.shared.models.GameSummary
 import com.adammcneilly.pwhl.mobile.shared.models.Team
 import com.adammcneilly.pwhl.mobile.shared.models.TeamGameSummaryResult
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 @Serializable
 data class HockeyTechScoreBarItemDTO(

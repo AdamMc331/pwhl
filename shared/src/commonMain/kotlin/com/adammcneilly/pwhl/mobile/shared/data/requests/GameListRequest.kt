@@ -1,6 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.data.requests
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Defines information required to request a list of games.

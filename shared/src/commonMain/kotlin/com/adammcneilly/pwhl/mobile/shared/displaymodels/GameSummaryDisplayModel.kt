@@ -37,7 +37,7 @@ private fun GameSummary.dateString(): String {
         char(' ')
         monthName(MonthNames.ENGLISH_ABBREVIATED)
         char(' ')
-        dayOfMonth(padding = Padding.NONE)
+        day(padding = Padding.NONE)
     }
 
     val localDateTime = this.time.toLocalDateTime(TimeZone.currentSystemDefault())

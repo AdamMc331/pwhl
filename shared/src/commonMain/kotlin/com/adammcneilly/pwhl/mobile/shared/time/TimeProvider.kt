@@ -1,6 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.time
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Interface to provide a specific moment in time. This is highly

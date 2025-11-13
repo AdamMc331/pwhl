@@ -1,6 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.models
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 data class GameDetail(
     val id: String,

@@ -1,9 +1,9 @@
 package com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto
 
 import com.adammcneilly.pwhl.mobile.shared.models.GameDetail
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 @Serializable
 data class HockeyTechGameDTO(
