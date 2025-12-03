@@ -30,7 +30,7 @@ navigation = "2.9.1"
 sortDependencies = "0.16"
 sqldelight = "2.2.1"
 truthish = "1.0.3"
-xr = "1.0.0-alpha09"
+xr = "1.0.0-alpha10"
 xr-material = "1.0.0-alpha12"
 
 [libraries]
