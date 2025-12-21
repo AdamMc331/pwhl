@@ -29,7 +29,7 @@ minSdk = "34"
 navigation = "2.9.1"
 sortDependencies = "0.16"
 sqldelight = "2.2.1"
-truthish = "1.0.3"
+truthish = "1.0.4"
 xr = "1.0.0-alpha10"
 xr-material = "1.0.0-alpha13"
 
