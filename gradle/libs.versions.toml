@@ -31,7 +31,7 @@ sortDependencies = "0.18.0"
 sqldelight = "2.2.1"
 truthish = "1.0.4"
 xr = "1.0.0-alpha16"
-xr-material = "1.0.0-alpha16"
+xr-material = "1.0.0-alpha17"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
