@@ -44,8 +44,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.navigation.compose)
             implementation(libs.apollo.runtime)
             implementation(libs.cash.sqldelight.coroutines)
@@ -55,8 +55,8 @@ kotlin {
             implementation(libs.compose.material3.adaptive)
             implementation(libs.jetbrains.compose.components.resources)
             implementation(libs.jetbrains.compose.foundation)
-            implementation(libs.jetbrains.compose.material3)
             implementation(libs.jetbrains.compose.material.icons.extended)
+            implementation(libs.jetbrains.compose.material3)
             implementation(libs.jetbrains.compose.runtime)
             implementation(libs.jetbrains.compose.ui)
             implementation(libs.jetbrains.compose.ui.tooling.preview)
