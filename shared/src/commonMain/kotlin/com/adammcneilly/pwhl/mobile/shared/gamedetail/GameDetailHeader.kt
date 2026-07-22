@@ -78,7 +78,7 @@ private fun GameSummary(
                     .sharedBounds(
                         sharedContentState = rememberSharedContentState(key = "${game.id}_status"),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                     ),
             )
 
@@ -88,7 +88,7 @@ private fun GameSummary(
                     .sharedBounds(
                         sharedContentState = rememberSharedContentState(key = "game_date_${game.dateString}"),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                     ),
             )
         }
@@ -111,7 +111,7 @@ private fun TeamScore(
                         key = "${teamGameResult.team.name}_${gameId}_score",
                     ),
                     animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                    resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                    resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                 ),
         )
     }
@@ -148,7 +148,7 @@ private fun TeamNameLogo(
                     .sharedBounds(
                         sharedContentState = rememberSharedContentState(key = "${team.name}_${gameId}_name"),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                     ),
             )
         }
