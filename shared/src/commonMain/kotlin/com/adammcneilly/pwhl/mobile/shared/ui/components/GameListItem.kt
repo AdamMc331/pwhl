@@ -50,7 +50,7 @@ fun GameListItem(
                         .sharedBounds(
                             sharedContentState = rememberSharedContentState(key = "${game.id}_status"),
                             animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                            resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                            resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                         ),
                 )
             }
@@ -120,7 +120,7 @@ private fun TeamRow(
                             key = "${teamGameResult.team.name}_${gameId}_name",
                         ),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                     ),
             )
 
@@ -138,7 +138,7 @@ private fun TeamRow(
                             key = "${teamGameResult.team.name}_${gameId}_score",
                         ),
                         animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                     ),
             )
         }

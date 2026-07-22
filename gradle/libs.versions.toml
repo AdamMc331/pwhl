@@ -1,37 +1,39 @@
 [versions]
 activityCompose = "1.13.0"
-agp = "8.13.2"
-androidxLifecycle = "2.10.0"
+agp = "9.3.0"
+androidxLifecycle = "2.11.0"
 androidxTest = "1.3.0"
-apollo = "4.4.3"
+apollo = "5.0.1"
 assertjCore = "3.27.7"
-buildKonfig = "0.17.1"
-burst = "2.11.0"
-coil = "3.4.0"
-compileSdk = "36"
-composeBom = "2025.12.01"
+buildKonfig = "0.22.0"
+burst = "2.13.0"
+coil = "3.5.0"
+compileSdk = "37"
+composeBom = "2026.06.01"
 detektGradlePlugin = "1.23.8"
 espresso = "3.7.0"
-gradleVersionsPlugin = "0.54.0"
 junit = "4.13.2"
-kmpCompose = "1.9.3"
-koin = "4.1.1"
-kotlin = "2.2.21"
-kotlinter = "5.2.0"
+kmpCompose = "1.11.1"
+kmpComposeMaterial3 = "1.9.0"
+koin = "4.2.2"
+kotlin = "2.4.10"
+kotlinter = "5.6.0"
 kotlinxDatetime = "0.8.0-0.6.x-compat"
-ksp = "2.3.9"
-ktor = "3.4.2"
+ksp = "2.3.10"
+ktor = "3.5.1"
 leakCanary = "2.14"
 material = "1.14.0"
-materialKolor = "4.1.1"
+materialIconsExtended = "1.7.3"
+materialKolor = "5.0.0"
 material3Adaptive = "1.2.0"
 minSdk = "34"
 navigation = "2.9.2"
-sortDependencies = "0.18.0"
-sqldelight = "2.2.1"
+sortDependencies = "0.20.0"
+sqldelight = "2.3.2"
 truthish = "1.0.4"
 xr = "1.0.0-alpha16"
-xr-material = "1.0.0-alpha16"
+xr-material = "1.0.0-alpha17"
+xr-scenecore = "1.0.0-beta01"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -43,7 +45,7 @@ androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core",
 androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTest" }
 androidx-xr-compose = { module = "androidx.xr.compose:compose", version.ref = "xr" }
 androidx-xr-compose-material3 = { module = "androidx.xr.compose.material3:material3", version.ref = "xr-material" }
-androidx-xr-scenecore = { module = "androidx.xr.scenecore:scenecore", version.ref = "xr" }
+androidx-xr-scenecore = { module = "androidx.xr.scenecore:scenecore", version.ref = "xr-scenecore" }
 apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertjCore" }
 cash-sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
@@ -59,6 +61,14 @@ compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4"
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detektGradlePlugin" }
 detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detektGradlePlugin" }
+jetbrains-compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "kmpCompose" }
+jetbrains-compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "kmpCompose" }
+jetbrains-compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "kmpComposeMaterial3" }
+jetbrains-compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+jetbrains-compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "kmpCompose" }
+jetbrains-compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "kmpCompose" }
+jetbrains-compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "kmpCompose" }
+jetbrains-compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "kmpCompose" }
 junit = { module = "junit:junit", version.ref = "junit" }
 koin-compose = {module="io.insert-koin:koin-compose", version.ref = "koin"}
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
@@ -79,13 +89,11 @@ varabyte-truthish = { module = "com.varabyte.truthish:truthish", version.ref = "
 [plugins]
 apollo-graphql = { id = "com.apollographql.apollo", version.ref = "apollo" }
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
-benmanes-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionsPlugin" }
+android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 buildKonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildKonfig" }
 cash-burst = { id = "app.cash.burst", version.ref = "burst" }
 cash-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.compose", version.ref = "kmpCompose" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

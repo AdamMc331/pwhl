@@ -5,27 +5,25 @@ import androidx.xr.compose.platform.LocalSession
 import androidx.xr.compose.platform.LocalSpatialCapabilities
 import androidx.xr.compose.platform.LocalSpatialConfiguration
 import androidx.xr.compose.platform.SpatialConfiguration
+import androidx.xr.runtime.Session
+import androidx.xr.scenecore.scene
 
 @Composable
 actual fun currentXRSession(): XRSession? {
-    if (LocalSession.current == null) {
-        return null
-    }
-
-    return LocalSpatialConfiguration.current.let(::AndroidXRSession)
+    return LocalSession.current?.let(::AndroidXRSession)
 }
 
 private class AndroidXRSession(
-    val spatialConfiguration: SpatialConfiguration,
+    val session: Session,
 ) : XRSession {
     override val isSpatialUiEnabled: Boolean
         @Composable get() = LocalSpatialCapabilities.current.isSpatialUiEnabled
 
     override fun requestHomeSpaceMode() {
-        spatialConfiguration.requestHomeSpaceMode()
+        session.scene.requestHomeSpace()
     }
 
     override fun requestFullSpaceMode() {
-        spatialConfiguration.requestFullSpaceMode()
+        session.scene.requestFullSpace()
     }
 }

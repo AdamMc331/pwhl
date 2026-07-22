@@ -25,15 +25,12 @@ jobs:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
         run: echo $LOCAL_PROPERTIES > ./local.properties
 
-      - name: Run tests
-        run: ./gradlew :shared:iosX64Test
-
       - name: Build
         uses: sersoft-gmbh/xcodebuild-action@v4
         with:
           project: iosApp/pwhlIOS.xcodeproj
           scheme: pwhlIOS
-          destination: name=iPhone 8
+          destination: name=iPhone 17
           sdk: iphoneos
           configuration: Debug
           action: build

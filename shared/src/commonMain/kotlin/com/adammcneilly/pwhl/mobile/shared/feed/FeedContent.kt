@@ -122,7 +122,7 @@ private fun GameDateHeader(
                 .sharedBounds(
                     sharedContentState = rememberSharedContentState(key = "game_date_$text"),
                     animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                    resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                    resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                 ),
         )
     }

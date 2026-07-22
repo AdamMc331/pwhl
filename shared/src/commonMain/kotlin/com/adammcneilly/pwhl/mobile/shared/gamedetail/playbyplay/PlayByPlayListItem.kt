@@ -90,6 +90,7 @@ private fun containerColor(
         PlayByPlayEvent.Type.GOAL -> {
             MaterialTheme.colorScheme.primaryContainer
         }
+
         else -> {
             MaterialTheme.colorScheme.surface
         }
@@ -107,6 +108,7 @@ private fun themeSeedColor(
         PlayByPlayEvent.Type.GOAL -> {
             PWHLColors.fromTeamId(event.teamId)
         }
+
         else -> {
             PWHLColors.Purple
         }
