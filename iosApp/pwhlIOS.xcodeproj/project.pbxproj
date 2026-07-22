@@ -44,7 +44,7 @@
 		8840A1832CA34B4400679C79 /* pwhlIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pwhlIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8840A1872CA34B4400679C79 /* pwhlIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pwhlIOSUITests.swift; sourceTree = "<group>"; };
 		8840A1892CA34B4400679C79 /* pwhlIOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pwhlIOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		887593812CF532C700AC5287 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88CEF5AB2CF654D6004E117B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 		8840A16B2CA34B4300679C79 /* pwhlIOS */ = {
 			isa = PBXGroup;
 			children = (
-				887593812CF532C700AC5287 /* Info.plist */,
+				88CEF5AB2CF654D6004E117B /* Info.plist */,
 				8840A16C2CA34B4300679C79 /* pwhlIOSApp.swift */,
 				8840A16E2CA34B4300679C79 /* ContentView.swift */,
 				8840A1702CA34B4400679C79 /* Assets.xcassets */,
@@ -459,6 +459,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adammcneilly.pwhlIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -489,6 +490,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adammcneilly.pwhlIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

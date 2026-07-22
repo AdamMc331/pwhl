@@ -2,8 +2,6 @@
 //  ContentView.swift
 //  pwhlIOS
 //
-//  Created by Adam McNeilly on 9/24/24.
-//
 
 import shared
 import SwiftUI
