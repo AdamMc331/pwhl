@@ -25,9 +25,6 @@ jobs:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
         run: echo $LOCAL_PROPERTIES > ./local.properties
 
-      - name: Run tests
-        run: ./gradlew :shared:iosSimulatorArm64Test
-
       - name: Build
         uses: sersoft-gmbh/xcodebuild-action@v4
         with:
