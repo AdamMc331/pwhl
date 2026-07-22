@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.android.application).apply(false)
     alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.apollo.graphql).apply(false)
-    alias(libs.plugins.benmanes.versions).apply(false)
     alias(libs.plugins.buildKonfig).apply(false)
     alias(libs.plugins.cash.burst).apply(false)
     alias(libs.plugins.cash.sqldelight).apply(false)
@@ -20,7 +19,6 @@ plugins {
 }
 
 apply(from = "buildscripts/githooks.gradle")
-apply(from = "buildscripts/versionsplugin.gradle")
 
 subprojects {
     apply(plugin = "com.squareup.sort-dependencies")

@@ -12,7 +12,6 @@ compileSdk = "36"
 composeBom = "2025.12.01"
 detektGradlePlugin = "1.23.8"
 espresso = "3.7.0"
-gradleVersionsPlugin = "0.54.0"
 junit = "4.13.2"
 kmpCompose = "1.9.3"
 koin = "4.1.1"
@@ -80,7 +79,6 @@ varabyte-truthish = { module = "com.varabyte.truthish:truthish", version.ref = "
 apollo-graphql = { id = "com.apollographql.apollo", version.ref = "apollo" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-benmanes-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionsPlugin" }
 buildKonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildKonfig" }
 cash-burst = { id = "app.cash.burst", version.ref = "burst" }
 cash-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
