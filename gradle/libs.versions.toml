@@ -32,7 +32,8 @@ sortDependencies = "0.18.0"
 sqldelight = "2.2.1"
 truthish = "1.0.4"
 xr = "1.0.0-alpha16"
-xr-material = "1.0.0-alpha16"
+xr-material = "1.0.0-alpha17"
+xr-scenecore = "1.0.0-beta01"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -44,7 +45,7 @@ androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core",
 androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTest" }
 androidx-xr-compose = { module = "androidx.xr.compose:compose", version.ref = "xr" }
 androidx-xr-compose-material3 = { module = "androidx.xr.compose.material3:material3", version.ref = "xr-material" }
-androidx-xr-scenecore = { module = "androidx.xr.scenecore:scenecore", version.ref = "xr" }
+androidx-xr-scenecore = { module = "androidx.xr.scenecore:scenecore", version.ref = "xr-scenecore" }
 apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertjCore" }
 cash-sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
