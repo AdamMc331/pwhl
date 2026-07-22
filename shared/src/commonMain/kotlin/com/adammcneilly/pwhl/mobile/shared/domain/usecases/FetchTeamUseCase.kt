@@ -11,27 +11,35 @@ class FetchTeamUseCase {
             "1" -> {
                 boston(teamId)
             }
+
             "2" -> {
                 minnesota(teamId)
             }
+
             "3" -> {
                 montreal(teamId)
             }
+
             "4" -> {
                 newYork(teamId)
             }
+
             "5" -> {
                 ottowa(teamId)
             }
+
             "6" -> {
                 toronto(teamId)
             }
+
             "8" -> {
                 seattle(teamId)
             }
+
             "9" -> {
                 vancouver(teamId)
             }
+
             else -> {
                 null
             }

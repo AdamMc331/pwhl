@@ -133,9 +133,11 @@ data class Dimensions(
                 windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND) -> {
                     expanded
                 }
+
                 windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND) -> {
                     medium
                 }
+
                 else -> {
                     compact
                 }

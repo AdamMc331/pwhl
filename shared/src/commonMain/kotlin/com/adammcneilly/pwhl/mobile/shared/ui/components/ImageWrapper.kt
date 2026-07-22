@@ -24,6 +24,7 @@ fun ImageWrapper(
                 modifier = modifier,
             )
         }
+
         is ImageDisplayModel.Remote -> {
             RemoteImage(
                 image = image,
