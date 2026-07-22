@@ -7,7 +7,7 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.apollo.graphql)
     alias(libs.plugins.buildKonfig)
     alias(libs.plugins.cash.burst)
@@ -19,7 +19,12 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
+    androidLibrary {
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+
+        namespace = "com.adammcneilly.pwhl.mobile.shared"
+
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
@@ -96,24 +101,6 @@ compose.resources {
     publicResClass = false
     packageOfResClass = "com.adammcneilly.pwhl.mobile.shared"
     generateResClass = auto
-}
-
-android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    namespace = "com.adammcneilly.pwhl.mobile.shared"
 }
 
 sqldelight {
