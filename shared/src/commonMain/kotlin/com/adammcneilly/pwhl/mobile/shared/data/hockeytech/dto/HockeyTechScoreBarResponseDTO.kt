@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class HockeyTechScoreBarResponseDTO(
     @SerialName("SiteKit")
-    val siteKit: HockeyTechSiteKitDTO? = null,
+    val siteKit: HockeyTechScoreBarSiteKitDTO? = null,
 ) {
     fun parseGames(): List<GameSummary> {
         return siteKit

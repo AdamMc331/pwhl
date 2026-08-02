@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class HockeyTechSiteKitDTO(
+data class HockeyTechScoreBarSiteKitDTO(
     @SerialName("Copyright")
     val copyright: HockeyTechCopyrightDTO? = null,
     @SerialName("Parameters")
