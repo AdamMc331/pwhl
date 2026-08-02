@@ -17,6 +17,7 @@ kmpCompose = "1.11.1"
 kmpComposeMaterial3 = "1.9.0"
 koin = "4.2.2"
 kotlin = "2.4.10"
+kotlinxCoroutines = "1.11.0"
 kotlinter = "5.6.0"
 kotlinxDatetime = "0.8.0-0.6.x-compat"
 ksp = "2.3.10"
@@ -74,6 +75,7 @@ koin-compose = {module="io.insert-koin:koin-compose", version.ref = "koin"}
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

@@ -1,0 +1,22 @@
+{
+  "SiteKit": {
+    "Seasons": [
+      {
+        "season_id": "1",
+        "season_name": "2023-24 Season",
+        "career": "0",
+        "playoff": "0",
+        "start_date": "2023-11-01",
+        "end_date": "2024-05-30"
+      },
+      {
+        "season_id": "2",
+        "season_name": "2024-25 Season",
+        "career": "0",
+        "playoff": "0",
+        "start_date": "2024-11-01",
+        "end_date": "2025-05-30"
+      }
+    ]
+  }
+}
