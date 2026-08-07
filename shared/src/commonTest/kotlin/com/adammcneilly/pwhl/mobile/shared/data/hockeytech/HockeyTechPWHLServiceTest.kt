@@ -16,7 +16,14 @@ class HockeyTechPWHLServiceTest {
     fun fetchSeasons() =
         runTest {
             val responses = mapOf(
-                "/feed/index.php?key=valid_api_key&client_code=pwhl&fmt=json&lang=en&league_id=1&site_id=0&feed=modulekit&view=seasons" to
+                "/feed/index.php?key=valid_api_key" +
+                    "&client_code=pwhl" +
+                    "&fmt=json" +
+                    "&lang=en" +
+                    "&league_id=1" +
+                    "&site_id=0" +
+                    "&feed=modulekit" +
+                    "&view=seasons" to
                     "files/seasons_list.json",
             )
 
@@ -48,7 +55,18 @@ class HockeyTechPWHLServiceTest {
     fun fetchStandings() =
         runTest {
             val responses = mapOf(
-                "/feed/index.php?key=valid_api_key&client_code=pwhl&fmt=json&lang=en&league_id=1&site_id=0&feed=statviewfeed&view=teams&groupTeamsBy=division&context=overall&special=false&sort=points" to
+                "/feed/index.php?key=valid_api_key" +
+                    "&client_code=pwhl" +
+                    "&fmt=json" +
+                    "&lang=en" +
+                    "&league_id=1" +
+                    "&site_id=0" +
+                    "&feed=statviewfeed" +
+                    "&view=teams" +
+                    "&groupTeamsBy=division" +
+                    "&context=overall" +
+                    "&special=false" +
+                    "&sort=points" to
                     "files/standings_list.json",
             )
 
@@ -71,7 +89,8 @@ class HockeyTechPWHLServiceTest {
     fun fetchGameDetail() =
         runTest {
             val responses = mapOf(
-                "/feed/index.php?key=valid_api_key&client_code=pwhl&fmt=json&lang=en&league_id=1&site_id=0&feed=statviewfeed&view=gameSummary&game_id=113" to
+                "/feed/index.php?key=valid_api_key&client_code=pwhl&fmt=json&lang=en&league_id=1&site_id=0" +
+                    "&feed=statviewfeed&view=gameSummary&game_id=113" to
                     "files/completed_game_summary.json",
             )
 
@@ -94,7 +113,8 @@ class HockeyTechPWHLServiceTest {
     fun fetchPlayByPlay() =
         runTest {
             val responses = mapOf(
-                "/feed/index.php?key=valid_api_key&client_code=pwhl&fmt=json&lang=en&league_id=1&site_id=0&feed=statviewfeed&view=gameCenterPlayByPlay&game_id=113" to
+                "/feed/index.php?key=valid_api_key&client_code=pwhl&fmt=json&lang=en&league_id=1" +
+                    "&site_id=0&feed=statviewfeed&view=gameCenterPlayByPlay&game_id=113" to
                     "files/play_by_play.json",
             )
 
