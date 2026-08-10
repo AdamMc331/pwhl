@@ -3,12 +3,15 @@ package com.adammcneilly.pwhl.mobile.shared.data.hockeytech
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechGameDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechPlayByPlayEventDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechScoreBarResponseDTO
+import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechSeasonDTO
+import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechSeasonListResponseDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechStandingsListResponseDTO
 import com.adammcneilly.pwhl.mobile.shared.data.remote.BaseKtorClient
 import com.adammcneilly.pwhl.mobile.shared.data.repositories.PWHLRepository
 import com.adammcneilly.pwhl.mobile.shared.data.requests.GameListRequest
 import com.adammcneilly.pwhl.mobile.shared.models.GameDetail
 import com.adammcneilly.pwhl.mobile.shared.models.GameSummary
+import com.adammcneilly.pwhl.mobile.shared.models.Season
 import com.adammcneilly.pwhl.mobile.shared.models.StandingsRow
 import com.adammcneilly.pwhl.mobile.shared.models.playbyplay.PlayByPlayEvent
 import com.adammcneilly.pwhl.mobile.shared.time.TimeProvider
@@ -109,6 +112,27 @@ class HockeyTechPWHLService(
             params = gameParams,
         ).map { eventList ->
             eventList.map(HockeyTechPlayByPlayEventDTO::parsePlayByPlayEvent)
+        }
+    }
+
+    override suspend fun fetchSeasons(): Result<List<Season>> {
+        val endpoint = "feed/index.php"
+
+        val seasonParams = mapOf(
+            HockeyTechParameterKeys.FEED to "modulekit",
+            HockeyTechParameterKeys.VIEW to "seasons",
+        )
+
+        return apiClient.getResponse<HockeyTechSeasonListResponseDTO>(
+            endpoint = endpoint,
+            params = seasonParams,
+        ).map { listResponseDto ->
+            listResponseDto
+                .siteKit
+                ?.seasons
+                ?.filterNotNull()
+                ?.map(HockeyTechSeasonDTO::parseSeason)
+                .orEmpty()
         }
     }
 }

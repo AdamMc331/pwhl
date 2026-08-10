@@ -91,6 +91,7 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
             implementation(libs.koin.test)
+            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.ktor.client.testing)
             implementation(libs.varabyte.truthish)
         }
