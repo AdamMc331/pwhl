@@ -34,7 +34,7 @@ sqldelight = "2.3.2"
 truthish = "1.0.4"
 xr = "1.0.0-alpha16"
 xr-material = "1.0.0-alpha17"
-xr-scenecore = "1.0.0-beta01"
+xr-scenecore = "1.0.0-beta02"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
