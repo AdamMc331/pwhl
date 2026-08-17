@@ -33,6 +33,9 @@ naming:
     active: true
     excludes: [ '**/androidMain/**', '**/iosMain/**', '**/desktopMain/**' ]
 style:
+  UnusedPrivateMember:
+    active: true
+    excludes: [ '**/screenshotTest/**' ]
   MagicNumber:
     excludes: [ '**/test/**', '**/*Test.kt', '**/*Spec.kt' ]
     ignorePropertyDeclaration: true
