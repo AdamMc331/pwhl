@@ -5,10 +5,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.screenshot)
 }
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
+
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
     defaultConfig {
         applicationId = "com.adammcneilly.pwhl.mobile.android"
@@ -53,11 +56,15 @@ dependencies {
     implementation(project(":shared"))
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.animation)
     implementation(libs.compose.ui)
 
     debugImplementation(platform(libs.compose.bom))
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.square.leakcanary)
+
+    screenshotTestImplementation(libs.androidx.ui.tooling)
+    screenshotTestImplementation(libs.screenshot.validation.api)
 
     testImplementation(libs.junit)
 
