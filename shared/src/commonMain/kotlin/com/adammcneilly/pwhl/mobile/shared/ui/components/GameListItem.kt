@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
@@ -119,7 +118,7 @@ private fun TeamImageName(
             image = team.image,
             contentDescription = null,
             modifier = Modifier
-                .size(48.dp),
+                .size(PWHLTheme.dimensions.imageSizeDefault),
         )
 
         Text(
