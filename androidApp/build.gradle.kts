@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.compose.ui)
 
     debugImplementation(platform(libs.compose.bom))
+    debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.square.leakcanary)
 
