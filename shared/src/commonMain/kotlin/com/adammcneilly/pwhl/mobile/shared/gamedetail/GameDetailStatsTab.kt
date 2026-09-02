@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.StatComparisonDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.components.AnimatableStatComparison

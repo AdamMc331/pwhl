@@ -1,146 +1,129 @@
 package com.adammcneilly.pwhl.mobile.shared.ui.components
 
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import com.adammcneilly.pwhl.mobile.shared.LocalNavAnimatedVisibilityScope
-import com.adammcneilly.pwhl.mobile.shared.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
-import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamGameSummaryResultDisplayModel
+import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.materialkolor.ktx.darken
+import com.materialkolor.ktx.lighten
+
+private const val TEAM_COLOR_CHANGE_RATIO = 1.5F
 
 @Composable
-@OptIn(ExperimentalSharedTransitionApi::class)
 fun GameListItem(
     game: GameSummaryDisplayModel,
     modifier: Modifier = Modifier,
 ) {
-    Surface {
+    CompositionLocalProvider(
+        LocalContentColor provides Color.White,
+    ) {
+        val homeTeamColor = with(PWHLColors.fromTeamId(game.homeTeam.team.id)) {
+            if (isSystemInDarkTheme()) {
+                this.darken(TEAM_COLOR_CHANGE_RATIO)
+            } else {
+                this.lighten(TEAM_COLOR_CHANGE_RATIO)
+            }
+        }
+
+        val awayTeamColor = with(PWHLColors.fromTeamId(game.awayTeam.team.id)) {
+            if (isSystemInDarkTheme()) {
+                this.darken(TEAM_COLOR_CHANGE_RATIO)
+            } else {
+                this.lighten(TEAM_COLOR_CHANGE_RATIO)
+            }
+        }
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
             modifier = modifier
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            homeTeamColor,
+                            awayTeamColor,
+                        ),
+                    ),
+                    shape = MaterialTheme.shapes.large,
+                )
+                .fillMaxWidth()
                 .padding(PWHLTheme.dimensions.componentPadding),
         ) {
-            TeamRows(
-                game = game,
-                modifier = Modifier
-                    .weight(2F),
+            TeamImageName(
+                team = game.homeTeam.team,
             )
 
-            with(LocalSharedTransitionScope.current) {
-                Text(
-                    text = game.status,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .weight(1F)
-                        .sharedBounds(
-                            sharedContentState = rememberSharedContentState(key = "${game.id}_status"),
-                            animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                            resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
-                        ),
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun TeamRows(
-    game: GameSummaryDisplayModel,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingCompact),
-        modifier = modifier,
-    ) {
-        TeamRow(
-            teamGameResult = game.homeTeam,
-            gameId = game.id,
-        )
-
-        TeamRow(
-            teamGameResult = game.awayTeam,
-            gameId = game.id,
-        )
-    }
-}
-
-@Composable
-@OptIn(ExperimentalSharedTransitionApi::class)
-private fun TeamRow(
-    teamGameResult: TeamGameSummaryResultDisplayModel,
-    gameId: String,
-) {
-    val fontWeight = FontWeight.Bold.takeIf {
-        teamGameResult.isWinner
-    }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        with(LocalSharedTransitionScope.current) {
-            ImageWrapper(
-                image = teamGameResult.team.image,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(PWHLTheme.dimensions.imageSizeUltraCompact)
-                    .sharedElement(
-                        sharedContentState = rememberSharedContentState(
-                            key = "${teamGameResult.team.name}_${gameId}_image",
-                        ),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                    ),
-            )
-
-            Spacer(
-                modifier = Modifier
-                    .width(PWHLTheme.dimensions.itemSpacingCompact),
+            GoalsText(
+                goals = game.homeTeam.goals.toString(),
             )
 
             Text(
-                text = teamGameResult.team.name,
-                fontWeight = fontWeight,
-                modifier = Modifier
-                    .sharedBounds(
-                        sharedContentState = rememberSharedContentState(
-                            key = "${teamGameResult.team.name}_${gameId}_name",
-                        ),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
-                    ),
-            )
-
-            Spacer(
+                text = game.status,
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .weight(1F),
             )
 
-            Text(
-                text = teamGameResult.goals.toString(),
-                fontWeight = fontWeight,
-                modifier = Modifier
-                    .sharedBounds(
-                        sharedContentState = rememberSharedContentState(
-                            key = "${teamGameResult.team.name}_${gameId}_score",
-                        ),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
-                    ),
+            GoalsText(
+                goals = game.awayTeam.goals.toString(),
+            )
+
+            TeamImageName(
+                team = game.awayTeam.team,
             )
         }
+    }
+}
+
+@Composable
+private fun GoalsText(
+    goals: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = goals,
+        style = MaterialTheme.typography.headlineLarge,
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun TeamImageName(
+    team: TeamDisplayModel,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
+    ) {
+        ImageWrapper(
+            image = team.image,
+            contentDescription = null,
+            modifier = Modifier
+                .size(PWHLTheme.dimensions.imageSizeDefault),
+        )
+
+        Text(
+            text = team.name,
+            style = MaterialTheme.typography.labelLarge,
+        )
     }
 }

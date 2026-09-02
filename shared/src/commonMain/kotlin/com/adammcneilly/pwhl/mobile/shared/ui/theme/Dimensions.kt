@@ -58,7 +58,7 @@ data class Dimensions(
         )
 
     companion object {
-        private val compact = Dimensions(
+        val compact = Dimensions(
             componentHorizontalPadding = 8.dp,
             componentVerticalPadding = 8.dp,
             floatingButtonPadding = 16.dp,

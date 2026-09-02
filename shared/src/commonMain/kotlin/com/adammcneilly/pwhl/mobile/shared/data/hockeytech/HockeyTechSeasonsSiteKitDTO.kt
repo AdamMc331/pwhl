@@ -2,7 +2,6 @@ package com.adammcneilly.pwhl.mobile.shared.data.hockeytech
 
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechCopyrightDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechParametersDTO
-import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechScoreBarItemDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechSeasonDTO
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
