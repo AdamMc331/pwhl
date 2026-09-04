@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
@@ -112,6 +113,7 @@ private fun TeamImageName(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier,
     ) {
         ImageWrapper(
@@ -122,7 +124,7 @@ private fun TeamImageName(
         )
 
         Text(
-            text = team.name,
+            text = team.shortCode,
             style = MaterialTheme.typography.labelLarge,
         )
     }
