@@ -1,8 +1,8 @@
 package com.adammcneilly.pwhl.mobile.shared.gamedetail
 
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -16,7 +16,7 @@ fun GameDetailTabRow(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    TabRow(
+    PrimaryTabRow(
         selectedTabIndex = pagerState.currentPage,
         modifier = modifier,
     ) {
