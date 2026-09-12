@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 @Composable
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -36,6 +37,7 @@ fun ScaffoldState.PersistentToast(
         enter = enterTransition,
         exit = exitTransition,
         content = {
+            @Suppress("DpUsageRule")
             Surface(
                 color = MaterialTheme.colorScheme.secondaryContainer,
                 shape = RoundedCornerShape(
@@ -49,7 +51,7 @@ fun ScaffoldState.PersistentToast(
                     text = message.orEmpty(),
                     style = MaterialTheme.typography.labelMedium,
                     modifier = Modifier
-                        .padding(vertical = 4.dp, horizontal = 8.dp),
+                        .padding(PWHLTheme.dimensions.componentPadding),
                 )
             }
         },

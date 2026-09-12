@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 /**
  * A persistent [Scaffold] that will render the various slots for any given screen,
@@ -68,7 +68,7 @@ private inline fun ScaffoldState.NavigationRailScaffold(
         content = {
             Box(
                 modifier = Modifier
-                    .widthIn(max = 80.dp)
+                    .widthIn(max = PWHLTheme.dimensions.navRailWidth)
                     .zIndex(2F),
             ) {
                 navigationRail()
