@@ -1,10 +1,10 @@
 package com.adammcneilly.pwhl.mobile.shared.scaffold.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Groups
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Newspaper
-import androidx.compose.material.icons.filled.RocketLaunch
-import androidx.compose.material.icons.filled.SatelliteAlt
+import androidx.compose.material.icons.filled.SportsHockey
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -15,24 +15,24 @@ enum class HomeTab(
     val icon: ImageVector,
     val supportsTwoPane: Boolean,
 ) {
+    Feed(
+        label = "Feed",
+        icon = Icons.Default.SportsHockey,
+        supportsTwoPane = false,
+    ),
     News(
         label = "News",
         icon = Icons.Default.Newspaper,
         supportsTwoPane = false,
     ),
-    Launches(
-        label = "Launches",
-        icon = Icons.Default.RocketLaunch,
-        supportsTwoPane = true,
+    Standings(
+        label = "Standings",
+        icon = Icons.Default.BarChart,
+        supportsTwoPane = false,
     ),
-    Astronauts(
-        label = "Astronauts",
-        icon = Icons.Default.Groups,
-        supportsTwoPane = true,
-    ),
-    Stations(
-        label = "Stations",
-        icon = Icons.Default.SatelliteAlt,
-        supportsTwoPane = true,
+    Profile(
+        label = "Profile",
+        icon = Icons.Default.AccountCircle,
+        supportsTwoPane = false,
     ),
 }
