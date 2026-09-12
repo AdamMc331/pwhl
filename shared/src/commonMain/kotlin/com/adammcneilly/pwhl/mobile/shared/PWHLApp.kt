@@ -16,6 +16,7 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 import com.adammcneilly.pwhl.mobile.shared.xr.LocalXRSession
 import com.adammcneilly.pwhl.mobile.shared.xr.currentXRSession
 import org.koin.compose.KoinApplication
+import org.koin.dsl.koinConfiguration
 
 @Composable
 fun PWHLApp() {
@@ -35,28 +36,31 @@ fun PWHLApp() {
         LocalDimensions provides dimensions,
     ) {
         KoinApplication(
-            application = {
-                modules(appModules)
-            },
-        ) {
-            PWHLTheme {
-                val navController = rememberNavController()
+            configuration = koinConfiguration(
+                declaration = {
+                    modules(appModules)
+                },
+            ),
+            content = {
+                PWHLTheme {
+                    val navController = rememberNavController()
 
-                Scaffold(
-                    bottomBar = {
-                        PWHLBottomBar(
+                    Scaffold(
+                        bottomBar = {
+                            PWHLBottomBar(
+                                navController = navController,
+                            )
+                        },
+                    ) { scaffoldPadding ->
+                        AppNavHost(
                             navController = navController,
+                            modifier = Modifier
+                                .padding(scaffoldPadding)
+                                .fillMaxSize(),
                         )
-                    },
-                ) { scaffoldPadding ->
-                    AppNavHost(
-                        navController = navController,
-                        modifier = Modifier
-                            .padding(scaffoldPadding)
-                            .fillMaxSize(),
-                    )
+                    }
                 }
-            }
-        }
+            },
+        )
     }
 }
