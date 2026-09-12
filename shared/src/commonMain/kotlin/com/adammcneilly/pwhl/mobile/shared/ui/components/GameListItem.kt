@@ -112,6 +112,7 @@ private fun TeamImageName(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingUltraCompact),
         modifier = modifier,
     ) {
         ImageWrapper(
@@ -122,7 +123,7 @@ private fun TeamImageName(
         )
 
         Text(
-            text = team.name,
+            text = team.shortCode,
             style = MaterialTheme.typography.labelLarge,
         )
     }
