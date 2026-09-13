@@ -95,7 +95,9 @@ private fun SuccessContent(
     modifier: Modifier,
 ) {
     LazyColumn(
-        contentPadding = contentPadding.plus(PaddingValues(top = PWHLTheme.dimensions.screenPaddingVertical.div(2))),
+        contentPadding = contentPadding
+            .plus(PaddingValues(top = PWHLTheme.dimensions.screenPaddingVertical.div(2)))
+            .plus(PaddingValues(horizontal = PWHLTheme.dimensions.screenPaddingHorizontal)),
         verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
         modifier = modifier,
     ) {
