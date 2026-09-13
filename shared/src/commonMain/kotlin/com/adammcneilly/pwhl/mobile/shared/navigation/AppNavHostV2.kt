@@ -153,7 +153,9 @@ private fun homeTabEntry(
             when (key.tab) {
                 HomeTab.Feed -> {
                     FeedScreen(
-                        onGameClicked = {},
+                        onGameClicked = { gameId ->
+                            navigateToGameDetail(gameId, backStack)
+                        },
                     )
                 }
 
@@ -172,5 +174,18 @@ private fun homeTabEntry(
                 }
             }
         }
+    }
+}
+
+private fun navigateToGameDetail(
+    gameId: String,
+    backStack: NavBackStack<NavKey>,
+) {
+    val newScreen = AppScreen.GameDetail(gameId)
+
+    if (backStack.lastOrNull() is AppScreen.GameDetail) {
+        backStack[backStack.lastIndex] = newScreen
+    } else {
+        backStack.add(newScreen)
     }
 }
