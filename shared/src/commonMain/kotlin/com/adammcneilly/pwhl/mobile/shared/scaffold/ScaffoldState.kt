@@ -34,12 +34,8 @@ class ScaffoldState internal constructor(
 @Composable
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun rememberScaffoldState(
-    animatedVisibilityScope: AnimatedVisibilityScope = requireNotNull(LocalNavAnimatedVisibilityScope.current) {
-        "AnimatedVisibilityScope must be provided via LocalNavAnimatedVisibilityScope"
-    },
-    sharedTransitionScope: SharedTransitionScope = requireNotNull(LocalSharedTransitionScope.current) {
-        "SharedTransitionScope must be provided via LocalSharedTransitionScope"
-    },
+    animatedVisibilityScope: AnimatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
+    sharedTransitionScope: SharedTransitionScope = LocalSharedTransitionScope.current,
 ): ScaffoldState {
     val isMediumScreenWidthOrWider = isMediumScreenWidthOrWider()
 

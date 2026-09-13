@@ -69,7 +69,7 @@ class AppState(
                 appState.currentSelectedTab?.name
             },
             restore = { tabName ->
-                val selectedTab = HomeTab.entries.find { it.name == tabName } ?: HomeTab.News
+                val selectedTab = HomeTab.entries.find { it.name == tabName } ?: HomeTab.Feed
                 AppState(AppStateData(selectedTab))
             },
         )
