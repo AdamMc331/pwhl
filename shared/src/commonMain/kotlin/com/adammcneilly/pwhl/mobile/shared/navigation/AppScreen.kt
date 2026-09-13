@@ -24,4 +24,9 @@ sealed interface AppScreen : NavKey {
     data class GameDetail(
         val gameId: String,
     ) : AppScreen
+
+    @Serializable
+    data class TeamDetail(
+        val teamId: String,
+    ) : AppScreen
 }

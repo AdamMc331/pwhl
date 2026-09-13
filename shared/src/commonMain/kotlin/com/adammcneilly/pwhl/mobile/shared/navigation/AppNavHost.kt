@@ -21,6 +21,7 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilitySc
 import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.HomeTab
 import com.adammcneilly.pwhl.mobile.shared.standings.StandingsScreen
+import com.adammcneilly.pwhl.mobile.shared.teamdetail.TeamDetailScreen
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.koin.compose.viewmodel.koinViewModel
@@ -103,6 +104,10 @@ private fun navEntryProvider(
             gameDetailEntry(key)
         }
 
+        is AppScreen.TeamDetail -> {
+            teamDetailEntry(key)
+        }
+
         is AppScreen.Tab -> {
             homeTabEntry(
                 key = key,
@@ -133,6 +138,27 @@ private fun gameDetailEntry(
     }
 }
 
+private fun teamDetailEntry(
+    key: AppScreen.TeamDetail,
+): NavEntry<NavKey> {
+    return NavEntry(
+        key = key,
+        metadata = TwoPaneScene.twoPane(),
+    ) {
+        CompositionLocalProvider(
+            LocalNavAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current,
+        ) {
+            TeamDetailScreen(
+                viewModel = koinViewModel(
+                    parameters = {
+                        parametersOf(key.teamId)
+                    },
+                ),
+            )
+        }
+    }
+}
+
 private fun homeTabEntry(
     key: AppScreen.Tab,
     backStack: NavBackStack<NavKey>,
@@ -154,7 +180,10 @@ private fun homeTabEntry(
                 HomeTab.Feed -> {
                     FeedScreen(
                         onGameClicked = { gameId ->
-                            navigateToGameDetail(gameId, backStack)
+                            navigateOrReplace(
+                                newScreen = AppScreen.GameDetail(gameId),
+                                backStack = backStack,
+                            )
                         },
                     )
                 }
@@ -165,7 +194,12 @@ private fun homeTabEntry(
 
                 HomeTab.Standings -> {
                     StandingsScreen(
-                        onTeamClicked = {},
+                        onTeamClicked = { teamId ->
+                            navigateOrReplace(
+                                newScreen = AppScreen.TeamDetail(teamId),
+                                backStack = backStack,
+                            )
+                        },
                     )
                 }
 
@@ -177,13 +211,17 @@ private fun homeTabEntry(
     }
 }
 
-private fun navigateToGameDetail(
-    gameId: String,
+/**
+ * Navigates to the [newScreen] or replaces the last entry of the [backStack] if the [newScreen] is the
+ * same instance type as the current screen.
+ */
+private fun navigateOrReplace(
+    newScreen: AppScreen,
     backStack: NavBackStack<NavKey>,
 ) {
-    val newScreen = AppScreen.GameDetail(gameId)
+    val lastScreen = backStack.lastOrNull()
 
-    if (backStack.lastOrNull() is AppScreen.GameDetail) {
+    if (lastScreen != null && lastScreen::class == newScreen::class) {
         backStack[backStack.lastIndex] = newScreen
     } else {
         backStack.add(newScreen)
