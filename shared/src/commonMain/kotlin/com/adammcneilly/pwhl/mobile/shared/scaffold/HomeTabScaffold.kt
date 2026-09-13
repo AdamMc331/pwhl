@@ -4,8 +4,10 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentNavigationBar
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentNavigationRail
 
@@ -17,16 +19,19 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.Persis
 @Suppress("LongParameterList")
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.HomeTabScaffold(
+    tabBarScrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier = Modifier,
     topBar: @Composable ScaffoldState.() -> Unit = {},
-    floatingActionButton: @Composable ScaffoldState.() -> Unit = {},
-    navigationBar: @Composable ScaffoldState.() -> Unit = {
+    floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
+    navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit = { tabBarScrollConnection, modifier ->
         PersistentNavigationBar(
-            modifier = Modifier
+            tabBarScrollConnection = tabBarScrollConnection,
+            modifier = modifier
                 .animateEnterExit(
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it }),
-                ),
+                )
+                .navigationBarsPadding(),
         )
     },
     navigationRail: @Composable ScaffoldState.() -> Unit = {
@@ -37,6 +42,7 @@ fun ScaffoldState.HomeTabScaffold(
 ) {
     PersistentScaffold(
         modifier = modifier,
+        tabBarScrollConnection = tabBarScrollConnection,
         topBar = topBar,
         floatingActionButton = floatingActionButton,
         navigationBar = navigationBar,
