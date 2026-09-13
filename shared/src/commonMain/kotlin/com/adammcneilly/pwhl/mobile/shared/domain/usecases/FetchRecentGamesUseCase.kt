@@ -24,7 +24,7 @@ class FetchRecentGamesUseCase(
         )
 
         return repository.fetchGames(request).map { gameList ->
-            gameList.map(::GameSummaryDisplayModel)
+            gameList.map(::GameSummaryDisplayModel).take(25)
         }
     }
 

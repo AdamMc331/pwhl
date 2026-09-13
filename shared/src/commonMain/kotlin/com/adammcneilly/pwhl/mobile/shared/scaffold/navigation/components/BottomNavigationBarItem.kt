@@ -35,7 +35,7 @@ fun BottomNavigationBarItem(
             modifier = modifier
                 .padding(
                     vertical = 16.dp,
-                    horizontal = 8.dp,
+                    horizontal = 4.dp,
                 ),
         ) {
             Icon(
@@ -50,6 +50,8 @@ fun BottomNavigationBarItem(
             ) {
                 Text(
                     text = navItem.tab.label,
+                    modifier = Modifier
+                        .padding(top = 4.dp),
                 )
             }
         }
