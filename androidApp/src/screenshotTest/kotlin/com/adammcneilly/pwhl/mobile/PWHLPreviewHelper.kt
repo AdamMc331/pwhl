@@ -6,6 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilityScope
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
+import com.adammcneilly.pwhl.mobile.shared.scaffold.app.AppState
+import com.adammcneilly.pwhl.mobile.shared.scaffold.app.AppStateData
+import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.Dimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.LocalDimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
@@ -17,6 +20,7 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
  */
 @Composable
 fun PWHLPreviewHelper(
+    appStateData: AppStateData = AppStateData(),
     content: @Composable () -> Unit,
 ) {
     val dimensions = Dimensions.compact
@@ -27,6 +31,7 @@ fun PWHLPreviewHelper(
                 LocalSharedTransitionScope provides this@SharedTransitionLayout,
                 LocalNavAnimatedVisibilityScope provides this@AnimatedVisibility,
                 LocalDimensions provides dimensions,
+                LocalAppState provides AppState(appStateData),
             ) {
                 PWHLTheme {
                     content()
