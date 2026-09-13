@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.LookaheadScope
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -75,48 +74,59 @@ fun ScaffoldState.PersistentScaffold(
 
                     content(WindowInsets.statusBars.asPaddingValues().plus(navBarAwarePadding))
 
-                    LookaheadScope {
-                        Box(
-                            modifier = Modifier
-                                .onSizeChanged { size ->
-                                    with(density) {
-                                        navBarHeightDp = size.height.toDp()
-                                        println("ADAMLOG - NB HEIGHT: $navBarHeightDp")
-                                    }
-                                }
-                                .navigationBarsPadding()
-                                .padding(24.dp)
-                                .align(Alignment.BottomCenter),
-                        ) {
-                            val items = remember {
-                                movableContentOf {
-                                    floatingActionButton(
-                                        Modifier
-                                            .animateBounds(lookaheadScope = this@PersistentScaffold),
-                                    )
-
-                                    navigationBar(
-                                        tabBarScrollConnection,
-                                        Modifier
-                                            .animateBounds(lookaheadScope = this@PersistentScaffold),
-                                    )
+                    Box(
+                        modifier = Modifier
+                            .onSizeChanged { size ->
+                                with(density) {
+                                    navBarHeightDp = size.height.toDp()
+                                    println("ADAMLOG - NB HEIGHT: $navBarHeightDp")
                                 }
                             }
+                            .navigationBarsPadding()
+                            .padding(24.dp)
+                            .align(Alignment.BottomCenter),
+                    ) {
+                        val fab = remember {
+                            movableContentOf {
+                                floatingActionButton(
+                                    Modifier
+                                        .animateBounds(lookaheadScope = this@PersistentScaffold),
+                                )
+                            }
+                        }
 
-                            if (tabBarScrollConnection.isCollapsed) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
-                                    modifier = Modifier,
+                        val bar = remember {
+                            movableContentOf {
+                                navigationBar(
+                                    tabBarScrollConnection,
+                                    Modifier
+                                        .animateBounds(lookaheadScope = this@PersistentScaffold),
+                                )
+                            }
+                        }
+
+                        if (tabBarScrollConnection.isCollapsed) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+                                modifier = Modifier,
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1F),
                                 ) {
-                                    items()
+                                    bar()
                                 }
-                            } else {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
-                                ) {
-                                    items()
-                                }
+
+                                fab()
+                            }
+                        } else {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+                            ) {
+                                fab()
+
+                                bar()
                             }
                         }
                     }
