@@ -35,11 +35,13 @@ fun FeedContent(
     rememberScaffoldState().HomeTabScaffold(
         tabBarScrollConnection = scrollConnection,
         modifier = modifier,
-        floatingActionButton = {
+        floatingActionButton = { modifier ->
             PersistentFloatingActionButton(
+                tabBarScrollConnection = scrollConnection,
                 text = {
                     Text(
                         text = "Search",
+                        maxLines = 1,
                     )
                 },
                 icon = {
@@ -49,6 +51,7 @@ fun FeedContent(
                     )
                 },
                 onClick = {},
+                modifier = modifier,
             )
         },
         content = { scaffoldPadding ->

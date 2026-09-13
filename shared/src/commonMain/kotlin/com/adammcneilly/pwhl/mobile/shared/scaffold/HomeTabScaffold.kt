@@ -22,7 +22,7 @@ fun ScaffoldState.HomeTabScaffold(
     tabBarScrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier = Modifier,
     topBar: @Composable ScaffoldState.() -> Unit = {},
-    floatingActionButton: @Composable ScaffoldState.() -> Unit = {},
+    floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
     navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit = { tabBarScrollConnection, modifier ->
         PersistentNavigationBar(
             tabBarScrollConnection = tabBarScrollConnection,
