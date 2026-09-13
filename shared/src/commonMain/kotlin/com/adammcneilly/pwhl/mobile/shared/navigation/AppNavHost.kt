@@ -101,11 +101,35 @@ private fun navEntryProvider(
     val key = key as? AppScreen ?: error("Invalid nav key: $key")
     return when (key) {
         is AppScreen.GameDetail -> {
-            gameDetailEntry(key)
+            animatedScopeEntry(
+                key = key,
+                metadata = TwoPaneScene.twoPane(),
+                content = {
+                    GameDetailScreen(
+                        viewModel = koinViewModel(
+                            parameters = {
+                                parametersOf(key.gameId)
+                            },
+                        ),
+                    )
+                },
+            )
         }
 
         is AppScreen.TeamDetail -> {
-            teamDetailEntry(key)
+            animatedScopeEntry(
+                key = key,
+                metadata = TwoPaneScene.twoPane(),
+                content = {
+                    TeamDetailScreen(
+                        viewModel = koinViewModel(
+                            parameters = {
+                                parametersOf(key.teamId)
+                            },
+                        ),
+                    )
+                },
+            )
         }
 
         is AppScreen.Tab -> {
@@ -117,44 +141,19 @@ private fun navEntryProvider(
     }
 }
 
-private fun gameDetailEntry(
-    key: AppScreen.GameDetail,
+private fun animatedScopeEntry(
+    key: NavKey,
+    metadata: Map<String, Any>,
+    content: @Composable () -> Unit,
 ): NavEntry<NavKey> {
     return NavEntry(
         key = key,
-        metadata = TwoPaneScene.twoPane(),
+        metadata = metadata,
     ) {
         CompositionLocalProvider(
             LocalNavAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current,
         ) {
-            GameDetailScreen(
-                viewModel = koinViewModel(
-                    parameters = {
-                        parametersOf(key.gameId)
-                    },
-                ),
-            )
-        }
-    }
-}
-
-private fun teamDetailEntry(
-    key: AppScreen.TeamDetail,
-): NavEntry<NavKey> {
-    return NavEntry(
-        key = key,
-        metadata = TwoPaneScene.twoPane(),
-    ) {
-        CompositionLocalProvider(
-            LocalNavAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current,
-        ) {
-            TeamDetailScreen(
-                viewModel = koinViewModel(
-                    parameters = {
-                        parametersOf(key.teamId)
-                    },
-                ),
-            )
+            content()
         }
     }
 }
@@ -169,13 +168,10 @@ private fun homeTabEntry(
         emptyMap()
     }
 
-    return NavEntry(
+    return animatedScopeEntry(
         key = key,
         metadata = metadata,
-    ) {
-        CompositionLocalProvider(
-            LocalNavAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current,
-        ) {
+        content = {
             when (key.tab) {
                 HomeTab.Feed -> {
                     FeedScreen(
@@ -207,8 +203,8 @@ private fun homeTabEntry(
                     ProfileScreen()
                 }
             }
-        }
-    }
+        },
+    )
 }
 
 /**
