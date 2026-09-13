@@ -7,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.ui.components.SpatialModeSwitchFAB
-import kotlinx.serialization.Serializable
 import org.koin.core.annotation.KoinExperimentalAPI
 
 /**
@@ -37,11 +36,3 @@ fun GameDetailScreen(
         )
     }
 }
-
-/**
- * Serializable route to a game detail screen used by Compose navigation.
- */
-@Serializable
-data class GameDetailScreen(
-    val gameId: String,
-)
