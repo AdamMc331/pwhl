@@ -9,8 +9,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.window.core.layout.WindowSizeClass
-import com.adammcneilly.pwhl.mobile.shared.LocalNavAnimatedVisibilityScope
-import com.adammcneilly.pwhl.mobile.shared.LocalSharedTransitionScope
 
 /**
  * Do not create an instance of this scaffold state directly. Please use

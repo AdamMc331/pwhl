@@ -13,11 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.adammcneilly.pwhl.mobile.shared.LocalNavAnimatedVisibilityScope
-import com.adammcneilly.pwhl.mobile.shared.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamGameDetailResultDisplayModel
+import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilityScope
+import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.ui.components.ImageWrapper
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 

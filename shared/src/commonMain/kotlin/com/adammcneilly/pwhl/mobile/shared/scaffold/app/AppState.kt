@@ -26,7 +26,7 @@ data class AppStateData(
     val navItems: List<NavItem>,
 ) {
     constructor(
-        selectedTab: HomeTab = HomeTab.News,
+        selectedTab: HomeTab = HomeTab.Feed,
     ) : this(
         navItems = HomeTab.entries.map { tab ->
             NavItem(

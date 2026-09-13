@@ -9,6 +9,7 @@ import kotlinx.serialization.Serializable
  * This is used by the nav 3 back stack to provide a type safe wrapper around the
  * list of back stack entries.
  */
+@Serializable
 sealed interface AppScreen : NavKey {
     /**
      * Defines one of the home tabs accessible by a navigation bar. The [tab] property

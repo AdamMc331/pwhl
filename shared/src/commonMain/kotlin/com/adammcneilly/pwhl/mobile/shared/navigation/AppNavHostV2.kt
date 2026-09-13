@@ -4,8 +4,7 @@ import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -14,11 +13,11 @@ import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import androidx.window.core.layout.WindowSizeClass
-import com.adammcneilly.pwhl.mobile.shared.LocalNavAnimatedVisibilityScope
 import com.adammcneilly.pwhl.mobile.shared.feed.FeedScreen
 import com.adammcneilly.pwhl.mobile.shared.gamedetail.GameDetailScreen
 import com.adammcneilly.pwhl.mobile.shared.news.NewsScreen
 import com.adammcneilly.pwhl.mobile.shared.profile.ProfileScreen
+import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilityScope
 import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.HomeTab
 import com.adammcneilly.pwhl.mobile.shared.standings.StandingsScreen
@@ -30,15 +29,14 @@ import org.koin.core.parameter.parametersOf
 private val config = SavedStateConfiguration {
     serializersModule = SerializersModule {
         polymorphic(NavKey::class) {
-            subclass(AppScreen.Tab::class, AppScreen.Tab.serializer())
-            subclass(AppScreen.GameDetail::class, AppScreen.GameDetail.serializer())
+            subclassesOfSealed<AppScreen>()
         }
     }
 }
 
 @Composable
 fun AppNavHostV2() {
-    val startDestination = AppScreen.Tab(HomeTab.News)
+    val startDestination = AppScreen.Tab(HomeTab.Feed)
 
     val backStack = rememberNavBackStack(
         config,
@@ -96,10 +94,11 @@ fun AppNavHostV2() {
 }
 
 private fun navEntryProvider(
-    key: AppScreen,
-    backStack: SnapshotStateList<AppScreen>,
-): NavEntry<AppScreen> =
-    when (key) {
+    key: NavKey,
+    backStack: NavBackStack<NavKey>,
+): NavEntry<NavKey> {
+    val key = key as? AppScreen ?: error("Invalid nav key: $key")
+    return when (key) {
         is AppScreen.GameDetail -> {
             gameDetailEntry(key)
         }
@@ -111,10 +110,11 @@ private fun navEntryProvider(
             )
         }
     }
+}
 
 private fun gameDetailEntry(
     key: AppScreen.GameDetail,
-): NavEntry<AppScreen> {
+): NavEntry<NavKey> {
     return NavEntry(
         key = key,
         metadata = TwoPaneScene.twoPane(),
@@ -135,8 +135,8 @@ private fun gameDetailEntry(
 
 private fun homeTabEntry(
     key: AppScreen.Tab,
-    backStack: SnapshotStateList<AppScreen>,
-): NavEntry<AppScreen> {
+    backStack: NavBackStack<NavKey>,
+): NavEntry<NavKey> {
     val metadata = if (key.tab.supportsTwoPane) {
         TwoPaneScene.twoPane()
     } else {
