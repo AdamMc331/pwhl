@@ -4,27 +4,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.adammcneilly.pwhl.mobile.shared.ui.components.PWHLScreenScaffold
-import kotlinx.serialization.Serializable
+import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
+import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
 ) {
-    PWHLScreenScaffold(
-        title = "Profile",
+    rememberScaffoldState().HomeTabScaffold(
         modifier = modifier,
-    ) { scaffoldPadding ->
-        Text(
-            text = "Profile Content Stub",
-            modifier = Modifier
-                .padding(scaffoldPadding),
-        )
-    }
+        content = { scaffoldPadding ->
+            Text(
+                text = "Profile Content Stub",
+                modifier = Modifier
+                    .padding(scaffoldPadding),
+            )
+        },
+    )
 }
-
-/**
- * Serializable route to the profile screen used by Compose navigation.
- */
-@Serializable
-object ProfileScreen

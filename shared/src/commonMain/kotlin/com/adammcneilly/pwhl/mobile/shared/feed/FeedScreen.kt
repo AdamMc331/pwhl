@@ -3,8 +3,6 @@ package com.adammcneilly.pwhl.mobile.shared.feed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.adammcneilly.pwhl.mobile.shared.ui.components.PWHLScreenScaffold
-import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -21,20 +19,9 @@ fun FeedScreen(
 ) {
     val state = viewModel.state.collectAsState()
 
-    PWHLScreenScaffold(
-        title = "Feed",
+    FeedContent(
+        state = state.value,
+        onGameClicked = onGameClicked,
         modifier = modifier,
-    ) { scaffoldPadding ->
-        FeedContent(
-            state = state.value,
-            onGameClicked = onGameClicked,
-            contentPadding = scaffoldPadding,
-        )
-    }
+    )
 }
-
-/**
- * Serializable route to the feed screen for Compose navigation.
- */
-@Serializable
-object FeedScreen

@@ -1,15 +1,17 @@
 package com.adammcneilly.pwhl.mobile.shared
 
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import com.adammcneilly.pwhl.mobile.shared.appbars.PWHLBottomBar
 import com.adammcneilly.pwhl.mobile.shared.di.appModules
+import com.adammcneilly.pwhl.mobile.shared.navigation.AppNavHost
+import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
+import com.adammcneilly.pwhl.mobile.shared.scaffold.app.AppState
+import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.Dimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.LocalDimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
@@ -31,36 +33,32 @@ fun PWHLApp() {
         Dimensions.get(currentWindowAdaptiveInfo().windowSizeClass)
     }
 
-    CompositionLocalProvider(
-        LocalXRSession provides xrSession,
-        LocalDimensions provides dimensions,
-    ) {
-        KoinApplication(
-            configuration = koinConfiguration(
-                declaration = {
-                    modules(appModules)
-                },
-            ),
-            content = {
-                PWHLTheme {
-                    val navController = rememberNavController()
+    val appState = rememberSaveable(saver = AppState.saver) {
+        AppState()
+    }
 
-                    Scaffold(
-                        bottomBar = {
-                            PWHLBottomBar(
-                                navController = navController,
-                            )
-                        },
-                    ) { scaffoldPadding ->
-                        AppNavHost(
-                            navController = navController,
-                            modifier = Modifier
-                                .padding(scaffoldPadding)
-                                .fillMaxSize(),
-                        )
+    SharedTransitionLayout(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        CompositionLocalProvider(
+            LocalXRSession provides xrSession,
+            LocalDimensions provides dimensions,
+            LocalAppState provides appState,
+            LocalSharedTransitionScope provides this,
+        ) {
+            KoinApplication(
+                configuration = koinConfiguration(
+                    declaration = {
+                        modules(appModules)
+                    },
+                ),
+                content = {
+                    PWHLTheme {
+                        AppNavHost()
                     }
-                }
-            },
-        )
+                },
+            )
+        }
     }
 }

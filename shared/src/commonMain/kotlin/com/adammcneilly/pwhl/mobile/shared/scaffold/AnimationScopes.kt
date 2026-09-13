@@ -1,0 +1,15 @@
+package com.adammcneilly.pwhl.mobile.shared.scaffold
+
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.runtime.compositionLocalOf
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+val LocalSharedTransitionScope = compositionLocalOf<SharedTransitionScope> {
+    throw IllegalArgumentException("SharedTransitionScope must be provided in the app scaffolding.")
+}
+
+val LocalNavAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope> {
+    throw IllegalArgumentException("AnimatedVisibilityScope must be provided in the app scaffolding.")
+}

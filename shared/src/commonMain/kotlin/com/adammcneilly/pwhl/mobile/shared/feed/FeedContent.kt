@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
+import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
+import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.GameListItem
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
@@ -18,8 +20,27 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 fun FeedContent(
     state: FeedState,
     onGameClicked: (String) -> Unit,
-    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
+) {
+    rememberScaffoldState().HomeTabScaffold(
+        modifier = modifier,
+        content = { scaffoldPadding ->
+            Content(
+                state = state,
+                onGameClicked = onGameClicked,
+                contentPadding = scaffoldPadding,
+                modifier = modifier,
+            )
+        },
+    )
+}
+
+@Composable
+private fun Content(
+    state: FeedState,
+    onGameClicked: (String) -> Unit,
+    contentPadding: PaddingValues,
+    modifier: Modifier,
 ) {
     if (state.loadingRecentGames || state.loadingUpcomingGames) {
         LoadingScreen(modifier)
@@ -41,9 +62,7 @@ private fun SuccessContent(
     modifier: Modifier,
 ) {
     LazyColumn(
-        contentPadding = contentPadding.plus(
-            PaddingValues(horizontal = PWHLTheme.dimensions.screenPaddingHorizontal),
-        ),
+        contentPadding = contentPadding.plus(PWHLTheme.dimensions.screenPadding),
         verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
         modifier = modifier,
     ) {

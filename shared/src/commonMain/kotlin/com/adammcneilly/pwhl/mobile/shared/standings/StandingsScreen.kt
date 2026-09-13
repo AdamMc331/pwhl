@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.adammcneilly.pwhl.mobile.shared.ui.components.PWHLScreenScaffold
-import kotlinx.serialization.Serializable
+import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
+import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -18,21 +18,15 @@ fun StandingsScreen(
 ) {
     val state = viewModel.state.collectAsState()
 
-    PWHLScreenScaffold(
-        title = "Standings",
+    rememberScaffoldState().HomeTabScaffold(
         modifier = modifier,
-    ) { scaffoldPadding ->
-        StandingsContent(
-            state = state.value,
-            onTeamClicked = onTeamClicked,
-            modifier = Modifier
-                .padding(scaffoldPadding),
-        )
-    }
+        content = { scaffoldPadding ->
+            StandingsContent(
+                state = state.value,
+                onTeamClicked = onTeamClicked,
+                modifier = Modifier
+                    .padding(scaffoldPadding),
+            )
+        },
+    )
 }
-
-/**
- * Serializable route to the standings screen used by Compose navigation.
- */
-@Serializable
-object StandingsScreen
