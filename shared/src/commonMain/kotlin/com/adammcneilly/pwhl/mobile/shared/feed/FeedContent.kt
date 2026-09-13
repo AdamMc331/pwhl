@@ -9,8 +9,11 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.rememberFloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.GameListItem
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
@@ -22,13 +25,17 @@ fun FeedContent(
     onGameClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val scrollConnection = rememberFloatingTabBarScrollConnection()
+
     rememberScaffoldState().HomeTabScaffold(
+        tabBarScrollConnection = scrollConnection,
         modifier = modifier,
         content = { scaffoldPadding ->
             Content(
                 state = state,
                 onGameClicked = onGameClicked,
                 contentPadding = scaffoldPadding,
+                scrollConnection = scrollConnection,
                 modifier = modifier,
             )
         },
@@ -40,6 +47,7 @@ private fun Content(
     state: FeedState,
     onGameClicked: (String) -> Unit,
     contentPadding: PaddingValues,
+    scrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier,
 ) {
     if (state.loadingRecentGames || state.loadingUpcomingGames) {
@@ -49,7 +57,8 @@ private fun Content(
             state = state,
             onGameClicked = onGameClicked,
             contentPadding = contentPadding,
-            modifier = modifier,
+            modifier = modifier
+                .nestedScroll(scrollConnection),
         )
     }
 }

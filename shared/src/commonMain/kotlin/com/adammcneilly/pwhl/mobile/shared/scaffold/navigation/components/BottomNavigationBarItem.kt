@@ -1,5 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,6 +18,7 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.NavItem
 @Composable
 fun BottomNavigationBarItem(
     navItem: NavItem,
+    labelVisible: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val contentColor = if (navItem.selected) {
@@ -43,9 +45,13 @@ fun BottomNavigationBarItem(
                     .size(24.dp),
             )
 
-            Text(
-                text = navItem.tab.label,
-            )
+            AnimatedVisibility(
+                visible = labelVisible,
+            ) {
+                Text(
+                    text = navItem.tab.label,
+                )
+            }
         }
     }
 }
