@@ -8,7 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.di.appModules
-import com.adammcneilly.pwhl.mobile.shared.navigation.AppNavHostV2
+import com.adammcneilly.pwhl.mobile.shared.navigation.AppNavHost
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.scaffold.app.AppState
 import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
@@ -55,7 +55,7 @@ fun PWHLApp() {
                 ),
                 content = {
                     PWHLTheme {
-                        AppNavHostV2()
+                        AppNavHost()
                     }
                 },
             )

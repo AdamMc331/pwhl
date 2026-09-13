@@ -35,7 +35,7 @@ private val config = SavedStateConfiguration {
 }
 
 @Composable
-fun AppNavHostV2() {
+fun AppNavHost() {
     val startDestination = AppScreen.Tab(HomeTab.Feed)
 
     val backStack = rememberNavBackStack(
