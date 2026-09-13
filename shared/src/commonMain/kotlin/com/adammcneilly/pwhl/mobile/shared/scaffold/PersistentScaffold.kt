@@ -6,10 +6,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
@@ -25,7 +29,7 @@ fun ScaffoldState.PersistentScaffold(
     modifier: Modifier = Modifier,
     topBar: @Composable ScaffoldState.() -> Unit = {},
     floatingActionButton: @Composable ScaffoldState.() -> Unit = {},
-    navigationBar: @Composable ScaffoldState.() -> Unit = {},
+    navigationBar: @Composable ScaffoldState.(Modifier) -> Unit = {},
     navigationRail: @Composable ScaffoldState.() -> Unit = {},
     toastMessage: @Composable ScaffoldState.() -> Unit = {},
     content: @Composable ScaffoldState.(PaddingValues) -> Unit,
@@ -34,6 +38,8 @@ fun ScaffoldState.PersistentScaffold(
         modifier = modifier,
         navigationRail = navigationRail,
         content = {
+            Surface {
+            }
             Scaffold(
                 modifier = modifier
                     .animateBounds(lookaheadScope = this),
@@ -43,14 +49,23 @@ fun ScaffoldState.PersistentScaffold(
                 floatingActionButton = {
                     floatingActionButton()
                 },
-                bottomBar = {
-                    navigationBar()
-                },
+                bottomBar = {},
                 snackbarHost = {
                     toastMessage()
                 },
                 content = { paddingValues ->
-                    content(paddingValues)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                    ) {
+                        content(paddingValues)
+
+                        navigationBar(
+                            Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(24.dp),
+                        )
+                    }
                 },
             )
         },
