@@ -6,6 +6,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.ScaffoldState
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("LongParameterList")
 fun ScaffoldState.PersistentFloatingActionButton(
+    tabBarScrollConnection: FloatingTabBarScrollConnection,
     text: @Composable () -> Unit,
     icon: @Composable () -> Unit,
     onClick: () -> Unit,
@@ -38,6 +40,8 @@ fun ScaffoldState.PersistentFloatingActionButton(
                 text = text,
                 icon = icon,
                 onClick = onClick,
+                expanded = !tabBarScrollConnection.isCollapsed,
+                shape = RoundedCornerShape(50),
             )
         },
     )

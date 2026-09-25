@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.rememberFloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -19,6 +20,7 @@ fun StandingsScreen(
     val state = viewModel.state.collectAsState()
 
     rememberScaffoldState().HomeTabScaffold(
+        tabBarScrollConnection = rememberFloatingTabBarScrollConnection(),
         modifier = modifier,
         content = { scaffoldPadding ->
             StandingsContent(
