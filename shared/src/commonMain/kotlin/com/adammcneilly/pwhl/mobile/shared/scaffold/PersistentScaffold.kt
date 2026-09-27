@@ -64,7 +64,10 @@ fun ScaffoldState.PersistentScaffold(
 
                     val density = LocalDensity.current
 
-                    content(WindowInsets.systemBars.asPaddingValues())
+                    val insetPadding = WindowInsets.systemBars.asPaddingValues()
+                    val navigationPadding = PaddingValues(bottom = navBarHeightDp)
+                    val scaffoldPadding = insetPadding.plus(navigationPadding)
+                    content(scaffoldPadding)
 
                     FloatingContent(
                         floatingActionButton = floatingActionButton,

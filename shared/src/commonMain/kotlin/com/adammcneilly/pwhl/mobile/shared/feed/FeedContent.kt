@@ -53,7 +53,7 @@ fun FeedContent(
             Content(
                 state = state,
                 onGameClicked = onGameClicked,
-                contentPadding = scaffoldPadding,
+                contentPadding = scaffoldPadding.plus(PWHLTheme.dimensions.screenPadding),
                 scrollConnection = tabBarScrollConnection,
                 modifier = modifier,
             )
@@ -90,10 +90,7 @@ private fun SuccessContent(
     modifier: Modifier,
 ) {
     LazyColumn(
-        contentPadding = contentPadding
-            // Skip bottom padding because it's covered by the nav content
-            .plus(PaddingValues(top = PWHLTheme.dimensions.screenPaddingVertical.div(2)))
-            .plus(PaddingValues(horizontal = PWHLTheme.dimensions.screenPaddingHorizontal)),
+        contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
         modifier = modifier,
     ) {
