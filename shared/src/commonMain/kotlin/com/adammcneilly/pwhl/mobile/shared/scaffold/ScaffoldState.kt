@@ -9,6 +9,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.window.core.layout.WindowSizeClass
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.rememberFloatingTabBarScrollConnection
 
 /**
  * Do not create an instance of this scaffold state directly. Please use
@@ -18,6 +20,7 @@ import androidx.window.core.layout.WindowSizeClass
 class ScaffoldState internal constructor(
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
+    val tabBarScrollConnection: FloatingTabBarScrollConnection,
     private val isMediumScreenWidthOrWider: State<Boolean>,
 ) : AnimatedVisibilityScope by animatedVisibilityScope,
     SharedTransitionScope by sharedTransitionScope {
@@ -36,6 +39,7 @@ class ScaffoldState internal constructor(
 fun rememberScaffoldState(
     animatedVisibilityScope: AnimatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
     sharedTransitionScope: SharedTransitionScope = LocalSharedTransitionScope.current,
+    tabBarScrollConnection: FloatingTabBarScrollConnection = rememberFloatingTabBarScrollConnection(),
 ): ScaffoldState {
     val isMediumScreenWidthOrWider = isMediumScreenWidthOrWider()
 
@@ -44,6 +48,7 @@ fun rememberScaffoldState(
             animatedVisibilityScope = animatedVisibilityScope,
             sharedTransitionScope = sharedTransitionScope,
             isMediumScreenWidthOrWider = isMediumScreenWidthOrWider,
+            tabBarScrollConnection = tabBarScrollConnection,
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.adammcneilly.pwhl.detekt.rules
 
 import io.gitlab.arturbosch.detekt.api.Config
+import io.gitlab.arturbosch.detekt.test.TestConfig
 import io.gitlab.arturbosch.detekt.test.assertThat
 import io.gitlab.arturbosch.detekt.test.lint
 import kotlin.test.Test
@@ -23,6 +24,16 @@ class DpUsageRuleTest {
     @Test
     fun `pass file without dp extension`() {
         val findings = subject.lint(codeWithDimensions)
+        assertThat(findings).hasSize(0)
+    }
+
+    @Test
+    fun `pass file with excluded dp extension`() {
+        val config = TestConfig(
+            "ignoreValues" to listOf("1"),
+        )
+        val subject = DpUsageRule(config)
+        val findings = subject.lint(codeWithIntExtension)
         assertThat(findings).hasSize(0)
     }
 }
