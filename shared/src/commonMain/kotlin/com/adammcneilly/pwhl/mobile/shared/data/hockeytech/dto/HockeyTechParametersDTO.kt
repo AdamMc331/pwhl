@@ -30,7 +30,7 @@ data class HockeyTechParametersDTO(
     @SerialName("numberofdaysback")
     val numberofdaysback: String? = null,
     @SerialName("season_id")
-    val seasonId: String? = null,
+    val seasonId: Int? = null,
     @SerialName("site_id")
     val siteId: String? = null,
     @SerialName("view")

@@ -17,10 +17,11 @@ object HockeyTechParameterKeys {
     const val GROUP_TEAMS_BY = "groupTeamsBy"
     const val LANGUAGE = "lang"
     const val LEAGUE_ID = "league_id"
-    const val SEASON = "season"
+    const val SEASON = "season_id"
     const val SITE_ID = "site_id"
     const val SORT = "sort"
-    const val SPECIAL = "special"
+    const val STAT = "stat"
     const val TEAM_ID = "team_id"
+    const val TYPE = "type"
     const val VIEW = "view"
 }
