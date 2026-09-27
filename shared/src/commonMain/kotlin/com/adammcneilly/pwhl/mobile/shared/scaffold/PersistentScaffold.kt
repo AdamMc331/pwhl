@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.plus
@@ -44,7 +43,6 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 fun ScaffoldState.PersistentScaffold(
     modifier: Modifier = Modifier,
     tabBarScrollConnection: FloatingTabBarScrollConnection = FloatingTabBarScrollConnection(),
-    topBar: @Composable ScaffoldState.() -> Unit = {},
     floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
     navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit = { _, _ -> },
     navigationRail: @Composable ScaffoldState.() -> Unit = {},
@@ -55,12 +53,6 @@ fun ScaffoldState.PersistentScaffold(
         modifier = modifier,
         navigationRail = navigationRail,
         content = {
-            var navBarHeightDp by remember {
-                mutableStateOf(0.dp)
-            }
-
-            val density = LocalDensity.current
-
             Surface(
                 modifier = modifier,
             ) {
@@ -68,72 +60,92 @@ fun ScaffoldState.PersistentScaffold(
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
+                    var navBarHeightDp by remember {
+                        mutableStateOf(0.dp)
+                    }
+
                     val navBarAwarePadding = PaddingValues(
                         bottom = navBarHeightDp + 12.dp,
                     )
 
+                    val density = LocalDensity.current
+
                     content(WindowInsets.statusBars.asPaddingValues().plus(navBarAwarePadding))
 
-                    Box(
+                    FloatingContent(
+                        tabBarScrollConnection = tabBarScrollConnection,
+                        floatingActionButton = floatingActionButton,
+                        navigationBar = navigationBar,
                         modifier = Modifier
+                            .align(Alignment.BottomCenter)
                             .onSizeChanged { size ->
                                 with(density) {
                                     navBarHeightDp = size.height.toDp()
-                                    println("ADAMLOG - NB HEIGHT: $navBarHeightDp")
                                 }
-                            }
-                            .navigationBarsPadding()
-                            .padding(24.dp)
-                            .align(Alignment.BottomCenter),
-                    ) {
-                        val fab = remember {
-                            movableContentOf {
-                                floatingActionButton(
-                                    Modifier
-                                        .animateBounds(lookaheadScope = this@PersistentScaffold),
-                                )
-                            }
-                        }
-
-                        val bar = remember {
-                            movableContentOf {
-                                navigationBar(
-                                    tabBarScrollConnection,
-                                    Modifier
-                                        .animateBounds(lookaheadScope = this@PersistentScaffold),
-                                )
-                            }
-                        }
-
-                        if (tabBarScrollConnection.isCollapsed) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
-                                modifier = Modifier,
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1F),
-                                ) {
-                                    bar()
-                                }
-
-                                fab()
-                            }
-                        } else {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
-                            ) {
-                                fab()
-
-                                bar()
-                            }
-                        }
-                    }
+                            },
+                    )
                 }
             }
         },
     )
+}
+
+@Composable
+private fun ScaffoldState.FloatingContent(
+    tabBarScrollConnection: FloatingTabBarScrollConnection,
+    floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit,
+    navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .navigationBarsPadding()
+            .padding(24.dp),
+    ) {
+        val movableFab = remember {
+            movableContentOf {
+                floatingActionButton(
+                    Modifier
+                        .animateBounds(lookaheadScope = this@FloatingContent),
+                )
+            }
+        }
+
+        val movableNavigationBar = remember {
+            movableContentOf {
+                navigationBar(
+                    tabBarScrollConnection,
+                    Modifier
+                        .animateBounds(lookaheadScope = this@FloatingContent),
+                )
+            }
+        }
+
+        if (tabBarScrollConnection.isCollapsed) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+                modifier = Modifier,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1F),
+                ) {
+                    movableNavigationBar()
+                }
+
+                movableFab()
+            }
+        } else {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+            ) {
+                movableFab()
+
+                movableNavigationBar()
+            }
+        }
+    }
 }
 
 @Composable

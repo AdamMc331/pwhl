@@ -24,12 +24,12 @@ class FetchRecentGamesUseCase(
         )
 
         return repository.fetchGames(request).map { gameList ->
-            gameList.map(::GameSummaryDisplayModel).take(25)
+            gameList.map(::GameSummaryDisplayModel)
         }
     }
 
     @Suppress("UndocumentedPublicClass") // Remove after Detekt is updated: https://github.com/detekt/detekt/pull/7635/
     private companion object {
-        private const val DAYS_BACK = 365
+        private const val DAYS_BACK = 7
     }
 }

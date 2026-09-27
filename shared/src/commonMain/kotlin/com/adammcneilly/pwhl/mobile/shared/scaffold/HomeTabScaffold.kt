@@ -43,7 +43,6 @@ fun ScaffoldState.HomeTabScaffold(
     PersistentScaffold(
         modifier = modifier,
         tabBarScrollConnection = tabBarScrollConnection,
-        topBar = topBar,
         floatingActionButton = floatingActionButton,
         navigationBar = navigationBar,
         navigationRail = navigationRail,

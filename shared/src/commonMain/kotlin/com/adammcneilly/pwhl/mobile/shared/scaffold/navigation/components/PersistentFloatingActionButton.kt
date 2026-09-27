@@ -6,7 +6,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -41,7 +41,7 @@ fun ScaffoldState.PersistentFloatingActionButton(
                 icon = icon,
                 onClick = onClick,
                 expanded = !tabBarScrollConnection.isCollapsed,
-                shape = RoundedCornerShape(50),
+                shape = CircleShape,
             )
         },
     )
