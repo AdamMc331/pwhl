@@ -3,6 +3,7 @@ package com.adammcneilly.pwhl.mobile.shared.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import com.materialkolor.rememberDynamicColorScheme
 
@@ -18,16 +19,24 @@ fun PWHLTheme(
         isAmoled = false,
     )
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        shapes = Shapes,
-        content = content,
-    )
+    CompositionLocalProvider(
+        LocalElevations provides Elevations.default,
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            shapes = Shapes,
+            content = content,
+        )
+    }
 }
 
 object PWHLTheme {
     val dimensions: Dimensions
         @Composable
         get() = LocalDimensions.current
+
+    val elevations: Elevations
+        @Composable
+        get() = LocalElevations.current
 }
