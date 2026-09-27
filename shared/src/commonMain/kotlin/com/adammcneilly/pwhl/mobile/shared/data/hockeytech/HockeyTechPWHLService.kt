@@ -5,7 +5,7 @@ import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechPlayByP
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechScoreBarResponseDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechSeasonDTO
 import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechSeasonListResponseDTO
-import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechStandingsListResponseDTO
+import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechStandingsResponseDTO
 import com.adammcneilly.pwhl.mobile.shared.data.remote.BaseKtorClient
 import com.adammcneilly.pwhl.mobile.shared.data.repositories.PWHLRepository
 import com.adammcneilly.pwhl.mobile.shared.data.requests.GameListRequest
@@ -55,25 +55,23 @@ class HockeyTechPWHLService(
         val endpoint = "feed/index.php"
 
         val standingsParams = mapOf(
-            HockeyTechParameterKeys.FEED to "statviewfeed",
-            HockeyTechParameterKeys.VIEW to "teams",
-            HockeyTechParameterKeys.GROUP_TEAMS_BY to "division",
+            HockeyTechParameterKeys.FEED to "modulekit",
+            HockeyTechParameterKeys.VIEW to "statviewtype",
             HockeyTechParameterKeys.CONTEXT to "overall",
+            HockeyTechParameterKeys.STAT to "conference",
+            HockeyTechParameterKeys.TYPE to "standings",
             HockeyTechParameterKeys.SORT to "points",
-            HockeyTechParameterKeys.SEASON to "8",
         )
 
-        return apiClient.getResponse<HockeyTechStandingsListResponseDTO>(
+        return apiClient.getResponse<HockeyTechStandingsResponseDTO>(
             endpoint = endpoint,
             params = standingsParams,
         ).map { standingsList ->
             standingsList
-                .firstOrNull()
-                ?.sections
-                ?.firstOrNull()
-                ?.data
+                .siteKit
+                ?.standings
                 ?.mapNotNull { data ->
-                    data?.parseStandingsRow()
+                    data.parseStandingsRow()
                 }
                 .orEmpty()
         }
