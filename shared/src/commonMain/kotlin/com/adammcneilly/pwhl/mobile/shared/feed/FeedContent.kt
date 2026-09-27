@@ -7,10 +7,17 @@ import androidx.compose.foundation.layout.plus
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
+import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentFloatingActionButton
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.GameListItem
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
@@ -24,11 +31,30 @@ fun FeedContent(
 ) {
     rememberScaffoldState().HomeTabScaffold(
         modifier = modifier,
+        floatingActionButton = { modifier ->
+            PersistentFloatingActionButton(
+                text = {
+                    Text(
+                        text = "Search",
+                        maxLines = 1,
+                    )
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null,
+                    )
+                },
+                onClick = {},
+                modifier = modifier,
+            )
+        },
         content = { scaffoldPadding ->
             Content(
                 state = state,
                 onGameClicked = onGameClicked,
-                contentPadding = scaffoldPadding,
+                contentPadding = scaffoldPadding.plus(PWHLTheme.dimensions.screenPadding),
+                scrollConnection = tabBarScrollConnection,
                 modifier = modifier,
             )
         },
@@ -40,6 +66,7 @@ private fun Content(
     state: FeedState,
     onGameClicked: (String) -> Unit,
     contentPadding: PaddingValues,
+    scrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier,
 ) {
     if (state.loadingRecentGames || state.loadingUpcomingGames) {
@@ -49,7 +76,8 @@ private fun Content(
             state = state,
             onGameClicked = onGameClicked,
             contentPadding = contentPadding,
-            modifier = modifier,
+            modifier = modifier
+                .nestedScroll(scrollConnection),
         )
     }
 }
@@ -62,7 +90,7 @@ private fun SuccessContent(
     modifier: Modifier,
 ) {
     LazyColumn(
-        contentPadding = contentPadding.plus(PWHLTheme.dimensions.screenPadding),
+        contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
         modifier = modifier,
     ) {

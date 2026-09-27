@@ -2,14 +2,32 @@ package com.adammcneilly.pwhl.mobile.shared.scaffold
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.animateBounds
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.plus
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
@@ -19,13 +37,12 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
  * or [com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentNavigationRail].
  */
 @Composable
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "UnusedParameter")
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.PersistentScaffold(
     modifier: Modifier = Modifier,
-    topBar: @Composable ScaffoldState.() -> Unit = {},
-    floatingActionButton: @Composable ScaffoldState.() -> Unit = {},
-    navigationBar: @Composable ScaffoldState.() -> Unit = {},
+    floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
+    navigationBar: @Composable ScaffoldState.(Modifier) -> Unit = { _ -> },
     navigationRail: @Composable ScaffoldState.() -> Unit = {},
     toastMessage: @Composable ScaffoldState.() -> Unit = {},
     content: @Composable ScaffoldState.(PaddingValues) -> Unit,
@@ -34,27 +51,100 @@ fun ScaffoldState.PersistentScaffold(
         modifier = modifier,
         navigationRail = navigationRail,
         content = {
-            Scaffold(
-                modifier = modifier
-                    .animateBounds(lookaheadScope = this),
-                topBar = {
-                    topBar()
-                },
-                floatingActionButton = {
-                    floatingActionButton()
-                },
-                bottomBar = {
-                    navigationBar()
-                },
-                snackbarHost = {
-                    toastMessage()
-                },
-                content = { paddingValues ->
-                    content(paddingValues)
-                },
-            )
+            Surface(
+                modifier = modifier,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                ) {
+                    var navBarHeightDp by remember {
+                        mutableStateOf(0.dp)
+                    }
+
+                    val density = LocalDensity.current
+
+                    // Only need statusBars because floating content handles navigation insets
+                    val insetPadding = WindowInsets.statusBars.asPaddingValues()
+                    val navigationPadding = PaddingValues(bottom = navBarHeightDp)
+                    val scaffoldPadding = insetPadding.plus(navigationPadding)
+                    content(scaffoldPadding)
+
+                    FloatingContent(
+                        floatingActionButton = floatingActionButton,
+                        navigationBar = navigationBar,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .onSizeChanged { size ->
+                                with(density) {
+                                    navBarHeightDp = size.height.toDp()
+                                }
+                            },
+                    )
+                }
+            }
         },
     )
+}
+
+/**
+ * Combines the [floatingActionButton] and [navigationBar] from a [PersistentScaffold]
+ * to synchronize animations based on the [tabBarScrollConnection].
+ */
+@Composable
+private fun ScaffoldState.FloatingContent(
+    floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit,
+    navigationBar: @Composable ScaffoldState.(Modifier) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .navigationBarsPadding()
+            .padding(PWHLTheme.dimensions.navBarPadding),
+    ) {
+        val movableFab = remember {
+            movableContentOf {
+                floatingActionButton(
+                    Modifier
+                        .animateBounds(lookaheadScope = this@FloatingContent),
+                )
+            }
+        }
+
+        val movableNavigationBar = remember {
+            movableContentOf {
+                navigationBar(
+                    Modifier
+                        .animateBounds(lookaheadScope = this@FloatingContent),
+                )
+            }
+        }
+
+        if (tabBarScrollConnection.isCollapsed) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+                modifier = Modifier,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1F),
+                ) {
+                    movableNavigationBar()
+                }
+
+                movableFab()
+            }
+        } else {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+            ) {
+                movableFab()
+
+                movableNavigationBar()
+            }
+        }
+    }
 }
 
 @Composable
