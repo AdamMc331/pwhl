@@ -13,7 +13,6 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.ScaffoldState
 @Composable
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.PersistentNavigationBar(
-    tabBarScrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier = Modifier,
     enterTransition: EnterTransition = slideInVertically(initialOffsetY = { it }),
     exitTransition: ExitTransition = slideOutVertically(targetOffsetY = { it }),

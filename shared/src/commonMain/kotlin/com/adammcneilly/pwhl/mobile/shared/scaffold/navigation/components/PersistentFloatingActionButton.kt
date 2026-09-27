@@ -16,7 +16,6 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.ScaffoldState
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("LongParameterList")
 fun ScaffoldState.PersistentFloatingActionButton(
-    tabBarScrollConnection: FloatingTabBarScrollConnection,
     text: @Composable () -> Unit,
     icon: @Composable () -> Unit,
     onClick: () -> Unit,

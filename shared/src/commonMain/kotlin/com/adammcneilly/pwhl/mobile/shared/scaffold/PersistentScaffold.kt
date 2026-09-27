@@ -29,7 +29,6 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 /**
@@ -42,9 +41,8 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.PersistentScaffold(
     modifier: Modifier = Modifier,
-    tabBarScrollConnection: FloatingTabBarScrollConnection = FloatingTabBarScrollConnection(),
     floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
-    navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit = { _, _ -> },
+    navigationBar: @Composable ScaffoldState.(Modifier) -> Unit = { _ -> },
     navigationRail: @Composable ScaffoldState.() -> Unit = {},
     toastMessage: @Composable ScaffoldState.() -> Unit = {},
     content: @Composable ScaffoldState.(PaddingValues) -> Unit,
@@ -73,7 +71,6 @@ fun ScaffoldState.PersistentScaffold(
                     content(WindowInsets.statusBars.asPaddingValues().plus(navBarAwarePadding))
 
                     FloatingContent(
-                        tabBarScrollConnection = tabBarScrollConnection,
                         floatingActionButton = floatingActionButton,
                         navigationBar = navigationBar,
                         modifier = Modifier
@@ -92,9 +89,8 @@ fun ScaffoldState.PersistentScaffold(
 
 @Composable
 private fun ScaffoldState.FloatingContent(
-    tabBarScrollConnection: FloatingTabBarScrollConnection,
     floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit,
-    navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit,
+    navigationBar: @Composable ScaffoldState.(Modifier) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -114,7 +110,6 @@ private fun ScaffoldState.FloatingContent(
         val movableNavigationBar = remember {
             movableContentOf {
                 navigationBar(
-                    tabBarScrollConnection,
                     Modifier
                         .animateBounds(lookaheadScope = this@FloatingContent),
                 )

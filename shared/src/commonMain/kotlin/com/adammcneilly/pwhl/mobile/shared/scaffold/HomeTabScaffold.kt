@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentNavigationBar
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentNavigationRail
 
@@ -19,13 +18,11 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.Persis
 @Suppress("LongParameterList")
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.HomeTabScaffold(
-    tabBarScrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier = Modifier,
     topBar: @Composable ScaffoldState.() -> Unit = {},
     floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
-    navigationBar: @Composable ScaffoldState.(FloatingTabBarScrollConnection, Modifier) -> Unit = { tabBarScrollConnection, modifier ->
+    navigationBar: @Composable ScaffoldState.(Modifier) -> Unit = { modifier ->
         PersistentNavigationBar(
-            tabBarScrollConnection = tabBarScrollConnection,
             modifier = modifier
                 .animateEnterExit(
                     enter = slideInVertically(initialOffsetY = { it }),
@@ -42,7 +39,6 @@ fun ScaffoldState.HomeTabScaffold(
 ) {
     PersistentScaffold(
         modifier = modifier,
-        tabBarScrollConnection = tabBarScrollConnection,
         floatingActionButton = floatingActionButton,
         navigationBar = navigationBar,
         navigationRail = navigationRail,

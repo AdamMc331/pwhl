@@ -18,7 +18,6 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.FloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentFloatingActionButton
-import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.rememberFloatingTabBarScrollConnection
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.GameListItem
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
@@ -30,14 +29,10 @@ fun FeedContent(
     onGameClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val scrollConnection = rememberFloatingTabBarScrollConnection()
-
     rememberScaffoldState().HomeTabScaffold(
-        tabBarScrollConnection = scrollConnection,
         modifier = modifier,
         floatingActionButton = { modifier ->
             PersistentFloatingActionButton(
-                tabBarScrollConnection = scrollConnection,
                 text = {
                     Text(
                         text = "Search",
@@ -59,7 +54,7 @@ fun FeedContent(
                 state = state,
                 onGameClicked = onGameClicked,
                 contentPadding = scaffoldPadding,
-                scrollConnection = scrollConnection,
+                scrollConnection = tabBarScrollConnection,
                 modifier = modifier,
             )
         },
