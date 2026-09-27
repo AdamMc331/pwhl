@@ -12,11 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.NavItem
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
-@Suppress("DpUsageRule")
 @Composable
 fun BottomNavigationBarItem(
     navItem: NavItem,
@@ -36,8 +34,7 @@ fun BottomNavigationBarItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .padding(
-                    vertical = 16.dp,
-                    horizontal = 4.dp,
+                    vertical = PWHLTheme.dimensions.componentVerticalPadding * 2,
                 ),
         ) {
             Icon(
