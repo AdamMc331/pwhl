@@ -2,3 +2,4 @@ pwhl-rules:
   active: true
   DpUsageRule:
     active: true
+    ignoreValues: ['0']
