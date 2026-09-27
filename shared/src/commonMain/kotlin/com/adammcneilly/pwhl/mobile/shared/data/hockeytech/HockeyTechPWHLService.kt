@@ -59,8 +59,8 @@ class HockeyTechPWHLService(
             HockeyTechParameterKeys.VIEW to "teams",
             HockeyTechParameterKeys.GROUP_TEAMS_BY to "division",
             HockeyTechParameterKeys.CONTEXT to "overall",
-            HockeyTechParameterKeys.SPECIAL to "false", // What does this mean?
             HockeyTechParameterKeys.SORT to "points",
+            HockeyTechParameterKeys.SEASON to "8",
         )
 
         return apiClient.getResponse<HockeyTechStandingsListResponseDTO>(
