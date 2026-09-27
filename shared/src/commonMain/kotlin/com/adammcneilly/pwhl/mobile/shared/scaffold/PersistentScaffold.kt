@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.plus
-import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -62,13 +62,9 @@ fun ScaffoldState.PersistentScaffold(
                         mutableStateOf(0.dp)
                     }
 
-                    val navBarAwarePadding = PaddingValues(
-                        bottom = navBarHeightDp + 12.dp,
-                    )
-
                     val density = LocalDensity.current
 
-                    content(WindowInsets.statusBars.asPaddingValues().plus(navBarAwarePadding))
+                    content(WindowInsets.systemBars.asPaddingValues())
 
                     FloatingContent(
                         floatingActionButton = floatingActionButton,
@@ -87,6 +83,10 @@ fun ScaffoldState.PersistentScaffold(
     )
 }
 
+/**
+ * Combines the [floatingActionButton] and [navigationBar] from a [PersistentScaffold]
+ * to synchronize animations based on the [tabBarScrollConnection].
+ */
 @Composable
 private fun ScaffoldState.FloatingContent(
     floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit,

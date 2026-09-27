@@ -91,6 +91,7 @@ private fun SuccessContent(
 ) {
     LazyColumn(
         contentPadding = contentPadding
+            // Skip bottom padding because it's covered by the nav content
             .plus(PaddingValues(top = PWHLTheme.dimensions.screenPaddingVertical.div(2)))
             .plus(PaddingValues(horizontal = PWHLTheme.dimensions.screenPaddingHorizontal)),
         verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
