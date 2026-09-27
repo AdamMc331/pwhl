@@ -26,8 +26,9 @@ class DpUsageRule(
     ) {
         val isConstant = expression.receiverExpression is KtConstantExpression
         val isDpConversion = expression.selectorExpression?.text == "dp"
+        val isDefault = expression.receiverExpression.text == "0"
 
-        if (isConstant && isDpConversion) {
+        if (isConstant && isDpConversion && !isDefault) {
             report(CodeSmell(issue, Entity.from(expression), issue.description))
         }
 

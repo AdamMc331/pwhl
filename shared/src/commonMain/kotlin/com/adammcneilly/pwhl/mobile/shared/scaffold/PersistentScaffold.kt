@@ -38,7 +38,7 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
  * or [com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.PersistentNavigationRail].
  */
 @Composable
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "UnusedParameter")
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.PersistentScaffold(
     modifier: Modifier = Modifier,

@@ -25,7 +25,19 @@ class DpUsageRuleTest {
         val findings = subject.lint(codeWithDimensions)
         assertThat(findings).hasSize(0)
     }
+
+    @Test
+    fun `pass file with zero dp extension`() {
+        val findings = subject.lint(codeWithZeroIntExtension)
+        assertThat(findings).hasSize(0)
+    }
 }
+
+private val codeWithZeroIntExtension: String = """
+    import androidx.compose.ui.unit.dp
+    
+    val myWidth = 0.dp
+""".trimIndent()
 
 private val codeWithIntExtension: String = """
     import androidx.compose.ui.unit.dp
