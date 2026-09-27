@@ -14,7 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.NavItem
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
+@Suppress("DpUsageRule")
 @Composable
 fun BottomNavigationBarItem(
     navItem: NavItem,
@@ -42,7 +44,7 @@ fun BottomNavigationBarItem(
                 imageVector = navItem.tab.icon,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(24.dp),
+                    .size(PWHLTheme.dimensions.imageSizeUltraCompact),
             )
 
             AnimatedVisibility(
@@ -51,7 +53,7 @@ fun BottomNavigationBarItem(
                 Text(
                     text = navItem.tab.label,
                     modifier = Modifier
-                        .padding(top = 4.dp),
+                        .padding(PWHLTheme.dimensions.itemSpacingUltraCompact),
                 )
             }
         }

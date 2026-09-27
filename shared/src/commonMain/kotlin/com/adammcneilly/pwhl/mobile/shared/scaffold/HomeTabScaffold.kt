@@ -19,7 +19,6 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components.Persis
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun ScaffoldState.HomeTabScaffold(
     modifier: Modifier = Modifier,
-    topBar: @Composable ScaffoldState.() -> Unit = {},
     floatingActionButton: @Composable ScaffoldState.(Modifier) -> Unit = {},
     navigationBar: @Composable ScaffoldState.(Modifier) -> Unit = { modifier ->
         PersistentNavigationBar(

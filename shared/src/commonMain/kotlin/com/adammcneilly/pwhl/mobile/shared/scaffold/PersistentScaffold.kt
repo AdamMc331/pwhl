@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.plus
-import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -64,7 +64,8 @@ fun ScaffoldState.PersistentScaffold(
 
                     val density = LocalDensity.current
 
-                    val insetPadding = WindowInsets.systemBars.asPaddingValues()
+                    // Only need statusBars because floating content handles navigation insets
+                    val insetPadding = WindowInsets.statusBars.asPaddingValues()
                     val navigationPadding = PaddingValues(bottom = navBarHeightDp)
                     val scaffoldPadding = insetPadding.plus(navigationPadding)
                     content(scaffoldPadding)
@@ -99,7 +100,7 @@ private fun ScaffoldState.FloatingContent(
     Box(
         modifier = modifier
             .navigationBarsPadding()
-            .padding(24.dp),
+            .padding(PWHLTheme.dimensions.navBarPadding),
     ) {
         val movableFab = remember {
             movableContentOf {
