@@ -2,6 +2,7 @@ package com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -12,11 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.NavItem
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 @Composable
-fun BottomNavigationBarItem(
+@Suppress("DpUsageRule")
+fun NavigationBarItem(
     navItem: NavItem,
     labelVisible: Boolean,
     modifier: Modifier = Modifier,
@@ -33,8 +36,9 @@ fun BottomNavigationBarItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
+                .fillMaxWidth()
                 .padding(
-                    vertical = PWHLTheme.dimensions.componentVerticalPadding * 2,
+                    vertical = 16.dp,
                 ),
         ) {
             Icon(

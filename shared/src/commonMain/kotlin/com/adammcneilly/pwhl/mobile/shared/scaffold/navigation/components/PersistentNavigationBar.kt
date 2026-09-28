@@ -29,7 +29,7 @@ fun ScaffoldState.PersistentNavigationBar(
         enter = enterTransition,
         exit = exitTransition,
         content = {
-            BottomNavigationBar(
+            FloatingNavigationBar(
                 tabBarScrollConnection = tabBarScrollConnection,
             )
         },

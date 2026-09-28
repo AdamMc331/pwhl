@@ -12,7 +12,7 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 @Composable
-fun BottomNavigationBar(
+fun FloatingNavigationBar(
     tabBarScrollConnection: FloatingTabBarScrollConnection,
     modifier: Modifier = Modifier,
 ) {
@@ -28,7 +28,7 @@ fun BottomNavigationBar(
     ) {
         Row {
             appState.navItems.forEach { item ->
-                BottomNavigationBarItem(
+                NavigationBarItem(
                     navItem = item,
                     labelVisible = !tabBarScrollConnection.isCollapsed,
                     modifier = Modifier
