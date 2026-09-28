@@ -9,6 +9,7 @@ import com.adammcneilly.pwhl.mobile.shared.data.hockeytech.dto.HockeyTechStandin
 import com.adammcneilly.pwhl.mobile.shared.data.remote.BaseKtorClient
 import com.adammcneilly.pwhl.mobile.shared.data.repositories.PWHLRepository
 import com.adammcneilly.pwhl.mobile.shared.data.requests.GameListRequest
+import com.adammcneilly.pwhl.mobile.shared.data.requests.StandingsListRequest
 import com.adammcneilly.pwhl.mobile.shared.models.GameDetail
 import com.adammcneilly.pwhl.mobile.shared.models.GameSummary
 import com.adammcneilly.pwhl.mobile.shared.models.Season
@@ -51,7 +52,9 @@ class HockeyTechPWHLService(
             .map(HockeyTechScoreBarResponseDTO::parseGames)
     }
 
-    override suspend fun fetchStandings(): Result<List<StandingsRow>> {
+    override suspend fun fetchStandings(
+        request: StandingsListRequest,
+    ): Result<List<StandingsRow>> {
         val endpoint = "feed/index.php"
 
         val standingsParams = mapOf(
@@ -61,6 +64,7 @@ class HockeyTechPWHLService(
             HockeyTechParameterKeys.STAT to "conference",
             HockeyTechParameterKeys.TYPE to "standings",
             HockeyTechParameterKeys.SORT to "points",
+            HockeyTechParameterKeys.SEASON to request.seasonId,
         )
 
         return apiClient.getResponse<HockeyTechStandingsResponseDTO>(

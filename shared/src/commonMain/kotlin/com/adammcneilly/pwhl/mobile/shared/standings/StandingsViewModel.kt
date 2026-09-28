@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchStandingsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -22,24 +24,31 @@ class StandingsViewModel(
     }
 
     private fun fetchStandings() {
-        mutableState.update { currentState ->
-            currentState.copy(
-                isLoading = true,
-            )
-        }
-
         viewModelScope.launch {
-            val standings = fetchStandingsUseCase
-                .invoke()
-                .getOrNull()
-                .orEmpty()
+            state
+                .map { state ->
+                    state.buildRequest()
+                }
+                .distinctUntilChanged()
+                .collect {
+                    mutableState.update { currentState ->
+                        currentState.copy(
+                            isLoading = true,
+                        )
+                    }
 
-            mutableState.update { currentState ->
-                currentState.copy(
-                    isLoading = false,
-                    standings = standings,
-                )
-            }
+                    val standings = fetchStandingsUseCase
+                        .invoke(state.value.buildRequest())
+                        .getOrNull()
+                        .orEmpty()
+
+                    mutableState.update { currentState ->
+                        currentState.copy(
+                            isLoading = false,
+                            standings = standings,
+                        )
+                    }
+                }
         }
     }
 }
