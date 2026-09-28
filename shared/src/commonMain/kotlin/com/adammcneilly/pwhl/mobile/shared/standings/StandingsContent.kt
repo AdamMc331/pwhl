@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
@@ -29,7 +30,8 @@ fun StandingsContent(
                     state = state,
                     onTeamClicked = onTeamClicked,
                     contentPadding = scaffoldPadding.plus(PWHLTheme.dimensions.screenPadding),
-                    modifier = modifier,
+                    modifier = modifier
+                        .nestedScroll(tabBarScrollConnection),
                 )
             }
         },
