@@ -1,6 +1,7 @@
 package com.adammcneilly.pwhl.mobile.shared.data.repositories
 
 import com.adammcneilly.pwhl.mobile.shared.data.requests.GameListRequest
+import com.adammcneilly.pwhl.mobile.shared.data.requests.StandingsListRequest
 import com.adammcneilly.pwhl.mobile.shared.models.GameDetail
 import com.adammcneilly.pwhl.mobile.shared.models.GameSummary
 import com.adammcneilly.pwhl.mobile.shared.models.Season
@@ -19,7 +20,9 @@ interface PWHLRepository {
         request: GameListRequest,
     ): Result<List<GameSummary>>
 
-    suspend fun fetchStandings(): Result<List<StandingsRow>>
+    suspend fun fetchStandings(
+        request: StandingsListRequest,
+    ): Result<List<StandingsRow>>
 
     suspend fun fetchGameDetail(
         gameId: String,
