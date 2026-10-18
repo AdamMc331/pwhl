@@ -69,7 +69,6 @@ fun GameListItem(
         ) {
             TeamImageName(
                 team = game.homeTeam.team,
-                gameId = game.id,
             )
 
             GoalsText(
@@ -89,7 +88,6 @@ fun GameListItem(
 
             TeamImageName(
                 team = game.awayTeam.team,
-                gameId = game.id,
             )
         }
     }
@@ -110,7 +108,6 @@ private fun GoalsText(
 @Composable
 private fun TeamImageName(
     team: TeamDisplayModel,
-    gameId: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -123,7 +120,6 @@ private fun TeamImageName(
             contentDescription = null,
             modifier = Modifier
                 .size(PWHLTheme.dimensions.imageSizeDefault),
-//                .sharedElement(team.imageSharedElementKey(gameId)),
         )
 
         Text(

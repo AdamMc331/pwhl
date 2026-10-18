@@ -20,6 +20,7 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilitySc
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.ui.components.ImageWrapper
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
 
 private const val GAME_STATUS_WIDTH_RATIO = 0.50F
 
@@ -134,8 +135,8 @@ private fun TeamNameLogo(
                 image = team.image,
                 contentDescription = team.name,
                 modifier = Modifier
-                    .size(PWHLTheme.dimensions.imageSizeDefault),
-//                    .sharedElement(team.imageSharedElementKey(gameId)),
+                    .size(PWHLTheme.dimensions.imageSizeDefault)
+                    .sharedElement(team.imageSharedElementKey(gameId)),
             )
 
             Text(
