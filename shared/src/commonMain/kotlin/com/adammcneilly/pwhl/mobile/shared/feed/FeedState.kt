@@ -11,8 +11,6 @@ data class FeedState(
     val loadingUpcomingGames: Boolean,
     val upcomingGames: Map<String, List<GameSummaryDisplayModel>>,
 ) {
-    // Remove after Detekt is updated: https://github.com/detekt/detekt/pull/7635/
-    @Suppress("UndocumentedPublicClass")
     companion object {
         /**
          * Provides a default implementation of the feed state

@@ -12,8 +12,6 @@ data class GameDetailState(
     val playByPlayEvents: Map<String, List<PlayByPlayEventDisplayModel>>,
     val selectedMvpId: String?,
 ) {
-    // Remove after Detekt is updated: https://github.com/detekt/detekt/pull/7635/
-    @Suppress("UndocumentedPublicClass")
     companion object {
         /**
          * Provides a default state for the

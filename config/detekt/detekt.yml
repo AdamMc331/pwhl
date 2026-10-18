@@ -16,8 +16,7 @@ comments:
       '**/androidInstrumentedTest/**',
       '**/iosTest/**'
     ]
-    # Coming soon
-#    ignoreDefaultCompanionObject: true
+    ignoreDefaultCompanionObject: true
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true

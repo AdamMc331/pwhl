@@ -13,8 +13,6 @@ sealed interface ImageDisplayModel {
         val resource: DrawableResource,
     ) : ImageDisplayModel
 
-    // Remove after Detekt is updated: https://github.com/detekt/detekt/pull/7635/
-    @Suppress("UndocumentedPublicClass")
     companion object {
         val Placeholder = Local(
             resource = Res.drawable.pwhl,
