@@ -2,6 +2,8 @@ package com.adammcneilly.pwhl.mobile.shared.gamedetail
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
@@ -19,11 +22,15 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamGameDetailResultDis
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilityScope
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.ui.components.ImageWrapper
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
+import com.materialkolor.ktx.darken
+import com.materialkolor.ktx.lighten
 
 private const val GAME_STATUS_WIDTH_RATIO = 0.50F
+private const val TEAM_COLOR_CHANGE_RATIO = 1.5F
 
 @Composable
 fun GameDetailHeader(
@@ -33,7 +40,11 @@ fun GameDetailHeader(
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier,
+        modifier = modifier
+            .background(
+                brush = buildHeaderGradient(game),
+            )
+            .sharedBounds(game.headerSharedElementKey),
     ) {
         TeamNameLogo(
             team = game.homeTeam.team,
@@ -77,11 +88,7 @@ private fun GameSummary(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth(GAME_STATUS_WIDTH_RATIO)
-                    .sharedBounds(
-                        sharedContentState = rememberSharedContentState(key = "${game.id}_status"),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
-                    ),
+                    .sharedBounds(game.statusSharedElementKey),
             )
 
             Text(
@@ -157,4 +164,32 @@ private fun TeamNameLogo(
             )
         }
     }
+}
+
+@Composable
+private fun buildHeaderGradient(
+    game: GameDetailDisplayModel,
+): Brush {
+    val homeTeamColor = with(PWHLColors.fromTeamId(game.homeTeam.team.id)) {
+        if (isSystemInDarkTheme()) {
+            this.darken(TEAM_COLOR_CHANGE_RATIO)
+        } else {
+            this.lighten(TEAM_COLOR_CHANGE_RATIO)
+        }
+    }
+
+    val awayTeamColor = with(PWHLColors.fromTeamId(game.awayTeam.team.id)) {
+        if (isSystemInDarkTheme()) {
+            this.darken(TEAM_COLOR_CHANGE_RATIO)
+        } else {
+            this.lighten(TEAM_COLOR_CHANGE_RATIO)
+        }
+    }
+
+    return Brush.linearGradient(
+        colors = listOf(
+            homeTeamColor,
+            awayTeamColor,
+        ),
+    )
 }

@@ -46,7 +46,8 @@ fun GameListItem(
                     shape = MaterialTheme.shapes.large,
                 )
                 .fillMaxWidth()
-                .padding(PWHLTheme.dimensions.componentPadding),
+                .padding(PWHLTheme.dimensions.componentPadding)
+                .sharedBounds(game.headerSharedElementKey),
         ) {
             TeamImageName(
                 team = game.homeTeam.team,
@@ -68,7 +69,8 @@ fun GameListItem(
                 text = game.status,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .weight(1F),
+                    .weight(1F)
+                    .sharedBounds(game.statusSharedElementKey),
             )
 
             GoalsText(

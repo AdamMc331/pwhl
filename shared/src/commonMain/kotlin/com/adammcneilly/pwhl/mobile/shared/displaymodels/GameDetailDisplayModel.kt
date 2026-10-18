@@ -32,6 +32,10 @@ data class GameDetailDisplayModel(
         status = game.status,
         dateString = game.dateString(),
     )
+
+    val statusSharedElementKey = "game_${id}_status"
+
+    val headerSharedElementKey = "game_${id}_header"
 }
 
 private fun GameDetail.dateString(): String {
