@@ -30,18 +30,18 @@ private fun FeedContentLoadedPreview() {
                 loadingRecentGames = false,
                 loadingUpcomingGames = false,
                 recentGames = mapOf(
-                    "Recent" to listOf(
-                        testCompletedGameSummaryDisplayModel,
-                        testCompletedGameSummaryDisplayModel,
-                        testCompletedGameSummaryDisplayModel,
-                    ),
+                    "Recent" to List(3) { index ->
+                        testCompletedGameSummaryDisplayModel.copy(
+                            id = index.toString(),
+                        )
+                    },
                 ),
                 upcomingGames = mapOf(
-                    "Upcoming" to listOf(
-                        testUpcomingGameSummaryDisplayModel,
-                        testUpcomingGameSummaryDisplayModel,
-                        testUpcomingGameSummaryDisplayModel,
-                    ),
+                    "Upcoming" to List(3) { index ->
+                        testUpcomingGameSummaryDisplayModel.copy(
+                            id = index.toString(),
+                        )
+                    },
                 ),
             ),
             onGameClicked = {},
