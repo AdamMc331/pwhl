@@ -17,8 +17,6 @@ data class StandingsState(
         )
     }
 
-    // Remove after Detekt is updated: https://github.com/detekt/detekt/pull/7635/
-    @Suppress("UndocumentedPublicClass")
     companion object {
         /**
          * Default state of the standings screen when it is first created.

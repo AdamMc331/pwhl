@@ -28,7 +28,6 @@ class FetchUpcomingGamesUseCase(
         }
     }
 
-    @Suppress("UndocumentedPublicClass") // Remove after Detekt is updated: https://github.com/detekt/detekt/pull/7635/
     private companion object {
         private const val DAYS_AHEAD = 3
     }
