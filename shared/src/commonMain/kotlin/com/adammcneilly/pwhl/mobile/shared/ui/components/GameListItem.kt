@@ -22,7 +22,6 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
-import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
 import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.lighten
 
@@ -123,8 +122,8 @@ private fun TeamImageName(
             image = team.image,
             contentDescription = null,
             modifier = Modifier
-                .size(PWHLTheme.dimensions.imageSizeDefault)
-                .sharedElement(team.imageSharedElementKey(gameId)),
+                .size(PWHLTheme.dimensions.imageSizeDefault),
+//                .sharedElement(team.imageSharedElementKey(gameId)),
         )
 
         Text(

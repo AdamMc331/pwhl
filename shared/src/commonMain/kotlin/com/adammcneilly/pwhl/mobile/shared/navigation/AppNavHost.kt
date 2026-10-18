@@ -176,6 +176,7 @@ private fun homeTabEntry(
                 HomeTab.Feed -> {
                     FeedScreen(
                         onGameClicked = { gameId ->
+                            println("ADAMLOG - NAVIGATE TO GAME: $gameId")
                             navigateOrReplace(
                                 newScreen = AppScreen.GameDetail(gameId),
                                 backStack = backStack,

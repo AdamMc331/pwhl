@@ -21,9 +21,7 @@ data class TeamDisplayModel(
     fun imageSharedElementKey(
         gameId: String,
     ): String {
-        return buildString {
-            append("team_${id}_image_game_$gameId")
-        }
+        return "team_${id}_image_game_$gameId"
     }
 }
 
