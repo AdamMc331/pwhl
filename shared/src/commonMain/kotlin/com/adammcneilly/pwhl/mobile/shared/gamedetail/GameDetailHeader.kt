@@ -109,11 +109,10 @@ private fun TeamScore(
             style = MaterialTheme.typography.displayMedium,
             modifier = Modifier
                 .sharedBounds(
-                    sharedContentState = rememberSharedContentState(
-                        key = "${teamGameResult.team.name}_${gameId}_score",
+                    key = teamGameResult.team.gameSharedElementKey(
+                        gameId = gameId,
+                        field = TeamDisplayModel.SharedElementFields.Goals,
                     ),
-                    animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                    resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                 ),
         )
     }
@@ -137,14 +136,24 @@ private fun TeamNameLogo(
                 contentDescription = team.name,
                 modifier = Modifier
                     .size(PWHLTheme.dimensions.imageSizeDefault)
-                    .sharedElement(team.imageSharedElementKey(gameId)),
+                    .sharedElement(
+                        key = team.gameSharedElementKey(
+                            gameId = gameId,
+                            field = TeamDisplayModel.SharedElementFields.Image,
+                        ),
+                    ),
             )
 
             Text(
                 text = team.shortCode,
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
-                    .sharedBounds(team.shortCodeSharedElementKey(gameId)),
+                    .sharedBounds(
+                        key = team.gameSharedElementKey(
+                            gameId = gameId,
+                            field = TeamDisplayModel.SharedElementFields.ShortCode,
+                        ),
+                    ),
             )
         }
     }

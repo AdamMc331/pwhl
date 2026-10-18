@@ -18,28 +18,17 @@ data class TeamDisplayModel(
         image = team.image(),
     )
 
-    fun imageSharedElementKey(
-        gameId: String? = null,
+    fun gameSharedElementKey(
+        gameId: String,
+        field: SharedElementFields,
     ): String {
-        return buildString {
-            append("team_${id}_image")
-
-            if (gameId != null) {
-                append("game_$gameId")
-            }
-        }
+        return "team_${id}_game_${gameId}_$field"
     }
 
-    fun shortCodeSharedElementKey(
-        gameId: String? = null,
-    ): String {
-        return buildString {
-            append("team_${id}_shortcode")
-
-            if (gameId != null) {
-                append("game_$gameId")
-            }
-        }
+    enum class SharedElementFields {
+        Image,
+        ShortCode,
+        Goals,
     }
 }
 

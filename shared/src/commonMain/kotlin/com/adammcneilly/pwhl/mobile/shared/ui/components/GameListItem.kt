@@ -76,6 +76,13 @@ fun GameListItem(
 
             GoalsText(
                 goals = game.homeTeam.goals.toString(),
+                modifier = Modifier
+                    .sharedBounds(
+                        key = game.homeTeam.team.gameSharedElementKey(
+                            gameId = game.id,
+                            field = TeamDisplayModel.SharedElementFields.Goals,
+                        ),
+                    ),
             )
 
             Text(
@@ -87,6 +94,13 @@ fun GameListItem(
 
             GoalsText(
                 goals = game.awayTeam.goals.toString(),
+                modifier = Modifier
+                    .sharedBounds(
+                        key = game.awayTeam.team.gameSharedElementKey(
+                            gameId = game.id,
+                            field = TeamDisplayModel.SharedElementFields.Goals,
+                        ),
+                    ),
             )
 
             TeamImageName(
@@ -125,14 +139,24 @@ private fun TeamImageName(
             contentDescription = null,
             modifier = Modifier
                 .size(PWHLTheme.dimensions.imageSizeDefault)
-                .sharedElement(team.imageSharedElementKey(gameId)),
+                .sharedElement(
+                    key = team.gameSharedElementKey(
+                        gameId = gameId,
+                        field = TeamDisplayModel.SharedElementFields.Image,
+                    ),
+                ),
         )
 
         Text(
             text = team.shortCode,
             style = MaterialTheme.typography.labelLarge,
             modifier = Modifier
-                .sharedBounds(team.shortCodeSharedElementKey(gameId)),
+                .sharedBounds(
+                    key = team.gameSharedElementKey(
+                        gameId = gameId,
+                        field = TeamDisplayModel.SharedElementFields.ShortCode,
+                    ),
+                ),
         )
     }
 }
