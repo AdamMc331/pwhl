@@ -1,5 +1,7 @@
 package com.adammcneilly.pwhl.mobile.shared.gamedetail
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,14 +9,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.PlayByPlayEventDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.gamedetail.xr.ImmersiveGameDetailContent
 import com.adammcneilly.pwhl.mobile.shared.scaffold.PersistentScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.xr.LocalXRSession
+import com.materialkolor.ktx.darken
+import com.materialkolor.ktx.lighten
+
+private const val TEAM_COLOR_CHANGE_RATIO = 1.5F
 
 @Composable
 fun GameDetailContent(
@@ -90,6 +99,10 @@ private fun SuccessContent(
         GameDetailHeader(
             game = game,
             modifier = Modifier
+                .background(
+                    brush = buildHeaderGradient(game),
+                )
+                .sharedBounds(game.headerSharedElementKey)
                 .fillMaxWidth()
                 .padding(PWHLTheme.dimensions.componentPadding),
         )
@@ -101,4 +114,32 @@ private fun SuccessContent(
                 .fillMaxSize(),
         )
     }
+}
+
+@Composable
+private fun buildHeaderGradient(
+    game: GameDetailDisplayModel,
+): Brush {
+    val homeTeamColor = with(PWHLColors.fromTeamId(game.homeTeam.team.id)) {
+        if (isSystemInDarkTheme()) {
+            this.darken(TEAM_COLOR_CHANGE_RATIO)
+        } else {
+            this.lighten(TEAM_COLOR_CHANGE_RATIO)
+        }
+    }
+
+    val awayTeamColor = with(PWHLColors.fromTeamId(game.awayTeam.team.id)) {
+        if (isSystemInDarkTheme()) {
+            this.darken(TEAM_COLOR_CHANGE_RATIO)
+        } else {
+            this.lighten(TEAM_COLOR_CHANGE_RATIO)
+        }
+    }
+
+    return Brush.linearGradient(
+        colors = listOf(
+            homeTeamColor,
+            awayTeamColor,
+        ),
+    )
 }
