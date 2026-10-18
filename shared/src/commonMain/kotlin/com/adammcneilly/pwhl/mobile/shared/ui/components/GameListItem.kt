@@ -37,33 +37,12 @@ fun GameListItem(
     CompositionLocalProvider(
         LocalContentColor provides Color.White,
     ) {
-        val homeTeamColor = with(PWHLColors.fromTeamId(game.homeTeam.team.id)) {
-            if (isSystemInDarkTheme()) {
-                this.darken(TEAM_COLOR_CHANGE_RATIO)
-            } else {
-                this.lighten(TEAM_COLOR_CHANGE_RATIO)
-            }
-        }
-
-        val awayTeamColor = with(PWHLColors.fromTeamId(game.awayTeam.team.id)) {
-            if (isSystemInDarkTheme()) {
-                this.darken(TEAM_COLOR_CHANGE_RATIO)
-            } else {
-                this.lighten(TEAM_COLOR_CHANGE_RATIO)
-            }
-        }
-
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
             modifier = modifier
                 .background(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            homeTeamColor,
-                            awayTeamColor,
-                        ),
-                    ),
+                    brush = buildHeaderGradient(game),
                     shape = MaterialTheme.shapes.large,
                 )
                 .fillMaxWidth()
@@ -109,6 +88,34 @@ fun GameListItem(
             )
         }
     }
+}
+
+@Composable
+private fun buildHeaderGradient(
+    game: GameSummaryDisplayModel,
+): Brush {
+    val homeTeamColor = with(PWHLColors.fromTeamId(game.homeTeam.team.id)) {
+        if (isSystemInDarkTheme()) {
+            this.darken(TEAM_COLOR_CHANGE_RATIO)
+        } else {
+            this.lighten(TEAM_COLOR_CHANGE_RATIO)
+        }
+    }
+
+    val awayTeamColor = with(PWHLColors.fromTeamId(game.awayTeam.team.id)) {
+        if (isSystemInDarkTheme()) {
+            this.darken(TEAM_COLOR_CHANGE_RATIO)
+        } else {
+            this.lighten(TEAM_COLOR_CHANGE_RATIO)
+        }
+    }
+
+    return Brush.linearGradient(
+        colors = listOf(
+            homeTeamColor,
+            awayTeamColor,
+        ),
+    )
 }
 
 @Composable
