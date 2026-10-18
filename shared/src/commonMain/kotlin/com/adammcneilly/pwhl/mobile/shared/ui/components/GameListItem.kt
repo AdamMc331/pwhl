@@ -22,6 +22,7 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
 import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.lighten
 
@@ -69,6 +70,7 @@ fun GameListItem(
         ) {
             TeamImageName(
                 team = game.homeTeam.team,
+                gameId = game.id,
             )
 
             GoalsText(
@@ -88,6 +90,7 @@ fun GameListItem(
 
             TeamImageName(
                 team = game.awayTeam.team,
+                gameId = game.id,
             )
         }
     }
@@ -108,6 +111,7 @@ private fun GoalsText(
 @Composable
 private fun TeamImageName(
     team: TeamDisplayModel,
+    gameId: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -119,7 +123,8 @@ private fun TeamImageName(
             image = team.image,
             contentDescription = null,
             modifier = Modifier
-                .size(PWHLTheme.dimensions.imageSizeDefault),
+                .size(PWHLTheme.dimensions.imageSizeDefault)
+                .sharedElement(team.imageSharedElementKey(gameId)),
         )
 
         Text(

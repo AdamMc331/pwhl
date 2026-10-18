@@ -17,6 +17,14 @@ data class TeamDisplayModel(
         shortCode = team.shortCode,
         image = team.image(),
     )
+
+    fun imageSharedElementKey(
+        gameId: String,
+    ): String {
+        return buildString {
+            append("team_${id}_image_game_$gameId")
+        }
+    }
 }
 
 private fun Team.image(): ImageDisplayModel {
