@@ -22,6 +22,7 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
 import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.lighten
@@ -130,6 +131,8 @@ private fun TeamImageName(
         Text(
             text = team.shortCode,
             style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier
+                .sharedBounds(team.shortCodeSharedElementKey(gameId)),
         )
     }
 }

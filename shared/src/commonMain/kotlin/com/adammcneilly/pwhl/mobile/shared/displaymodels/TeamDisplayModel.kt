@@ -29,6 +29,18 @@ data class TeamDisplayModel(
             }
         }
     }
+
+    fun shortCodeSharedElementKey(
+        gameId: String? = null,
+    ): String {
+        return buildString {
+            append("team_${id}_shortcode")
+
+            if (gameId != null) {
+                append("game_$gameId")
+            }
+        }
+    }
 }
 
 private fun Team.image(): ImageDisplayModel {
