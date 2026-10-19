@@ -31,14 +31,26 @@ data class GameSummaryDisplayModel(
     )
 
     companion object {
-        val placeholder = GameSummaryDisplayModel(
-            id = "123",
-            homeTeam = TeamGameSummaryResultDisplayModel.placeholder,
-            awayTeam = TeamGameSummaryResultDisplayModel.placeholder,
-            status = "Placeholder",
-            dateString = "Placeholder",
-            placeholder = true,
-        )
+        private fun placeholder(
+            id: String,
+        ): GameSummaryDisplayModel {
+            return GameSummaryDisplayModel(
+                id = id,
+                homeTeam = TeamGameSummaryResultDisplayModel.placeholder,
+                awayTeam = TeamGameSummaryResultDisplayModel.placeholder,
+                status = "Placeholder",
+                dateString = "Placeholder",
+                placeholder = true,
+            )
+        }
+
+        fun placeholders(
+            count: Int = 3,
+        ): List<GameSummaryDisplayModel> {
+            return List(count) { index ->
+                placeholder(index.toString())
+            }
+        }
     }
 }
 

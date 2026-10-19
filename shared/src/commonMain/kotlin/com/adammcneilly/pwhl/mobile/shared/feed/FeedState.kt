@@ -13,19 +13,13 @@ data class FeedState(
 ) {
     val recentGamesToRender = if (loadingRecentGames) {
         mapOf(
-            "" to placeholderGames,
+            "" to GameSummaryDisplayModel.placeholders(),
         )
     } else {
         recentGames
     }
 
     companion object {
-        private val placeholderGames = List(3) { index ->
-            GameSummaryDisplayModel.placeholder.copy(
-                id = index.toString(),
-            )
-        }
-
         /**
          * Provides a default implementation of the feed state
          * used when the screen is first created.
