@@ -9,6 +9,7 @@ data class TeamDisplayModel(
     val name: String,
     val shortCode: String,
     val image: ImageDisplayModel,
+    val placeholder: Boolean = false,
 ) {
     constructor(team: Team) : this(
         id = team.id,
@@ -29,6 +30,17 @@ data class TeamDisplayModel(
         Image,
         ShortCode,
         Goals,
+    }
+
+    companion object {
+        val placeholder = TeamDisplayModel(
+            id = "123",
+            city = "Placeholder",
+            name = "Placeholder",
+            shortCode = "PLC",
+            image = ImageDisplayModel.Placeholder,
+            placeholder = true,
+        )
     }
 }
 
