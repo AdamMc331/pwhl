@@ -10,6 +10,7 @@ burst = "2.14.0"
 coil = "3.6.3"
 compileSdk = "37"
 composeBom = "2026.09.00"
+composePlaceholderMaterial3 = "1.0.12"
 composeScreenshot = "0.0.1-alpha16"
 detektGradlePlugin = "1.23.8"
 espresso = "3.7.0"
@@ -62,6 +63,7 @@ coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" 
 coil-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 compose-material3-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "material3Adaptive" }
+compose-placeholder-material3 = { module = "com.eygraber:compose-placeholder-material3", version.ref = "composePlaceholderMaterial3" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
