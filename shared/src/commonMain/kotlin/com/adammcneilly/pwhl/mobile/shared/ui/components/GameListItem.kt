@@ -22,12 +22,16 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.teamGradient
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
+import com.eygraber.compose.placeholder.material3.placeholder
+import com.eygraber.compose.placeholder.placeholder
 
 @Composable
 fun GameListItem(
     game: GameSummaryDisplayModel,
     modifier: Modifier = Modifier,
 ) {
+    val shape = MaterialTheme.shapes.large
+
     CompositionLocalProvider(
         LocalContentColor provides Color.White,
     ) {
@@ -40,7 +44,11 @@ fun GameListItem(
                         homeTeam = game.homeTeam.team,
                         awayTeam = game.awayTeam.team,
                     ),
-                    shape = MaterialTheme.shapes.large,
+                    shape = shape,
+                )
+                .placeholder(
+                    visible = game.placeholder,
+                    shape = shape,
                 )
                 .fillMaxWidth()
                 .padding(PWHLTheme.dimensions.componentPadding)

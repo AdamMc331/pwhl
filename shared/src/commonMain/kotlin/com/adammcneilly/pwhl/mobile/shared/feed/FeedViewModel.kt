@@ -17,7 +17,7 @@ class FeedViewModel(
     private val recentGamesUseCase: FetchRecentGamesUseCase,
     private val upcomingGamesUseCase: FetchUpcomingGamesUseCase,
 ) : ViewModel() {
-    private val mutableState = MutableStateFlow(FeedState.Default)
+    private val mutableState = MutableStateFlow(FeedState.default)
     val state = mutableState.asStateFlow()
 
     init {

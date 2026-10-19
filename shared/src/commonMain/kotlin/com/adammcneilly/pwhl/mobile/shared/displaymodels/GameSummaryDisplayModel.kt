@@ -16,6 +16,7 @@ data class GameSummaryDisplayModel(
     val awayTeam: TeamGameSummaryResultDisplayModel,
     override val status: String,
     override val dateString: String,
+    val placeholder: Boolean = false,
 ) : BaseGameDisplayModel {
     constructor(game: GameSummary) : this(
         id = game.id,
@@ -28,6 +29,17 @@ data class GameSummaryDisplayModel(
         status = game.status,
         dateString = game.dateString(),
     )
+
+    companion object {
+        val placeholder = GameSummaryDisplayModel(
+            id = "123",
+            homeTeam = TeamGameSummaryResultDisplayModel.placeholder,
+            awayTeam = TeamGameSummaryResultDisplayModel.placeholder,
+            status = "Placeholder",
+            dateString = "Placeholder",
+            placeholder = true,
+        )
+    }
 }
 
 private fun GameSummary.dateString(): String {
