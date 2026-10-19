@@ -2,7 +2,6 @@ package com.adammcneilly.pwhl.mobile.shared.feed
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.plus
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -38,15 +37,6 @@ fun FeedContent(
             }
         },
     )
-}
-
-@Composable
-private fun SuccessContent(
-    state: FeedState,
-    onGameClicked: (String) -> Unit,
-    contentPadding: PaddingValues,
-    modifier: Modifier,
-) {
 }
 
 private fun LazyListScope.gameList(

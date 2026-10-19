@@ -54,21 +54,7 @@ fun GameListItem(
                 .padding(PWHLTheme.dimensions.componentPadding)
                 .sharedBounds(game.headerSharedElementKey),
         ) {
-            TeamImageName(
-                team = game.homeTeam.team,
-                gameId = game.id,
-            )
-
-            GoalsText(
-                goals = game.homeTeam.goals.toString(),
-                modifier = Modifier
-                    .sharedBounds(
-                        key = game.homeTeam.team.gameSharedElementKey(
-                            gameId = game.id,
-                            field = TeamDisplayModel.SharedElementFields.Goals,
-                        ),
-                    ),
-            )
+            HomeTeamContent(game)
 
             Text(
                 text = game.status,
@@ -78,23 +64,51 @@ fun GameListItem(
                     .sharedBounds(game.statusSharedElementKey),
             )
 
-            GoalsText(
-                goals = game.awayTeam.goals.toString(),
-                modifier = Modifier
-                    .sharedBounds(
-                        key = game.awayTeam.team.gameSharedElementKey(
-                            gameId = game.id,
-                            field = TeamDisplayModel.SharedElementFields.Goals,
-                        ),
-                    ),
-            )
-
-            TeamImageName(
-                team = game.awayTeam.team,
-                gameId = game.id,
-            )
+            AwayTeamContent(game)
         }
     }
+}
+
+@Composable
+private fun AwayTeamContent(
+    game: GameSummaryDisplayModel,
+) {
+    GoalsText(
+        goals = game.awayTeam.goals.toString(),
+        modifier = Modifier
+            .sharedBounds(
+                key = game.awayTeam.team.gameSharedElementKey(
+                    gameId = game.id,
+                    field = TeamDisplayModel.SharedElementFields.Goals,
+                ),
+            ),
+    )
+
+    TeamImageName(
+        team = game.awayTeam.team,
+        gameId = game.id,
+    )
+}
+
+@Composable
+private fun HomeTeamContent(
+    game: GameSummaryDisplayModel,
+) {
+    TeamImageName(
+        team = game.homeTeam.team,
+        gameId = game.id,
+    )
+
+    GoalsText(
+        goals = game.homeTeam.goals.toString(),
+        modifier = Modifier
+            .sharedBounds(
+                key = game.homeTeam.team.gameSharedElementKey(
+                    gameId = game.id,
+                    field = TeamDisplayModel.SharedElementFields.Goals,
+                ),
+            ),
+    )
 }
 
 @Composable
