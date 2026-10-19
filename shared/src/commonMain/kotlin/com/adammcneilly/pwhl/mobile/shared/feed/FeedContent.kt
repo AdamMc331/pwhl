@@ -2,20 +2,19 @@ package com.adammcneilly.pwhl.mobile.shared.feed
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.plus
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.GameListItem
-import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.eygraber.compose.placeholder.material3.placeholder
+import com.eygraber.compose.placeholder.placeholder
 
 @Composable
 fun FeedContent(
@@ -26,38 +25,18 @@ fun FeedContent(
     rememberScaffoldState().HomeTabScaffold(
         modifier = modifier,
         content = { scaffoldPadding ->
-            if (state.loadingRecentGames || state.loadingUpcomingGames) {
-                LoadingScreen(modifier)
-            } else {
-                SuccessContent(
-                    state = state,
+            LazyColumn(
+                contentPadding = scaffoldPadding.plus(PWHLTheme.dimensions.screenPadding),
+                verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
+                modifier = modifier,
+            ) {
+                gameList(
+                    games = state.recentGamesToRender.flatMap { it.value },
                     onGameClicked = onGameClicked,
-                    contentPadding = scaffoldPadding.plus(PWHLTheme.dimensions.screenPadding),
-                    modifier = modifier
-                        .nestedScroll(tabBarScrollConnection),
                 )
             }
         },
     )
-}
-
-@Composable
-private fun SuccessContent(
-    state: FeedState,
-    onGameClicked: (String) -> Unit,
-    contentPadding: PaddingValues,
-    modifier: Modifier,
-) {
-    LazyColumn(
-        contentPadding = contentPadding,
-        verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
-        modifier = modifier,
-    ) {
-        gameList(
-            games = state.recentGames.flatMap { it.value },
-            onGameClicked = onGameClicked,
-        )
-    }
 }
 
 private fun LazyListScope.gameList(
@@ -68,7 +47,9 @@ private fun LazyListScope.gameList(
         GameListItem(
             game = game,
             modifier = Modifier
-                .clickable {
+                .clickable(
+                    enabled = !game.placeholder,
+                ) {
                     onGameClicked.invoke(game.id)
                 },
         )
