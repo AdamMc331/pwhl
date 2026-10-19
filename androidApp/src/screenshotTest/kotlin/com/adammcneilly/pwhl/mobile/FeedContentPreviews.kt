@@ -55,15 +55,49 @@ private fun FeedContentLoadedPreview() {
 @PreviewLightDark
 @PreviewScreenSizes
 @PreviewTest
-private fun FeedContentLoadingPreview() {
+private fun FeedContentLoadingRecentGamesPreview() {
     PWHLPreviewHelper(
         appStateData = feedAppStateData,
     ) {
         FeedContent(
             state = FeedState(
                 loadingRecentGames = true,
-                loadingUpcomingGames = true,
+                loadingUpcomingGames = false,
                 recentGames = emptyMap(),
+                upcomingGames = mapOf(
+                    "Upcoming" to List(3) { index ->
+                        testUpcomingGameSummaryDisplayModel.copy(
+                            id = index.toString(),
+                        )
+                    },
+                ),
+            ),
+            onGameClicked = {},
+            modifier = Modifier
+                .fillMaxSize(),
+        )
+    }
+}
+
+@Composable
+@PreviewLightDark
+@PreviewScreenSizes
+@PreviewTest
+private fun FeedContentLoadingUpcomingGamesPreview() {
+    PWHLPreviewHelper(
+        appStateData = feedAppStateData,
+    ) {
+        FeedContent(
+            state = FeedState(
+                loadingRecentGames = false,
+                loadingUpcomingGames = true,
+                recentGames = mapOf(
+                    "Recent" to List(3) { index ->
+                        testCompletedGameSummaryDisplayModel.copy(
+                            id = index.toString(),
+                        )
+                    },
+                ),
                 upcomingGames = emptyMap(),
             ),
             onGameClicked = {},
