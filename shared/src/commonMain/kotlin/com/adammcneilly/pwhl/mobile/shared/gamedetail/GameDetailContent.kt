@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.PlayByPlayEventDisplayModel
@@ -15,6 +18,7 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.PersistentScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.onTeamGradient
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.teamGradient
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.xr.LocalXRSession
@@ -90,19 +94,23 @@ private fun SuccessContent(
     Column(
         modifier = modifier,
     ) {
-        GameDetailHeader(
-            game = game,
-            modifier = Modifier
-                .background(
-                    brush = teamGradient(
-                        homeTeam = game.homeTeam.team,
-                        awayTeam = game.awayTeam.team,
-                    ),
-                )
-                .sharedBounds(game.headerSharedElementKey)
-                .fillMaxWidth()
-                .padding(PWHLTheme.dimensions.componentPadding),
-        )
+        CompositionLocalProvider(
+            LocalContentColor provides MaterialTheme.colorScheme.onTeamGradient,
+        ) {
+            GameDetailHeader(
+                game = game,
+                modifier = Modifier
+                    .background(
+                        brush = teamGradient(
+                            homeTeam = game.homeTeam.team,
+                            awayTeam = game.awayTeam.team,
+                        ),
+                    )
+                    .sharedBounds(game.headerSharedElementKey)
+                    .fillMaxWidth()
+                    .padding(PWHLTheme.dimensions.componentPadding),
+            )
+        }
 
         GameDetailPager(
             game = game,

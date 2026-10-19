@@ -14,11 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.onTeamGradient
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.teamGradient
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
@@ -29,7 +29,7 @@ fun GameListItem(
     modifier: Modifier = Modifier,
 ) {
     CompositionLocalProvider(
-        LocalContentColor provides Color.White,
+        LocalContentColor provides MaterialTheme.colorScheme.onTeamGradient,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
