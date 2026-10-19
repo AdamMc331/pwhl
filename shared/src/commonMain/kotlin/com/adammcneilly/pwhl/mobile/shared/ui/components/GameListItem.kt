@@ -1,7 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,17 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
-import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
-import com.materialkolor.ktx.darken
-import com.materialkolor.ktx.lighten
-
-private const val TEAM_COLOR_CHANGE_RATIO = 1.5F
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.teamGradient
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
 
 @Composable
 fun GameListItem(
@@ -35,59 +31,59 @@ fun GameListItem(
     CompositionLocalProvider(
         LocalContentColor provides Color.White,
     ) {
-        val homeTeamColor = with(PWHLColors.fromTeamId(game.homeTeam.team.id)) {
-            if (isSystemInDarkTheme()) {
-                this.darken(TEAM_COLOR_CHANGE_RATIO)
-            } else {
-                this.lighten(TEAM_COLOR_CHANGE_RATIO)
-            }
-        }
-
-        val awayTeamColor = with(PWHLColors.fromTeamId(game.awayTeam.team.id)) {
-            if (isSystemInDarkTheme()) {
-                this.darken(TEAM_COLOR_CHANGE_RATIO)
-            } else {
-                this.lighten(TEAM_COLOR_CHANGE_RATIO)
-            }
-        }
-
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
             modifier = modifier
                 .background(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            homeTeamColor,
-                            awayTeamColor,
-                        ),
+                    brush = teamGradient(
+                        homeTeam = game.homeTeam.team,
+                        awayTeam = game.awayTeam.team,
                     ),
                     shape = MaterialTheme.shapes.large,
                 )
                 .fillMaxWidth()
-                .padding(PWHLTheme.dimensions.componentPadding),
+                .padding(PWHLTheme.dimensions.componentPadding)
+                .sharedBounds(game.headerSharedElementKey),
         ) {
             TeamImageName(
                 team = game.homeTeam.team,
+                gameId = game.id,
             )
 
             GoalsText(
                 goals = game.homeTeam.goals.toString(),
+                modifier = Modifier
+                    .sharedBounds(
+                        key = game.homeTeam.team.gameSharedElementKey(
+                            gameId = game.id,
+                            field = TeamDisplayModel.SharedElementFields.Goals,
+                        ),
+                    ),
             )
 
             Text(
                 text = game.status,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .weight(1F),
+                    .weight(1F)
+                    .sharedBounds(game.statusSharedElementKey),
             )
 
             GoalsText(
                 goals = game.awayTeam.goals.toString(),
+                modifier = Modifier
+                    .sharedBounds(
+                        key = game.awayTeam.team.gameSharedElementKey(
+                            gameId = game.id,
+                            field = TeamDisplayModel.SharedElementFields.Goals,
+                        ),
+                    ),
             )
 
             TeamImageName(
                 team = game.awayTeam.team,
+                gameId = game.id,
             )
         }
     }
@@ -108,6 +104,7 @@ private fun GoalsText(
 @Composable
 private fun TeamImageName(
     team: TeamDisplayModel,
+    gameId: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -119,12 +116,25 @@ private fun TeamImageName(
             image = team.image,
             contentDescription = null,
             modifier = Modifier
-                .size(PWHLTheme.dimensions.imageSizeDefault),
+                .size(PWHLTheme.dimensions.imageSizeDefault)
+                .sharedElement(
+                    key = team.gameSharedElementKey(
+                        gameId = gameId,
+                        field = TeamDisplayModel.SharedElementFields.Image,
+                    ),
+                ),
         )
 
         Text(
             text = team.shortCode,
             style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier
+                .sharedBounds(
+                    key = team.gameSharedElementKey(
+                        gameId = gameId,
+                        field = TeamDisplayModel.SharedElementFields.ShortCode,
+                    ),
+                ),
         )
     }
 }

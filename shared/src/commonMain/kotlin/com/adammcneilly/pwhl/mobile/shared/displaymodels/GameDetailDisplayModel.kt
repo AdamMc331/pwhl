@@ -11,13 +11,13 @@ import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 
 data class GameDetailDisplayModel(
-    val id: String,
+    override val id: String,
     val homeTeam: TeamGameDetailResultDisplayModel,
     val awayTeam: TeamGameDetailResultDisplayModel,
     val mostValuablePlayers: List<PlayerHighlightDisplayModel>,
-    val status: String,
-    val dateString: String,
-) {
+    override val status: String,
+    override val dateString: String,
+) : BaseGameDisplayModel {
     constructor(game: GameDetail) : this(
         id = game.id,
         homeTeam = TeamGameDetailResultDisplayModel(

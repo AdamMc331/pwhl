@@ -1,5 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared.gamedetail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,8 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.PersistentScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
 import com.adammcneilly.pwhl.mobile.shared.ui.components.LoadingScreen
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.theme.teamGradient
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
 import com.adammcneilly.pwhl.mobile.shared.xr.LocalXRSession
 
 @Composable
@@ -90,6 +93,13 @@ private fun SuccessContent(
         GameDetailHeader(
             game = game,
             modifier = Modifier
+                .background(
+                    brush = teamGradient(
+                        homeTeam = game.homeTeam.team,
+                        awayTeam = game.awayTeam.team,
+                    ),
+                )
+                .sharedBounds(game.headerSharedElementKey)
                 .fillMaxWidth()
                 .padding(PWHLTheme.dimensions.componentPadding),
         )

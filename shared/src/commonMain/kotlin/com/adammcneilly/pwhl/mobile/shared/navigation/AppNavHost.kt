@@ -107,6 +107,7 @@ private fun navEntryProvider(
                 content = {
                     GameDetailScreen(
                         viewModel = koinViewModel(
+                            key = "game_detail_${key.gameId}",
                             parameters = {
                                 parametersOf(key.gameId)
                             },

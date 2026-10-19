@@ -20,6 +20,8 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilitySc
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.ui.components.ImageWrapper
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedBounds
+import com.adammcneilly.pwhl.mobile.shared.ui.util.sharedElement
 
 private const val GAME_STATUS_WIDTH_RATIO = 0.50F
 
@@ -75,11 +77,7 @@ private fun GameSummary(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth(GAME_STATUS_WIDTH_RATIO)
-                    .sharedBounds(
-                        sharedContentState = rememberSharedContentState(key = "${game.id}_status"),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
-                    ),
+                    .sharedBounds(game.statusSharedElementKey),
             )
 
             Text(
@@ -107,11 +105,10 @@ private fun TeamScore(
             style = MaterialTheme.typography.displayMedium,
             modifier = Modifier
                 .sharedBounds(
-                    sharedContentState = rememberSharedContentState(
-                        key = "${teamGameResult.team.name}_${gameId}_score",
+                    key = teamGameResult.team.gameSharedElementKey(
+                        gameId = gameId,
+                        field = TeamDisplayModel.SharedElementFields.Goals,
                     ),
-                    animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                    resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                 ),
         )
     }
@@ -136,8 +133,10 @@ private fun TeamNameLogo(
                 modifier = Modifier
                     .size(PWHLTheme.dimensions.imageSizeDefault)
                     .sharedElement(
-                        sharedContentState = rememberSharedContentState(key = "${team.name}_${gameId}_image"),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
+                        key = team.gameSharedElementKey(
+                            gameId = gameId,
+                            field = TeamDisplayModel.SharedElementFields.Image,
+                        ),
                     ),
             )
 
@@ -146,9 +145,10 @@ private fun TeamNameLogo(
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
                     .sharedBounds(
-                        sharedContentState = rememberSharedContentState(key = "${team.name}_${gameId}_name"),
-                        animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current,
-                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
+                        key = team.gameSharedElementKey(
+                            gameId = gameId,
+                            field = TeamDisplayModel.SharedElementFields.ShortCode,
+                        ),
                     ),
             )
         }

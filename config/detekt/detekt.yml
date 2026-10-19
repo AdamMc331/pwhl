@@ -36,7 +36,7 @@ style:
     active: true
     excludes: [ '**/screenshotTest/**' ]
   MagicNumber:
-    excludes: [ '**/test/**', '**/*Test.kt', '**/*Spec.kt' ]
+    excludes: [ '**/test/**', '**/*Test.kt', '**/*Spec.kt', '**/screenshotTest/**' ]
     ignorePropertyDeclaration: true
     ignoreAnnotation: true
     ignoreEnums: true

@@ -17,6 +17,19 @@ data class TeamDisplayModel(
         shortCode = team.shortCode,
         image = team.image(),
     )
+
+    fun gameSharedElementKey(
+        gameId: String,
+        field: SharedElementFields,
+    ): String {
+        return "team_${id}_game_${gameId}_$field"
+    }
+
+    enum class SharedElementFields {
+        Image,
+        ShortCode,
+        Goals,
+    }
 }
 
 private fun Team.image(): ImageDisplayModel {
