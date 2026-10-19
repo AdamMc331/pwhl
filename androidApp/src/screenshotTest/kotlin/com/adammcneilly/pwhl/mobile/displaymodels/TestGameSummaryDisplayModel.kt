@@ -5,8 +5,8 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamGameSummaryResultDi
 
 val testCompletedGameSummaryDisplayModel = GameSummaryDisplayModel(
     id = "123",
-    homeTeam = testGameWinnerDisplayModel,
-    awayTeam = testGameLoserDisplayModel,
+    homeTeam = testGameWinnerSummaryDisplayModel,
+    awayTeam = testGameLoserSummaryDisplayModel,
     status = "Final",
     dateString = "2026-01-01",
 )
