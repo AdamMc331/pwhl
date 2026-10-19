@@ -50,3 +50,25 @@ private fun FeedContentLoadedPreview() {
         )
     }
 }
+
+@Composable
+@PreviewLightDark
+@PreviewScreenSizes
+@PreviewTest
+private fun FeedContentLoadingPreview() {
+    PWHLPreviewHelper(
+        appStateData = feedAppStateData,
+    ) {
+        FeedContent(
+            state = FeedState(
+                loadingRecentGames = true,
+                loadingUpcomingGames = true,
+                recentGames = emptyMap(),
+                upcomingGames = emptyMap(),
+            ),
+            onGameClicked = {},
+            modifier = Modifier
+                .fillMaxSize(),
+        )
+    }
+}
