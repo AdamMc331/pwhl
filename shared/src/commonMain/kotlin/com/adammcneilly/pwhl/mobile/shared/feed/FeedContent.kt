@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.scaffold.HomeTabScaffold
 import com.adammcneilly.pwhl.mobile.shared.scaffold.rememberScaffoldState
@@ -28,7 +29,8 @@ fun FeedContent(
             LazyColumn(
                 contentPadding = scaffoldPadding.plus(PWHLTheme.dimensions.screenPadding),
                 verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
-                modifier = modifier,
+                modifier = modifier
+                    .nestedScroll(tabBarScrollConnection),
             ) {
                 gameList(
                     games = state.recentGamesToRender.flatMap { it.value },
