@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.StatComparisonDisplayModel
@@ -39,7 +40,11 @@ private const val LEADING_TEAM_STAT_WIDTH_SCALE = 1.5F
 fun AnimatableStatComparison(
     statComparison: StatComparisonDisplayModel,
     modifier: Modifier = Modifier,
-    initialAnimationPercentage: Float = 0F,
+    initialAnimationPercentage: Float = if (LocalInspectionMode.current) {
+        1F
+    } else {
+        0F
+    },
 ) {
     val animationPercentage = remember {
         AnimationState(initialAnimationPercentage)
