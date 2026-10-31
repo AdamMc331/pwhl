@@ -10,8 +10,6 @@ plugins {
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
-
     defaultConfig {
         applicationId = "com.adammcneilly.pwhl.mobile.android"
         minSdk = libs.versions.minSdk.get().toInt()
@@ -50,9 +48,9 @@ android {
     namespace = "com.adammcneilly.pwhl.mobile.android"
 
     testOptions {
-        unitTests.isIncludeAndroidResources = true
         screenshotTests.create("screenshotTest") {
             engineVersion = libs.versions.composeScreenshot.get()
+            targetVariants.add("debug")
 
             dependencies {
                 implementation(libs.androidx.ui.tooling)
