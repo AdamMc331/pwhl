@@ -1,167 +1,102 @@
-[
-  {
-    "sections": [
+{
+  "SiteKit": {
+    "Statviewtype": [
       {
-        "title": "",
-        "data": [
-          {
-            "prop": {
-              "team_code": {
-                "teamLink": "6"
-              },
-              "name": {
-                "teamLink": "6"
-              }
-            },
-            "row": {
-              "team_code": "TOR",
-              "losses": "0",
-              "regulation_wins": "1",
-              "points": "3",
-              "goals_for": "3",
-              "goals_against": "1",
-              "non_reg_wins": "0",
-              "non_reg_losses": "0",
-              "games_remaining": "29",
-              "percentage": "1.000",
-              "overall_rank": "1",
-              "games_played": "1",
-              "rank": 1,
-              "name": "Toronto Sceptres"
-            }
-          },
-          {
-            "prop": {
-              "team_code": {
-                "teamLink": "4"
-              },
-              "name": {
-                "teamLink": "4"
-              }
-            },
-            "row": {
-              "team_code": "NY",
-              "losses": "0",
-              "regulation_wins": "0",
-              "points": "2",
-              "goals_for": "4",
-              "goals_against": "3",
-              "non_reg_wins": "1",
-              "non_reg_losses": "0",
-              "games_remaining": "29",
-              "percentage": "0.667",
-              "overall_rank": "2",
-              "games_played": "1",
-              "rank": 2,
-              "name": "New York Sirens"
-            }
-          },
-          {
-            "prop": {
-              "team_code": {
-                "teamLink": "3"
-              },
-              "name": {
-                "teamLink": "3"
-              }
-            },
-            "row": {
-              "team_code": "MTL",
-              "losses": "0",
-              "regulation_wins": "0",
-              "points": "2",
-              "goals_for": "4",
-              "goals_against": "3",
-              "non_reg_wins": "1",
-              "non_reg_losses": "0",
-              "games_remaining": "29",
-              "percentage": "0.667",
-              "overall_rank": "3",
-              "games_played": "1",
-              "rank": 3,
-              "name": "Montr\u00e9al Victoire"
-            }
-          },
-          {
-            "prop": {
-              "team_code": {
-                "teamLink": "5"
-              },
-              "name": {
-                "teamLink": "5"
-              }
-            },
-            "row": {
-              "team_code": "OTT",
-              "losses": "0",
-              "regulation_wins": "0",
-              "points": "1",
-              "goals_for": "3",
-              "goals_against": "4",
-              "non_reg_wins": "0",
-              "non_reg_losses": "1",
-              "games_remaining": "29",
-              "percentage": "0.333",
-              "overall_rank": "4",
-              "games_played": "1",
-              "rank": 4,
-              "name": "Ottawa Charge"
-            }
-          },
-          {
-            "prop": {
-              "team_code": {
-                "teamLink": "2"
-              },
-              "name": {
-                "teamLink": "2"
-              }
-            },
-            "row": {
-              "team_code": "MIN",
-              "losses": "0",
-              "regulation_wins": "0",
-              "points": "1",
-              "goals_for": "3",
-              "goals_against": "4",
-              "non_reg_wins": "0",
-              "non_reg_losses": "1",
-              "games_remaining": "29",
-              "percentage": "0.333",
-              "overall_rank": "5",
-              "games_played": "1",
-              "rank": 5,
-              "name": "Minnesota Frost"
-            }
-          },
-          {
-            "prop": {
-              "team_code": {
-                "teamLink": "1"
-              },
-              "name": {
-                "teamLink": "1"
-              }
-            },
-            "row": {
-              "team_code": "BOS",
-              "losses": "1",
-              "regulation_wins": "0",
-              "points": "0",
-              "goals_for": "1",
-              "goals_against": "3",
-              "non_reg_wins": "0",
-              "non_reg_losses": "0",
-              "games_remaining": "29",
-              "percentage": "0.000",
-              "overall_rank": "6",
-              "games_played": "1",
-              "rank": 6,
-              "name": "Boston Fleet"
-            }
-          }
-        ]
+        "team_id": "6",
+        "team_code": "TOR",
+        "name": "Toronto Sceptres",
+        "rank": 1,
+        "games_played": "1",
+        "games_remaining": "29",
+        "points": "3",
+        "regulation_wins": "1",
+        "losses": "0",
+        "non_reg_wins": "0",
+        "non_reg_losses": "0",
+        "percentage": "1.000",
+        "goals_for": "3",
+        "goals_against": "1"
+      },
+      {
+        "team_id": "4",
+        "team_code": "NY",
+        "name": "New York",
+        "rank": 2,
+        "games_played": "1",
+        "games_remaining": "29",
+        "points": "2",
+        "regulation_wins": "0",
+        "losses": "0",
+        "non_reg_wins": "1",
+        "non_reg_losses": "0",
+        "percentage": "0.667",
+        "goals_for": "4",
+        "goals_against": "3"
+      },
+      {
+        "team_id": "2",
+        "team_code": "MTL",
+        "name": "Montreal",
+        "rank": 3,
+        "games_played": "1",
+        "games_remaining": "29",
+        "points": "2",
+        "regulation_wins": "0",
+        "losses": "0",
+        "non_reg_wins": "1",
+        "non_reg_losses": "0",
+        "percentage": "0.667",
+        "goals_for": "3",
+        "goals_against": "2"
+      },
+      {
+        "team_id": "3",
+        "team_code": "OTT",
+        "name": "Ottawa",
+        "rank": 4,
+        "games_played": "1",
+        "games_remaining": "29",
+        "points": "1",
+        "regulation_wins": "0",
+        "losses": "0",
+        "non_reg_wins": "0",
+        "non_reg_losses": "1",
+        "percentage": "0.333",
+        "goals_for": "2",
+        "goals_against": "3"
+      },
+      {
+        "team_id": "5",
+        "team_code": "MIN",
+        "name": "Minnesota",
+        "rank": 5,
+        "games_played": "1",
+        "games_remaining": "29",
+        "points": "1",
+        "regulation_wins": "0",
+        "losses": "0",
+        "non_reg_wins": "0",
+        "non_reg_losses": "1",
+        "percentage": "0.333",
+        "goals_for": "3",
+        "goals_against": "4"
+      },
+      {
+        "team_id": "1",
+        "team_code": "BOS",
+        "name": "Boston Fleet",
+        "rank": 6,
+        "games_played": "1",
+        "games_remaining": "29",
+        "points": "0",
+        "regulation_wins": "0",
+        "losses": "1",
+        "non_reg_wins": "0",
+        "non_reg_losses": "0",
+        "percentage": "0.000",
+        "goals_for": "1",
+        "goals_against": "3"
       }
     ]
   }
-]
+}

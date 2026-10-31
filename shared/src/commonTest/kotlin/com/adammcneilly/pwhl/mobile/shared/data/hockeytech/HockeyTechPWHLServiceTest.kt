@@ -62,11 +62,11 @@ class HockeyTechPWHLServiceTest {
                     "&lang=en" +
                     "&league_id=1" +
                     "&site_id=0" +
-                    "&feed=statviewfeed" +
-                    "&view=teams" +
-                    "&groupTeamsBy=division" +
+                    "&feed=modulekit" +
+                    "&view=statviewtype" +
                     "&context=overall" +
-                    "&special=false" +
+                    "&stat=conference" +
+                    "&type=standings" +
                     "&sort=points" to
                     "files/standings_list.json",
             )
