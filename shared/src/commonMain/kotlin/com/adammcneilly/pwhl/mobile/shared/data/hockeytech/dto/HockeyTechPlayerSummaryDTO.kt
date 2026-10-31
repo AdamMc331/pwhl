@@ -40,11 +40,15 @@ data class HockeyTechPlayerSummaryDTO(
      */
     private fun resolveImageUrl(): String? {
         return playerImageURL?.let { imageUrl ->
-            if (imageUrl.startsWith("https://")) {
+            if (imageUrl.startsWith(HTTPS_PREFIX)) {
                 imageUrl
             } else {
-                "https://$imageUrl"
+                "$HTTPS_PREFIX$imageUrl"
             }
         }
+    }
+
+    companion object {
+        private const val HTTPS_PREFIX = "https://"
     }
 }
