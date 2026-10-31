@@ -32,4 +32,4 @@ jobs:
         run: echo $LOCAL_PROPERTIES > ./local.properties
 
       - name: Run Tests
-        run: ./gradlew validateScreenshotTest
+        run: ./gradlew testDebugScreenshotTestDefaultTestSuite
