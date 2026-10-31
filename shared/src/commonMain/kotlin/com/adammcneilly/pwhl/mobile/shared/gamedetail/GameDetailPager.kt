@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
@@ -32,24 +33,26 @@ fun GameDetailPager(
             state = pagerState,
             userScrollEnabled = false,
         ) { pageIndex ->
-            val pageModifier = Modifier
-                .fillMaxSize()
+            Surface {
+                val pageModifier = Modifier
+                    .fillMaxSize()
 
-            when (tabs[pageIndex]) {
-                GameDetailTab.Summary -> GameDetailSummaryTab(
-                    game = game,
-                    modifier = pageModifier,
-                )
+                when (tabs[pageIndex]) {
+                    GameDetailTab.Summary -> GameDetailSummaryTab(
+                        game = game,
+                        modifier = pageModifier,
+                    )
 
-                GameDetailTab.Stats -> GameDetailStatsTab(
-                    game = game,
-                    modifier = pageModifier,
-                )
+                    GameDetailTab.Stats -> GameDetailStatsTab(
+                        game = game,
+                        modifier = pageModifier,
+                    )
 
-                GameDetailTab.PlayByPlay -> PlayByPlayList(
-                    events = playByPlayEvents,
-                    modifier = pageModifier,
-                )
+                    GameDetailTab.PlayByPlay -> PlayByPlayList(
+                        events = playByPlayEvents,
+                        modifier = pageModifier,
+                    )
+                }
             }
         }
     }
