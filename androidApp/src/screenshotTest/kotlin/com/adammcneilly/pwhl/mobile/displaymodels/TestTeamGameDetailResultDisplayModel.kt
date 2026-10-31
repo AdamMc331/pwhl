@@ -7,8 +7,8 @@ val testGameWinnerDetailDisplayModel = TeamGameDetailResultDisplayModel(
     team = testSirensDisplayModel,
     stats = GameStatsDisplayModel(
         goals = "10",
-        shots = "",
-        assists = "",
+        shots = "13",
+        assists = "4",
     ),
 )
 
@@ -16,7 +16,7 @@ val testGameLoserDetailDisplayModel = TeamGameDetailResultDisplayModel(
     team = testFleetDisplayModel,
     stats = GameStatsDisplayModel(
         goals = "0",
-        shots = "",
-        assists = "",
+        shots = "6",
+        assists = "0",
     ),
 )

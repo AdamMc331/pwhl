@@ -6,7 +6,9 @@ val testGameDetailDisplayModel = GameDetailDisplayModel(
     id = "123",
     homeTeam = testGameWinnerDetailDisplayModel,
     awayTeam = testGameLoserDetailDisplayModel,
-    mostValuablePlayers = emptyList(),
+    mostValuablePlayers = List(3) {
+        testPlayerHighlightDisplayModel
+    },
     status = "Final",
     dateString = "2026-01-01",
 )
