@@ -14,7 +14,7 @@ private class IOSNumberFormatter : NumberFormatter {
     ): String {
         val numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = NSNumberFormatterDecimalStyle
-        numberFormatter.minimumFractionDigits = 3.toULong()
+        numberFormatter.minimumFractionDigits = 0.toULong()
         numberFormatter.maximumFractionDigits = 3.toULong()
         return numberFormatter.stringFromNumber(NSNumber(value.toFloat())).orEmpty()
     }
