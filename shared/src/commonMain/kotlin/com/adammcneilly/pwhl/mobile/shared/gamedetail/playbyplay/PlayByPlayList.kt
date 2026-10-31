@@ -3,11 +3,14 @@ package com.adammcneilly.pwhl.mobile.shared.gamedetail.playbyplay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,7 +42,9 @@ fun PlayByPlayList(
                 .padding(PWHLTheme.dimensions.componentPadding),
         )
 
-        LazyColumn {
+        LazyColumn(
+            contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+        ) {
             events.forEach { (periodName, pbpEvents) ->
                 stickyHeader {
                     Text(
@@ -54,10 +59,12 @@ fun PlayByPlayList(
                     )
                 }
 
-                items(pbpEvents) { event ->
+                itemsIndexed(pbpEvents) { index, event ->
                     PlayByPlayListItem(event)
 
-                    HorizontalDivider()
+                    if (index != pbpEvents.lastIndex) {
+                        HorizontalDivider()
+                    }
                 }
             }
         }
