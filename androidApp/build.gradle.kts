@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.animation)
+    implementation(libs.compose.foundation)
     implementation(libs.compose.ui)
 
     debugImplementation(platform(libs.compose.bom))

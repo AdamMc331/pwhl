@@ -3,6 +3,7 @@ package com.adammcneilly.pwhl.mobile.shared.gamedetail
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,13 +16,11 @@ fun GameDetailPager(
     game: GameDetailDisplayModel,
     playByPlayEvents: Map<String, List<PlayByPlayEventDisplayModel>>,
     modifier: Modifier = Modifier,
-) {
-    val tabs = GameDetailTab.entries
-
-    val pagerState = rememberPagerState {
+    tabs: List<GameDetailTab> = GameDetailTab.entries,
+    pagerState: PagerState = rememberPagerState {
         tabs.size
-    }
-
+    },
+) {
     Column(
         modifier = modifier,
     ) {
