@@ -1,6 +1,7 @@
 package com.adammcneilly.pwhl.mobile.shared.data.hockeytech
 
 import com.adammcneilly.pwhl.mobile.shared.data.remote.BaseKtorClient
+import com.adammcneilly.pwhl.mobile.shared.data.requests.StandingsListRequest
 import com.adammcneilly.pwhl.mobile.shared.fakeHttpClientEngine
 import com.adammcneilly.pwhl.mobile.shared.models.Season
 import com.adammcneilly.pwhl.mobile.shared.time.TimeProvider
@@ -77,7 +78,9 @@ class HockeyTechPWHLServiceTest {
                 timeProvider = FakeTimeProvider(),
             )
 
-            val result = service.fetchStandings()
+            val result = service.fetchStandings(
+                request = StandingsListRequest(),
+            )
 
             assertThat(result.isSuccess).isTrue()
             val standings = result.getOrThrow()

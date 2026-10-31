@@ -1,6 +1,6 @@
 package com.adammcneilly.pwhl.mobile.shared
 
-import okio.internal.commonToUtf8String
+import kotlinx.io.bytestring.ByteString
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 /**
@@ -11,5 +11,5 @@ suspend fun readFile(
     fileName: String,
 ): String {
     val readBytes = Res.readBytes(fileName)
-    return readBytes.commonToUtf8String()
+    return ByteString(readBytes).toString()
 }
