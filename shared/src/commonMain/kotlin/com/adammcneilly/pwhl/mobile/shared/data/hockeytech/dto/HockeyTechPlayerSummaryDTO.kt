@@ -27,9 +27,24 @@ data class HockeyTechPlayerSummaryDTO(
             firstName = firstName.orEmpty(),
             lastName = lastName.orEmpty(),
             jerseyNumber = jerseyNumber ?: 0,
-            playerImageURL = playerImageURL,
+            playerImageURL = resolveImageUrl(),
             position = position.orEmpty(),
             birthDate = birthDate.orEmpty(),
         )
+    }
+
+    /**
+     * The API may or may not prepend the necessary `https`
+     * at the start of the image URL, so we'll do that client side
+     * just in case.
+     */
+    private fun resolveImageUrl(): String? {
+        return playerImageURL?.let { imageUrl ->
+            if (imageUrl.startsWith("https://")) {
+                imageUrl
+            } else {
+                "https://$imageUrl"
+            }
+        }
     }
 }
