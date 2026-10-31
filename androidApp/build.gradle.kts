@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.devtools.ksp)
-    alias(libs.plugins.screenshot)
 }
 
 android {
@@ -49,6 +48,18 @@ android {
     }
 
     namespace = "com.adammcneilly.pwhl.mobile.android"
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        screenshotTests.create("screenshotTest") {
+            engineVersion = libs.versions.composeScreenshot.get()
+
+            dependencies {
+                implementation(libs.androidx.ui.tooling)
+                implementation(libs.screenshot.validation.api)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -64,9 +75,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.square.leakcanary)
-
-    screenshotTestImplementation(libs.androidx.ui.tooling)
-    screenshotTestImplementation(libs.screenshot.validation.api)
 
     testImplementation(libs.junit)
 
