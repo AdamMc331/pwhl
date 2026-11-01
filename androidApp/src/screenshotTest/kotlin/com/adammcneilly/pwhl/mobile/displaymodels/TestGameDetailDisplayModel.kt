@@ -9,6 +9,7 @@ val testGameDetailDisplayModel = GameDetailDisplayModel(
     mostValuablePlayers = List(3) {
         testPlayerHighlightDisplayModel
     },
+    playByPlayEvents = emptyMap(),
     status = "Final",
     dateString = "2026-01-01",
 )

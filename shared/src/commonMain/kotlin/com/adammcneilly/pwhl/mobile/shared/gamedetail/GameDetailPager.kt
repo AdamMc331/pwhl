@@ -9,13 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameDetailDisplayModel
-import com.adammcneilly.pwhl.mobile.shared.displaymodels.PlayByPlayEventDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.gamedetail.playbyplay.PlayByPlayList
 
 @Composable
 fun GameDetailPager(
     game: GameDetailDisplayModel,
-    playByPlayEvents: Map<String, List<PlayByPlayEventDisplayModel>>,
     modifier: Modifier = Modifier,
     tabs: List<GameDetailTab> = GameDetailTab.entries,
     pagerState: PagerState = rememberPagerState {
@@ -49,7 +47,7 @@ fun GameDetailPager(
                     )
 
                     GameDetailTab.PlayByPlay -> PlayByPlayList(
-                        events = playByPlayEvents,
+                        events = game.playByPlayEvents,
                         modifier = pageModifier,
                     )
                 }
