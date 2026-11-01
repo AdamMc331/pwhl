@@ -16,6 +16,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.PlayByPlayEventDisplayModel
@@ -30,6 +31,7 @@ fun PlayByPlayList(
     modifier: Modifier = Modifier,
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
         @Suppress("DpUsageRule")
@@ -39,6 +41,7 @@ fun PlayByPlayList(
             },
             modifier = Modifier
                 .widthIn(max = 470.dp)
+                .fillMaxWidth()
                 .height(200.dp)
                 .padding(PWHLTheme.dimensions.componentPadding),
         )
