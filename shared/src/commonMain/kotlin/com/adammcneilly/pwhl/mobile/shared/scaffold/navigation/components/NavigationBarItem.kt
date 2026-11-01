@@ -13,12 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.NavItem
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 @Composable
-@Suppress("DpUsageRule")
 fun NavigationBarItem(
     navItem: NavItem,
     labelVisible: Boolean,
@@ -38,7 +36,7 @@ fun NavigationBarItem(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
-                    vertical = 16.dp,
+                    vertical = PWHLTheme.dimensions.itemSpacingDefault,
                 ),
         ) {
             Icon(
