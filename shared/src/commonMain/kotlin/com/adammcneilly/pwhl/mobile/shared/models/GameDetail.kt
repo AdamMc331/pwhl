@@ -11,4 +11,6 @@ data class GameDetail(
     val status: String,
     val isStarted: Boolean,
     val isComplete: Boolean,
+    val venue: String,
+    val attendance: Int?,
 )

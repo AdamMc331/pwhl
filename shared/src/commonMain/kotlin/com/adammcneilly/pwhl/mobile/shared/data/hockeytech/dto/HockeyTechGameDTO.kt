@@ -34,6 +34,8 @@ data class HockeyTechGameDTO(
             status = details?.status.orEmpty(),
             isComplete = details?.final == "1",
             isStarted = details?.started == "1",
+            venue = details?.venue.orEmpty(),
+            attendance = details?.attendance,
         )
     }
 }
