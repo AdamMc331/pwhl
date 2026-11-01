@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
@@ -37,7 +38,7 @@ fun PlayByPlayList(
                 it.type == PlayByPlayEvent.Type.SHOT || it.type == PlayByPlayEvent.Type.GOAL
             },
             modifier = Modifier
-                .fillMaxWidth()
+                .widthIn(max = 470.dp)
                 .height(200.dp)
                 .padding(PWHLTheme.dimensions.componentPadding),
         )
