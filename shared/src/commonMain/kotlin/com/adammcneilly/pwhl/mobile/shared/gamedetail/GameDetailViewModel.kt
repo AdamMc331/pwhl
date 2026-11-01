@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchGameDetailUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchPlayByPlayUseCase
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.collections.orEmpty
 
 /**
  * This is the state container for a game detail screen, managing data requests
@@ -22,8 +24,10 @@ class GameDetailViewModel(
     val state = mutableState.asStateFlow()
 
     init {
-        fetchGameDetail(fetchGameDetailUseCase)
-        fetchPlayByPlayEvents(fetchPlayByPlayUseCase)
+        fetchGameDetail(
+            fetchGameDetailUseCase = fetchGameDetailUseCase,
+            fetchPlayByPlayUseCase = fetchPlayByPlayUseCase,
+        )
     }
 
     fun handleEvent(
@@ -50,25 +54,9 @@ class GameDetailViewModel(
         }
     }
 
-    private fun fetchPlayByPlayEvents(
-        fetchPlayByPlayUseCase: FetchPlayByPlayUseCase,
-    ) {
-        viewModelScope.launch {
-            val playByPlayEvents = fetchPlayByPlayUseCase
-                .invoke(gameId)
-                .getOrNull()
-                .orEmpty()
-
-            mutableState.update { currentState ->
-                currentState.copy(
-                    playByPlayEvents = playByPlayEvents,
-                )
-            }
-        }
-    }
-
     private fun fetchGameDetail(
         fetchGameDetailUseCase: FetchGameDetailUseCase,
+        fetchPlayByPlayUseCase: FetchPlayByPlayUseCase,
     ) {
         viewModelScope.launch {
             mutableState.update { currentState ->
@@ -77,14 +65,30 @@ class GameDetailViewModel(
                 )
             }
 
-            val game = fetchGameDetailUseCase
-                .invoke(gameId)
-                .getOrNull()
+            val gameJob = async {
+                fetchGameDetailUseCase
+                    .invoke(gameId)
+                    .getOrNull()
+            }
+
+            val pbpEventsJob = async {
+                fetchPlayByPlayUseCase
+                    .invoke(gameId)
+                    .getOrNull()
+                    .orEmpty()
+            }
+
+            val game = gameJob.await()
+            val pbpEvents = pbpEventsJob.await()
+
+            val resolvedGame = game?.copy(
+                playByPlayEvents = pbpEvents,
+            )
 
             mutableState.update { currentState ->
                 currentState.copy(
                     isLoading = false,
-                    game = game,
+                    game = resolvedGame,
                 )
             }
         }

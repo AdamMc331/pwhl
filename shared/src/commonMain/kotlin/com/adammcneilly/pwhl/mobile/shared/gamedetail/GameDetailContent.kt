@@ -77,7 +77,6 @@ private fun NonImmersiveContent(
 
         GameDetailPager(
             game = game,
-            playByPlayEvents = state.playByPlayEvents,
             modifier = Modifier
                 .fillMaxSize(),
         )

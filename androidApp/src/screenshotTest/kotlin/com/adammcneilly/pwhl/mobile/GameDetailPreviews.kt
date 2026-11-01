@@ -18,7 +18,6 @@ private fun GameDetailLoadedPreview() {
             state = GameDetailState(
                 isLoading = false,
                 game = testGameDetailDisplayModel,
-                playByPlayEvents = emptyMap(),
                 selectedMvpId = null,
             ),
             eventHandler = {},
@@ -36,7 +35,6 @@ private fun GameDetailLoadingPreview() {
             state = GameDetailState(
                 isLoading = true,
                 game = null,
-                playByPlayEvents = emptyMap(),
                 selectedMvpId = null,
             ),
             eventHandler = {},

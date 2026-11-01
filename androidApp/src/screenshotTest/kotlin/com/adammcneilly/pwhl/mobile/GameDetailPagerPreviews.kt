@@ -24,7 +24,6 @@ private fun GameDetailPagerTabPreview(
     PWHLPreviewHelper {
         GameDetailPager(
             game = testGameDetailDisplayModel,
-            playByPlayEvents = emptyMap(),
             tabs = tabs,
             pagerState = rememberPagerState(
                 initialPage = selectedPage,

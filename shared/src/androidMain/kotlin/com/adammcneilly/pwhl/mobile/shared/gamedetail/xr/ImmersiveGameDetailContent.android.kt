@@ -225,7 +225,7 @@ private fun PlayByPlayPanel(
         modifier = modifier,
     ) {
         PlayByPlayList(
-            events = state.playByPlayEvents,
+            events = state.game?.playByPlayEvents.orEmpty(),
         )
     }
 }
