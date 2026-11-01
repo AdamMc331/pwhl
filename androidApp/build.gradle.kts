@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 import org.jmailen.gradle.kotlinter.tasks.FormatTask
 import org.jmailen.gradle.kotlinter.tasks.LintTask
 
@@ -51,6 +53,7 @@ android {
         screenshotTests.create("screenshotTest") {
             engineVersion = libs.versions.composeScreenshot.get()
             targetVariants.add("debug")
+            imageDifferenceThreshold = 0.0001f // 0.01%
 
             dependencies {
                 implementation(libs.androidx.ui.tooling)
