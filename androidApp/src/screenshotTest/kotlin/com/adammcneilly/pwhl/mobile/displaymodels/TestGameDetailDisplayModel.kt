@@ -47,6 +47,8 @@ val testGameDetailDisplayModel = GameDetailDisplayModel(
             ),
         ),
     ),
+    venue = "Canadian Tire Centre | Ottawa",
+    attendance = 11297,
     status = "Final",
     dateString = "2026-01-01",
 )

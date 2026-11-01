@@ -16,6 +16,8 @@ data class GameDetailDisplayModel(
     val awayTeam: TeamGameDetailResultDisplayModel,
     val mostValuablePlayers: List<PlayerHighlightDisplayModel>,
     val playByPlayEvents: Map<String, List<PlayByPlayEventDisplayModel>>,
+    val venue: String,
+    val attendance: Int?,
     override val status: String,
     override val dateString: String,
 ) : BaseGameDisplayModel {
@@ -31,6 +33,8 @@ data class GameDetailDisplayModel(
         ),
         mostValuablePlayers = game.mostValuablePlayers.map(::PlayerHighlightDisplayModel),
         playByPlayEvents = emptyMap(),
+        venue = game.venue,
+        attendance = game.attendance,
         status = game.status,
         dateString = game.dateString(),
     )
