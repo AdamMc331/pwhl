@@ -38,6 +38,32 @@ data class GameDetailDisplayModel(
         status = game.status,
         dateString = game.dateString(),
     )
+
+    constructor(gameSummary: GameSummaryDisplayModel) : this(
+        id = gameSummary.id,
+        homeTeam = TeamGameDetailResultDisplayModel(
+            team = gameSummary.homeTeam.team,
+            stats = GameStatsDisplayModel(
+                goals = gameSummary.homeTeam.goals.toString(),
+                shots = "–",
+                assists = "–",
+            ),
+        ),
+        awayTeam = TeamGameDetailResultDisplayModel(
+            team = gameSummary.awayTeam.team,
+            stats = GameStatsDisplayModel(
+                goals = gameSummary.awayTeam.goals.toString(),
+                shots = "–",
+                assists = "–",
+            ),
+        ),
+        mostValuablePlayers = emptyList(),
+        playByPlayEvents = emptyMap(),
+        venue = "",
+        attendance = null,
+        status = gameSummary.status,
+        dateString = gameSummary.dateString,
+    )
 }
 
 private fun GameDetail.dateString(): String {
