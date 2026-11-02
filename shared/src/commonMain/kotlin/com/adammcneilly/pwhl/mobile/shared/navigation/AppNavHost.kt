@@ -15,6 +15,7 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import androidx.window.core.layout.WindowSizeClass
 import com.adammcneilly.pwhl.mobile.shared.feed.FeedScreen
 import com.adammcneilly.pwhl.mobile.shared.gamedetail.GameDetailScreen
+import com.adammcneilly.pwhl.mobile.shared.gamedetail.GameSummaryCache
 import com.adammcneilly.pwhl.mobile.shared.news.NewsScreen
 import com.adammcneilly.pwhl.mobile.shared.profile.ProfileScreen
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilityScope
@@ -123,6 +124,13 @@ private fun navEntryProvider(
                 metadata = TwoPaneScene.twoPane(),
                 content = {
                     TeamDetailScreen(
+                        onGameClicked = { gameSummary ->
+                            GameSummaryCache.put(gameSummary)
+                            navigateOrReplace(
+                                newScreen = AppScreen.GameDetail(gameSummary.id),
+                                backStack = backStack,
+                            )
+                        },
                         viewModel = koinViewModel(
                             parameters = {
                                 parametersOf(key.teamId)
@@ -176,9 +184,10 @@ private fun homeTabEntry(
             when (key.tab) {
                 HomeTab.Feed -> {
                     FeedScreen(
-                        onGameClicked = { gameId ->
+                        onGameClicked = { gameSummary ->
+                            GameSummaryCache.put(gameSummary)
                             navigateOrReplace(
-                                newScreen = AppScreen.GameDetail(gameId),
+                                newScreen = AppScreen.GameDetail(gameSummary.id),
                                 backStack = backStack,
                             )
                         },

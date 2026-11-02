@@ -7,12 +7,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLColors
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 
 @Composable
 fun TeamDetailContent(
     state: TeamDetailState,
+    onGameClicked: (GameSummaryDisplayModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     PWHLTheme(
@@ -23,15 +25,16 @@ fun TeamDetailContent(
             verticalArrangement = Arrangement.spacedBy(PWHLTheme.dimensions.itemSpacingDefault),
             modifier = modifier,
         ) {
-            mostRecentGameSection(state)
+            mostRecentGameSection(state, onGameClicked)
 
-            nextGameSection(state)
+            nextGameSection(state, onGameClicked)
         }
     }
 }
 
 private fun LazyListScope.mostRecentGameSection(
     state: TeamDetailState,
+    onGameClicked: (GameSummaryDisplayModel) -> Unit,
 ) {
     item {
         Text(
@@ -44,6 +47,7 @@ private fun LazyListScope.mostRecentGameSection(
         item {
             TeamDetailGameCard(
                 game = state.mostRecentGame,
+                onGameClicked = onGameClicked,
             )
         }
     }
@@ -51,6 +55,7 @@ private fun LazyListScope.mostRecentGameSection(
 
 private fun LazyListScope.nextGameSection(
     state: TeamDetailState,
+    onGameClicked: (GameSummaryDisplayModel) -> Unit,
 ) {
     item {
         Text(
@@ -63,6 +68,7 @@ private fun LazyListScope.nextGameSection(
         item {
             TeamDetailGameCard(
                 game = state.nextGame,
+                onGameClicked = onGameClicked,
             )
         }
     }
