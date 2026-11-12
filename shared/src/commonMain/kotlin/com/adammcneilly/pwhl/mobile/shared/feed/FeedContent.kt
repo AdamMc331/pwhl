@@ -20,7 +20,7 @@ import com.eygraber.compose.placeholder.placeholder
 @Composable
 fun FeedContent(
     state: FeedState,
-    onGameClicked: (String) -> Unit,
+    onGameClicked: (GameSummaryDisplayModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     rememberScaffoldState().HomeTabScaffold(
@@ -43,7 +43,7 @@ fun FeedContent(
 
 private fun LazyListScope.gameList(
     games: List<GameSummaryDisplayModel>,
-    onGameClicked: (String) -> Unit,
+    onGameClicked: (GameSummaryDisplayModel) -> Unit,
 ) {
     items(games) { game ->
         GameListItem(
@@ -52,7 +52,7 @@ private fun LazyListScope.gameList(
                 .clickable(
                     enabled = !game.placeholder,
                 ) {
-                    onGameClicked.invoke(game.id)
+                    onGameClicked.invoke(game)
                 },
         )
     }
