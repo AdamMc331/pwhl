@@ -33,7 +33,7 @@ fun FeedContent(
                     .nestedScroll(tabBarScrollConnection),
             ) {
                 gameList(
-                    games = state.recentGamesToRender.flatMap { it.value },
+                    games = state.upcomingGamesToRender.flatMap { it.value },
                     onGameClicked = onGameClicked,
                 )
             }
