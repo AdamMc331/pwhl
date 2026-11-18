@@ -9,7 +9,7 @@ data class FeedState(
     val loadingRecentGames: Boolean,
     private val recentGames: Map<String, List<GameSummaryDisplayModel>>,
     val loadingUpcomingGames: Boolean,
-    val upcomingGames: Map<String, List<GameSummaryDisplayModel>>,
+    private val upcomingGames: Map<String, List<GameSummaryDisplayModel>>,
 ) {
     val recentGamesToRender = if (loadingRecentGames) {
         mapOf(
@@ -17,6 +17,14 @@ data class FeedState(
         )
     } else {
         recentGames
+    }
+
+    val upcomingGamesToRender = if (loadingUpcomingGames) {
+        mapOf(
+            "" to GameSummaryDisplayModel.placeholders(),
+        )
+    } else {
+        upcomingGames
     }
 
     companion object {
