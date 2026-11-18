@@ -1,21 +1,24 @@
 package com.adammcneilly.pwhl.mobile.shared.teamdetail
 
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
+import com.adammcneilly.pwhl.mobile.shared.ui.components.GameListItem
 
 @Composable
 fun TeamDetailGameCard(
     game: GameSummaryDisplayModel,
+    onGameClicked: (GameSummaryDisplayModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
-        modifier = modifier,
-    ) {
-        Text(
-            text = "Stub game: ${game.id}",
-        )
-    }
+    GameListItem(
+        game = game,
+        modifier = modifier
+            .clickable(
+                enabled = !game.placeholder,
+            ) {
+                onGameClicked.invoke(game)
+            },
+    )
 }
