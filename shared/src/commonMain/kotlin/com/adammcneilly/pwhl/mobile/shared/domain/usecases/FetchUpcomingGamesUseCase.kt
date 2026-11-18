@@ -29,6 +29,6 @@ class FetchUpcomingGamesUseCase(
     }
 
     private companion object {
-        private const val DAYS_AHEAD = 3
+        private const val DAYS_AHEAD = 7
     }
 }
