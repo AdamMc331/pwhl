@@ -19,63 +19,65 @@ import kotlinx.coroutines.launch
  */
 @ViewModelKey
 @ContributesIntoMap(AppScope::class)
-class FeedViewModel @Inject constructor(
-    private val recentGamesUseCase: FetchRecentGamesUseCase,
-    private val upcomingGamesUseCase: FetchUpcomingGamesUseCase,
-) : ViewModel() {
-    private val mutableState = MutableStateFlow(FeedState.default)
-    val state = mutableState.asStateFlow()
+class FeedViewModel
+    @Inject
+    constructor(
+        private val recentGamesUseCase: FetchRecentGamesUseCase,
+        private val upcomingGamesUseCase: FetchUpcomingGamesUseCase,
+    ) : ViewModel() {
+        private val mutableState = MutableStateFlow(FeedState.default)
+        val state = mutableState.asStateFlow()
 
-    init {
-        fetchRecentGames()
-        fetchUpcomingGames()
-    }
+        init {
+            fetchRecentGames()
+            fetchUpcomingGames()
+        }
 
-    private fun fetchRecentGames() {
-        viewModelScope.launch {
-            mutableState.update { currentState ->
-                currentState.copy(
-                    loadingRecentGames = true,
-                )
+        private fun fetchRecentGames() {
+            viewModelScope.launch {
+                mutableState.update { currentState ->
+                    currentState.copy(
+                        loadingRecentGames = true,
+                    )
+                }
+
+                val result = recentGamesUseCase.invoke()
+
+                val recentGamesMap = result
+                    .getOrNull()
+                    .orEmpty()
+                    .groupBy(GameSummaryDisplayModel::dateString)
+
+                mutableState.update { currentState ->
+                    currentState.copy(
+                        loadingRecentGames = false,
+                        recentGames = recentGamesMap,
+                    )
+                }
             }
+        }
 
-            val result = recentGamesUseCase.invoke()
+        private fun fetchUpcomingGames() {
+            viewModelScope.launch {
+                mutableState.update { currentState ->
+                    currentState.copy(
+                        loadingUpcomingGames = true,
+                    )
+                }
 
-            val recentGamesMap = result
-                .getOrNull()
-                .orEmpty()
-                .groupBy(GameSummaryDisplayModel::dateString)
+                val result = upcomingGamesUseCase.invoke()
 
-            mutableState.update { currentState ->
-                currentState.copy(
-                    loadingRecentGames = false,
-                    recentGames = recentGamesMap,
-                )
+                val upcomingGameListMap = result
+                    .getOrNull()
+                    .orEmpty()
+                    .groupBy(GameSummaryDisplayModel::dateString)
+
+                mutableState.update { currentState ->
+                    currentState.copy(
+                        loadingUpcomingGames = false,
+                        upcomingGames = upcomingGameListMap,
+                    )
+                }
             }
         }
     }
-
-    private fun fetchUpcomingGames() {
-        viewModelScope.launch {
-            mutableState.update { currentState ->
-                currentState.copy(
-                    loadingUpcomingGames = true,
-                )
-            }
-
-            val result = upcomingGamesUseCase.invoke()
-
-            val upcomingGameListMap = result
-                .getOrNull()
-                .orEmpty()
-                .groupBy(GameSummaryDisplayModel::dateString)
-
-            mutableState.update { currentState ->
-                currentState.copy(
-                    loadingUpcomingGames = false,
-                    upcomingGames = upcomingGameListMap,
-                )
-            }
-        }
-    }
-}

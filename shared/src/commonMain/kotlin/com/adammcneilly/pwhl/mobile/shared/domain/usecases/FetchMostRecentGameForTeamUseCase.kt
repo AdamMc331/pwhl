@@ -11,27 +11,29 @@ import dev.zacsweers.metro.SingleIn
 import kotlin.time.Duration.Companion.days
 
 @SingleIn(AppScope::class)
-class FetchMostRecentGameForTeamUseCase @Inject constructor(
-    private val repository: PWHLRepository,
-    private val timeProvider: TimeProvider,
-) {
-    suspend operator fun invoke(
-        teamId: String,
-    ): Result<GameSummaryDisplayModel> {
-        val request = GameListRequest(
-            beforeDate = timeProvider.now(),
-            afterDate = timeProvider.now().minus(10.days),
-            teamId = teamId,
-        )
+class FetchMostRecentGameForTeamUseCase
+    @Inject
+    constructor(
+        private val repository: PWHLRepository,
+        private val timeProvider: TimeProvider,
+    ) {
+        suspend operator fun invoke(
+            teamId: String,
+        ): Result<GameSummaryDisplayModel> {
+            val request = GameListRequest(
+                beforeDate = timeProvider.now(),
+                afterDate = timeProvider.now().minus(10.days),
+                teamId = teamId,
+            )
 
-        return repository
-            .fetchGames(request)
-            .mapCatching { gameList ->
-                val mostRecentGame = gameList.maxByOrNull(GameSummary::time)
+            return repository
+                .fetchGames(request)
+                .mapCatching { gameList ->
+                    val mostRecentGame = gameList.maxByOrNull(GameSummary::time)
 
-                requireNotNull(mostRecentGame)
+                    requireNotNull(mostRecentGame)
 
-                GameSummaryDisplayModel(mostRecentGame)
-            }
+                    GameSummaryDisplayModel(mostRecentGame)
+                }
+        }
     }
-}
