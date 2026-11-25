@@ -107,7 +107,9 @@ private fun navEntryProvider(
                 metadata = TwoPaneScene.twoPane(),
                 content = {
                     GameDetailScreen(
-                        viewModel = assistedMetroViewModel<GameDetailViewModel, GameDetailViewModel.Factory> {
+                        viewModel = assistedMetroViewModel<GameDetailViewModel, GameDetailViewModel.Factory>(
+                            key = "game_detail_${key.gameId}",
+                        ) {
                             create(key.gameId)
                         },
                     )
@@ -121,7 +123,9 @@ private fun navEntryProvider(
                 metadata = TwoPaneScene.twoPane(),
                 content = {
                     TeamDetailScreen(
-                        viewModel = assistedMetroViewModel<TeamDetailViewModel, TeamDetailViewModel.Factory> {
+                        viewModel = assistedMetroViewModel<TeamDetailViewModel, TeamDetailViewModel.Factory>(
+                            key = "team_detail_${key.teamId}",
+                        ) {
                             create(key.teamId)
                         },
                     )
