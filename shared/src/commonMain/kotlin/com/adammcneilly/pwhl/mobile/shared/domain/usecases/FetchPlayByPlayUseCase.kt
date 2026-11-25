@@ -8,24 +8,26 @@ import com.adammcneilly.pwhl.mobile.shared.models.playbyplay.PlayByPlayFaceOffEv
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 
+/**
+ * Fetches the play by play events for a specific game and maps
+ * them into their display model entities.
+ */
 @SingleIn(AppScope::class)
-class FetchPlayByPlayUseCase
-    @Inject
-    constructor(
-        private val repository: PWHLRepository,
-    ) {
-        suspend fun invoke(
-            gameId: String,
-        ): Result<Map<String, List<PlayByPlayEventDisplayModel>>> {
-            return repository.fetchPlayByPlay(gameId).map { eventList ->
-                eventList
-                    .filter { event ->
-                        event !is PlayByPlayFaceOffEvent
-                    }
-                    .map(PlayByPlayEvent::toDisplayModel)
-                    .groupBy { event ->
-                        event.period.longName
-                    }
-            }
+class FetchPlayByPlayUseCase @Inject constructor(
+    private val repository: PWHLRepository,
+) {
+    suspend fun invoke(
+        gameId: String,
+    ): Result<Map<String, List<PlayByPlayEventDisplayModel>>> {
+        return repository.fetchPlayByPlay(gameId).map { eventList ->
+            eventList
+                .filter { event ->
+                    event !is PlayByPlayFaceOffEvent
+                }
+                .map(PlayByPlayEvent::toDisplayModel)
+                .groupBy { event ->
+                    event.period.longName
+                }
         }
     }
+}

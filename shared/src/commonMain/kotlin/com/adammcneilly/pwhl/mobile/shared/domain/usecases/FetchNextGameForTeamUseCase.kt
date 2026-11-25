@@ -11,29 +11,27 @@ import dev.zacsweers.metro.SingleIn
 import kotlin.time.Duration.Companion.days
 
 @SingleIn(AppScope::class)
-class FetchNextGameForTeamUseCase
-    @Inject
-    constructor(
-        private val repository: PWHLRepository,
-        private val timeProvider: TimeProvider,
-    ) {
-        suspend operator fun invoke(
-            teamId: String,
-        ): Result<GameSummaryDisplayModel> {
-            val request = GameListRequest(
-                beforeDate = timeProvider.now().plus(10.days),
-                afterDate = timeProvider.now(),
-                teamId = teamId,
-            )
+class FetchNextGameForTeamUseCase @Inject constructor(
+    private val repository: PWHLRepository,
+    private val timeProvider: TimeProvider,
+) {
+    suspend operator fun invoke(
+        teamId: String,
+    ): Result<GameSummaryDisplayModel> {
+        val request = GameListRequest(
+            beforeDate = timeProvider.now().plus(10.days),
+            afterDate = timeProvider.now(),
+            teamId = teamId,
+        )
 
-            return repository
-                .fetchGames(request)
-                .mapCatching { gameList ->
-                    val nextGame = gameList.minByOrNull(GameSummary::time)
+        return repository
+            .fetchGames(request)
+            .mapCatching { gameList ->
+                val nextGame = gameList.minByOrNull(GameSummary::time)
 
-                    requireNotNull(nextGame)
+                requireNotNull(nextGame)
 
-                    GameSummaryDisplayModel(nextGame)
-                }
-        }
+                GameSummaryDisplayModel(nextGame)
+            }
     }
+}
