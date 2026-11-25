@@ -14,27 +14,25 @@ import kotlin.time.Duration.Companion.days
  * them into display models.
  */
 @SingleIn(AppScope::class)
-class FetchUpcomingGamesUseCase
-    @Inject
-    constructor(
-        private val repository: PWHLRepository,
-        private val timeProvider: TimeProvider,
-    ) {
-        suspend fun invoke(): Result<List<GameSummaryDisplayModel>> {
-            val now = timeProvider.now()
-            val beforeDate = now.plus(DAYS_AHEAD.days)
-            val request = GameListRequest(
-                beforeDate = beforeDate,
-                afterDate = now,
-                teamId = null,
-            )
+class FetchUpcomingGamesUseCase @Inject constructor(
+    private val repository: PWHLRepository,
+    private val timeProvider: TimeProvider,
+) {
+    suspend fun invoke(): Result<List<GameSummaryDisplayModel>> {
+        val now = timeProvider.now()
+        val beforeDate = now.plus(DAYS_AHEAD.days)
+        val request = GameListRequest(
+            beforeDate = beforeDate,
+            afterDate = now,
+            teamId = null,
+        )
 
-            return repository.fetchGames(request).map { gameList ->
-                gameList.map(::GameSummaryDisplayModel)
-            }
-        }
-
-        private companion object {
-            private const val DAYS_AHEAD = 7
+        return repository.fetchGames(request).map { gameList ->
+            gameList.map(::GameSummaryDisplayModel)
         }
     }
+
+    private companion object {
+        private const val DAYS_AHEAD = 7
+    }
+}

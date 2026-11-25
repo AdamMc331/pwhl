@@ -10,13 +10,11 @@ import dev.zacsweers.metro.SingleIn
 
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
-class HockeyTechKtorClient
-    @Inject
-    constructor() :
+class HockeyTechKtorClient @Inject constructor() :
     BaseKtorClient(
-            baseURL = "https://lscluster.hockeytech.com/",
-            engine = provideHttpClientEngine(),
-        ) {
+        baseURL = "https://lscluster.hockeytech.com/",
+        engine = provideHttpClientEngine(),
+    ) {
         override val baseParams = mapOf(
             HockeyTechParameterKeys.API_KEY to BuildKonfig.PWHL_API_KEY,
             HockeyTechParameterKeys.CLIENT_CODE to HockeyTechParameterValues.CLIENT_CODE,

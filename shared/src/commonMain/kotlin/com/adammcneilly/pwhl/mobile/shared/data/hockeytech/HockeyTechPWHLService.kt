@@ -29,120 +29,118 @@ import kotlinx.datetime.daysUntil
  */
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
-class HockeyTechPWHLService
-    @Inject
-    constructor(
-        private val apiClient: BaseKtorClient,
-        private val timeProvider: TimeProvider,
-    ) : PWHLRepository {
-        override suspend fun fetchGames(
-            request: GameListRequest,
-        ): Result<List<GameSummary>> {
-            val endpoint = "feed/index.php"
+class HockeyTechPWHLService @Inject constructor(
+    private val apiClient: BaseKtorClient,
+    private val timeProvider: TimeProvider,
+) : PWHLRepository {
+    override suspend fun fetchGames(
+        request: GameListRequest,
+    ): Result<List<GameSummary>> {
+        val endpoint = "feed/index.php"
 
-            val now = timeProvider.now()
-            val daysBack = request.afterDate.daysUntil(now, TimeZone.currentSystemDefault())
-            val daysAhead = now.daysUntil(request.beforeDate, TimeZone.currentSystemDefault())
+        val now = timeProvider.now()
+        val daysBack = request.afterDate.daysUntil(now, TimeZone.currentSystemDefault())
+        val daysAhead = now.daysUntil(request.beforeDate, TimeZone.currentSystemDefault())
 
-            val gameListParams = mapOf(
-                HockeyTechParameterKeys.FEED to "modulekit",
-                HockeyTechParameterKeys.VIEW to "scorebar",
-                HockeyTechParameterKeys.DAYS_AHEAD to daysAhead.toString(),
-                HockeyTechParameterKeys.DAYS_BACK to daysBack.toString(),
-                HockeyTechParameterKeys.TEAM_ID to request.teamId.orEmpty(),
-            )
+        val gameListParams = mapOf(
+            HockeyTechParameterKeys.FEED to "modulekit",
+            HockeyTechParameterKeys.VIEW to "scorebar",
+            HockeyTechParameterKeys.DAYS_AHEAD to daysAhead.toString(),
+            HockeyTechParameterKeys.DAYS_BACK to daysBack.toString(),
+            HockeyTechParameterKeys.TEAM_ID to request.teamId.orEmpty(),
+        )
 
-            return apiClient
-                .getResponse<HockeyTechScoreBarResponseDTO>(
-                    endpoint = endpoint,
-                    params = gameListParams,
-                )
-                .map(HockeyTechScoreBarResponseDTO::parseGames)
-        }
-
-        override suspend fun fetchStandings(
-            request: StandingsListRequest,
-        ): Result<List<StandingsRow>> {
-            val endpoint = "feed/index.php"
-
-            val standingsParams = mapOf(
-                HockeyTechParameterKeys.FEED to "modulekit",
-                HockeyTechParameterKeys.VIEW to "statviewtype",
-                HockeyTechParameterKeys.CONTEXT to "overall",
-                HockeyTechParameterKeys.STAT to "conference",
-                HockeyTechParameterKeys.TYPE to "standings",
-                HockeyTechParameterKeys.SORT to "points",
-                HockeyTechParameterKeys.SEASON to request.seasonId,
-            )
-
-            return apiClient.getResponse<HockeyTechStandingsResponseDTO>(
+        return apiClient
+            .getResponse<HockeyTechScoreBarResponseDTO>(
                 endpoint = endpoint,
-                params = standingsParams,
-            ).map { standingsList ->
-                standingsList
-                    .siteKit
-                    ?.standings
-                    ?.mapNotNull { data ->
-                        data.parseStandingsRow()
-                    }
-                    .orEmpty()
-            }
-        }
-
-        override suspend fun fetchGameDetail(
-            gameId: String,
-        ): Result<GameDetail> {
-            val endpoint = "feed/index.php"
-
-            val gameParams = mapOf(
-                HockeyTechParameterKeys.FEED to "statviewfeed",
-                HockeyTechParameterKeys.VIEW to "gameSummary",
-                HockeyTechParameterKeys.GAME_ID to gameId,
+                params = gameListParams,
             )
+            .map(HockeyTechScoreBarResponseDTO::parseGames)
+    }
 
-            return apiClient.getResponse<HockeyTechGameDTO>(
-                endpoint = endpoint,
-                params = gameParams,
-            ).map(HockeyTechGameDTO::parseGameDetail)
-        }
+    override suspend fun fetchStandings(
+        request: StandingsListRequest,
+    ): Result<List<StandingsRow>> {
+        val endpoint = "feed/index.php"
 
-        override suspend fun fetchPlayByPlay(
-            gameId: String,
-        ): Result<List<PlayByPlayEvent>> {
-            val endpoint = "feed/index.php"
+        val standingsParams = mapOf(
+            HockeyTechParameterKeys.FEED to "modulekit",
+            HockeyTechParameterKeys.VIEW to "statviewtype",
+            HockeyTechParameterKeys.CONTEXT to "overall",
+            HockeyTechParameterKeys.STAT to "conference",
+            HockeyTechParameterKeys.TYPE to "standings",
+            HockeyTechParameterKeys.SORT to "points",
+            HockeyTechParameterKeys.SEASON to request.seasonId,
+        )
 
-            val gameParams = mapOf(
-                HockeyTechParameterKeys.FEED to "statviewfeed",
-                HockeyTechParameterKeys.VIEW to "gameCenterPlayByPlay",
-                HockeyTechParameterKeys.GAME_ID to gameId,
-            )
-
-            return apiClient.getResponse<List<HockeyTechPlayByPlayEventDTO>>(
-                endpoint = endpoint,
-                params = gameParams,
-            ).map { eventList ->
-                eventList.map(HockeyTechPlayByPlayEventDTO::parsePlayByPlayEvent)
-            }
-        }
-
-        override suspend fun fetchSeasons(): Result<List<Season>> {
-            val endpoint = "feed/index.php"
-
-            val seasonParams = mapOf(
-                HockeyTechParameterKeys.FEED to "modulekit",
-                HockeyTechParameterKeys.VIEW to "seasons",
-            )
-
-            return apiClient.getResponse<HockeyTechSeasonListResponseDTO>(
-                endpoint = endpoint,
-                params = seasonParams,
-            ).map { listResponseDto ->
-                listResponseDto
-                    .siteKit
-                    ?.seasons
-                    ?.filterNotNull()
-                    ?.map(HockeyTechSeasonDTO::parseSeason)
-                    .orEmpty()
-            }
+        return apiClient.getResponse<HockeyTechStandingsResponseDTO>(
+            endpoint = endpoint,
+            params = standingsParams,
+        ).map { standingsList ->
+            standingsList
+                .siteKit
+                ?.standings
+                ?.mapNotNull { data ->
+                    data.parseStandingsRow()
+                }
+                .orEmpty()
         }
     }
+
+    override suspend fun fetchGameDetail(
+        gameId: String,
+    ): Result<GameDetail> {
+        val endpoint = "feed/index.php"
+
+        val gameParams = mapOf(
+            HockeyTechParameterKeys.FEED to "statviewfeed",
+            HockeyTechParameterKeys.VIEW to "gameSummary",
+            HockeyTechParameterKeys.GAME_ID to gameId,
+        )
+
+        return apiClient.getResponse<HockeyTechGameDTO>(
+            endpoint = endpoint,
+            params = gameParams,
+        ).map(HockeyTechGameDTO::parseGameDetail)
+    }
+
+    override suspend fun fetchPlayByPlay(
+        gameId: String,
+    ): Result<List<PlayByPlayEvent>> {
+        val endpoint = "feed/index.php"
+
+        val gameParams = mapOf(
+            HockeyTechParameterKeys.FEED to "statviewfeed",
+            HockeyTechParameterKeys.VIEW to "gameCenterPlayByPlay",
+            HockeyTechParameterKeys.GAME_ID to gameId,
+        )
+
+        return apiClient.getResponse<List<HockeyTechPlayByPlayEventDTO>>(
+            endpoint = endpoint,
+            params = gameParams,
+        ).map { eventList ->
+            eventList.map(HockeyTechPlayByPlayEventDTO::parsePlayByPlayEvent)
+        }
+    }
+
+    override suspend fun fetchSeasons(): Result<List<Season>> {
+        val endpoint = "feed/index.php"
+
+        val seasonParams = mapOf(
+            HockeyTechParameterKeys.FEED to "modulekit",
+            HockeyTechParameterKeys.VIEW to "seasons",
+        )
+
+        return apiClient.getResponse<HockeyTechSeasonListResponseDTO>(
+            endpoint = endpoint,
+            params = seasonParams,
+        ).map { listResponseDto ->
+            listResponseDto
+                .siteKit
+                ?.seasons
+                ?.filterNotNull()
+                ?.map(HockeyTechSeasonDTO::parseSeason)
+                .orEmpty()
+        }
+    }
+}

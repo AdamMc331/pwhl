@@ -9,10 +9,8 @@ import kotlin.time.Instant
 
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
-class SystemTimeProvider
-    @Inject
-    constructor() : TimeProvider {
-        override fun now(): Instant {
-            return Clock.System.now()
-        }
+class SystemTimeProvider @Inject constructor() : TimeProvider {
+    override fun now(): Instant {
+        return Clock.System.now()
     }
+}

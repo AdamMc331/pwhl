@@ -9,28 +9,30 @@ import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlin.time.Duration.Companion.days
 
+/**
+ * Fetches a collection of games that have been played recently
+ * and maps them into display models.
+ */
 @SingleIn(AppScope::class)
-class FetchRecentGamesUseCase
-    @Inject
-    constructor(
-        private val repository: PWHLRepository,
-        private val timeProvider: TimeProvider,
-    ) {
-        suspend fun invoke(): Result<List<GameSummaryDisplayModel>> {
-            val now = timeProvider.now()
-            val afterDate = now.minus(DAYS_BACK.days)
-            val request = GameListRequest(
-                beforeDate = now,
-                afterDate = afterDate,
-                teamId = null,
-            )
+class FetchRecentGamesUseCase @Inject constructor(
+    private val repository: PWHLRepository,
+    private val timeProvider: TimeProvider,
+) {
+    suspend fun invoke(): Result<List<GameSummaryDisplayModel>> {
+        val now = timeProvider.now()
+        val afterDate = now.minus(DAYS_BACK.days)
+        val request = GameListRequest(
+            beforeDate = now,
+            afterDate = afterDate,
+            teamId = null,
+        )
 
-            return repository.fetchGames(request).map { gameList ->
-                gameList.map(::GameSummaryDisplayModel)
-            }
-        }
-
-        private companion object {
-            private const val DAYS_BACK = 7
+        return repository.fetchGames(request).map { gameList ->
+            gameList.map(::GameSummaryDisplayModel)
         }
     }
+
+    private companion object {
+        private const val DAYS_BACK = 7
+    }
+}

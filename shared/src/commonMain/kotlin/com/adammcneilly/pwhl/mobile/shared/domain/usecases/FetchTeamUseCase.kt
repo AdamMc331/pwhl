@@ -7,142 +7,140 @@ import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 
 @SingleIn(AppScope::class)
-class FetchTeamUseCase
-    @Inject
-    constructor() {
-        fun invoke(
-            teamId: String,
-        ): Result<TeamDisplayModel> {
-            val team = when (teamId) {
-                "1" -> {
-                    boston(teamId)
-                }
-
-                "2" -> {
-                    minnesota(teamId)
-                }
-
-                "3" -> {
-                    montreal(teamId)
-                }
-
-                "4" -> {
-                    newYork(teamId)
-                }
-
-                "5" -> {
-                    ottowa(teamId)
-                }
-
-                "6" -> {
-                    toronto(teamId)
-                }
-
-                "8" -> {
-                    seattle(teamId)
-                }
-
-                "9" -> {
-                    vancouver(teamId)
-                }
-
-                else -> {
-                    null
-                }
+class FetchTeamUseCase @Inject constructor() {
+    fun invoke(
+        teamId: String,
+    ): Result<TeamDisplayModel> {
+        val team = when (teamId) {
+            "1" -> {
+                boston(teamId)
             }
 
-            return if (team != null) {
-                Result.success(team)
-            } else {
-                Result.failure(Throwable("Invalid team id: $team"))
+            "2" -> {
+                minnesota(teamId)
+            }
+
+            "3" -> {
+                montreal(teamId)
+            }
+
+            "4" -> {
+                newYork(teamId)
+            }
+
+            "5" -> {
+                ottowa(teamId)
+            }
+
+            "6" -> {
+                toronto(teamId)
+            }
+
+            "8" -> {
+                seattle(teamId)
+            }
+
+            "9" -> {
+                vancouver(teamId)
+            }
+
+            else -> {
+                null
             }
         }
 
-        private fun toronto(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Toronto",
-                name = "Toronto Sceptres",
-                shortCode = "TOR",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun ottowa(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Ottawa",
-                name = "Ottawa Charge",
-                shortCode = "OTT",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun newYork(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "New York",
-                name = "New York Sirens",
-                shortCode = "NY",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun montreal(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Montreal",
-                name = "Montreal Victoire",
-                shortCode = "MTL",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun minnesota(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Minnesota",
-                name = "Minnesota Frost",
-                shortCode = "MIN",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun boston(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Boston",
-                name = "Boston Fleet",
-                shortCode = "BOS",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun seattle(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Seattle",
-                name = "Seattle Torrent",
-                shortCode = "SEA",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
-
-        private fun vancouver(
-            teamId: String,
-        ): TeamDisplayModel =
-            TeamDisplayModel(
-                id = teamId,
-                city = "Vancouver",
-                name = "Vancouver Goldeneyes",
-                shortCode = "CAN",
-                image = LocalTeamImageProvider.getTeamImage(teamId),
-            )
+        return if (team != null) {
+            Result.success(team)
+        } else {
+            Result.failure(Throwable("Invalid team id: $team"))
+        }
     }
+
+    private fun toronto(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Toronto",
+            name = "Toronto Sceptres",
+            shortCode = "TOR",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun ottowa(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Ottawa",
+            name = "Ottawa Charge",
+            shortCode = "OTT",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun newYork(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "New York",
+            name = "New York Sirens",
+            shortCode = "NY",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun montreal(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Montreal",
+            name = "Montreal Victoire",
+            shortCode = "MTL",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun minnesota(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Minnesota",
+            name = "Minnesota Frost",
+            shortCode = "MIN",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun boston(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Boston",
+            name = "Boston Fleet",
+            shortCode = "BOS",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun seattle(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Seattle",
+            name = "Seattle Torrent",
+            shortCode = "SEA",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+
+    private fun vancouver(
+        teamId: String,
+    ): TeamDisplayModel =
+        TeamDisplayModel(
+            id = teamId,
+            city = "Vancouver",
+            name = "Vancouver Goldeneyes",
+            shortCode = "CAN",
+            image = LocalTeamImageProvider.getTeamImage(teamId),
+        )
+}

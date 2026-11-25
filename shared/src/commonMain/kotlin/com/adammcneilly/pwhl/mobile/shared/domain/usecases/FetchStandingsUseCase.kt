@@ -7,18 +7,20 @@ import com.adammcneilly.pwhl.mobile.shared.displaymodels.StandingsRowDisplayMode
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 
+/**
+ * Fetches the standings for the current season
+ * and maps them into display models.
+ */
 @SingleIn(AppScope::class)
-class FetchStandingsUseCase
-    @Inject
-    constructor(
-        private val repository: PWHLRepository,
-    ) {
-        suspend fun invoke(
-            request: StandingsListRequest,
-        ): Result<List<StandingsRowDisplayModel>> {
-            return repository.fetchStandings(request)
-                .map { standingsList ->
-                    standingsList.map(::StandingsRowDisplayModel)
-                }
-        }
+class FetchStandingsUseCase @Inject constructor(
+    private val repository: PWHLRepository,
+) {
+    suspend fun invoke(
+        request: StandingsListRequest,
+    ): Result<List<StandingsRowDisplayModel>> {
+        return repository.fetchStandings(request)
+            .map { standingsList ->
+                standingsList.map(::StandingsRowDisplayModel)
+            }
     }
+}

@@ -19,44 +19,42 @@ import kotlinx.coroutines.launch
  */
 @ViewModelKey
 @ContributesIntoMap(AppScope::class)
-class StandingsViewModel
-    @Inject
-    constructor(
-        private val fetchStandingsUseCase: FetchStandingsUseCase,
-    ) : ViewModel() {
-        private val mutableState = MutableStateFlow(StandingsState.Default)
-        val state = mutableState.asStateFlow()
+class StandingsViewModel @Inject constructor(
+    private val fetchStandingsUseCase: FetchStandingsUseCase,
+) : ViewModel() {
+    private val mutableState = MutableStateFlow(StandingsState.Default)
+    val state = mutableState.asStateFlow()
 
-        init {
-            fetchStandings()
-        }
+    init {
+        fetchStandings()
+    }
 
-        private fun fetchStandings() {
-            viewModelScope.launch {
-                state
-                    .map { state ->
-                        state.buildRequest()
+    private fun fetchStandings() {
+        viewModelScope.launch {
+            state
+                .map { state ->
+                    state.buildRequest()
+                }
+                .distinctUntilChanged()
+                .collect {
+                    mutableState.update { currentState ->
+                        currentState.copy(
+                            isLoading = true,
+                        )
                     }
-                    .distinctUntilChanged()
-                    .collect {
-                        mutableState.update { currentState ->
-                            currentState.copy(
-                                isLoading = true,
-                            )
-                        }
 
-                        val standings = fetchStandingsUseCase
-                            .invoke(state.value.buildRequest())
-                            .getOrNull()
-                            .orEmpty()
+                    val standings = fetchStandingsUseCase
+                        .invoke(state.value.buildRequest())
+                        .getOrNull()
+                        .orEmpty()
 
-                        mutableState.update { currentState ->
-                            currentState.copy(
-                                isLoading = false,
-                                standings = standings,
-                            )
-                        }
+                    mutableState.update { currentState ->
+                        currentState.copy(
+                            isLoading = false,
+                            standings = standings,
+                        )
                     }
-            }
+                }
         }
     }
+}
