@@ -1,9 +1,13 @@
 package com.adammcneilly.pwhl.mobile.shared.domain.usecases
 
 import com.adammcneilly.pwhl.mobile.shared.LocalTeamImageProvider
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.TeamDisplayModel
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
-class FetchTeamUseCase {
+@SingleIn(AppScope::class)
+class FetchTeamUseCase @Inject constructor() {
     fun invoke(
         teamId: String,
     ): Result<TeamDisplayModel> {

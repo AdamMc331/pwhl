@@ -2,15 +2,19 @@ package com.adammcneilly.pwhl.mobile.shared.domain.usecases
 
 import com.adammcneilly.pwhl.mobile.shared.data.repositories.PWHLRepository
 import com.adammcneilly.pwhl.mobile.shared.data.requests.GameListRequest
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.time.TimeProvider
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlin.time.Duration.Companion.days
 
 /**
  * Fetches a list of games that will be played soon and maps
  * them into display models.
  */
-class FetchUpcomingGamesUseCase(
+@SingleIn(AppScope::class)
+class FetchUpcomingGamesUseCase @Inject constructor(
     private val repository: PWHLRepository,
     private val timeProvider: TimeProvider,
 ) {

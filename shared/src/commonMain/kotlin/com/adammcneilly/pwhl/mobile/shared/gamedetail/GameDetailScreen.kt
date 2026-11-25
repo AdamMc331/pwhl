@@ -7,16 +7,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.adammcneilly.pwhl.mobile.shared.ui.components.SpatialModeSwitchFAB
-import org.koin.core.annotation.KoinExperimentalAPI
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 /**
  * Stateful container for [GameDetailContent] that recomposes
  * every time we get a new state from our [viewModel].
  */
 @Composable
-@OptIn(KoinExperimentalAPI::class)
 fun GameDetailScreen(
-    viewModel: GameDetailViewModel,
+    viewModel: GameDetailViewModel = metroViewModel(),
     modifier: Modifier = Modifier,
 ) {
     val state = viewModel.state.collectAsState()

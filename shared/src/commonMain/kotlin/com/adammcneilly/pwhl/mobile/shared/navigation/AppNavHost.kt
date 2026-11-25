@@ -15,6 +15,7 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import androidx.window.core.layout.WindowSizeClass
 import com.adammcneilly.pwhl.mobile.shared.feed.FeedScreen
 import com.adammcneilly.pwhl.mobile.shared.gamedetail.GameDetailScreen
+import com.adammcneilly.pwhl.mobile.shared.gamedetail.GameDetailViewModel
 import com.adammcneilly.pwhl.mobile.shared.news.NewsScreen
 import com.adammcneilly.pwhl.mobile.shared.profile.ProfileScreen
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalNavAnimatedVisibilityScope
@@ -22,10 +23,10 @@ import com.adammcneilly.pwhl.mobile.shared.scaffold.app.LocalAppState
 import com.adammcneilly.pwhl.mobile.shared.scaffold.navigation.HomeTab
 import com.adammcneilly.pwhl.mobile.shared.standings.StandingsScreen
 import com.adammcneilly.pwhl.mobile.shared.teamdetail.TeamDetailScreen
+import com.adammcneilly.pwhl.mobile.shared.teamdetail.TeamDetailViewModel
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 private val config = SavedStateConfiguration {
     serializersModule = SerializersModule {
@@ -106,12 +107,9 @@ private fun navEntryProvider(
                 metadata = TwoPaneScene.twoPane(),
                 content = {
                     GameDetailScreen(
-                        viewModel = koinViewModel(
-                            key = "game_detail_${key.gameId}",
-                            parameters = {
-                                parametersOf(key.gameId)
-                            },
-                        ),
+                        viewModel = assistedMetroViewModel<GameDetailViewModel, GameDetailViewModel.Factory> {
+                            create(key.gameId)
+                        },
                     )
                 },
             )
@@ -123,11 +121,9 @@ private fun navEntryProvider(
                 metadata = TwoPaneScene.twoPane(),
                 content = {
                     TeamDetailScreen(
-                        viewModel = koinViewModel(
-                            parameters = {
-                                parametersOf(key.teamId)
-                            },
-                        ),
+                        viewModel = assistedMetroViewModel<TeamDetailViewModel, TeamDetailViewModel.Factory> {
+                            create(key.teamId)
+                        },
                     )
                 },
             )

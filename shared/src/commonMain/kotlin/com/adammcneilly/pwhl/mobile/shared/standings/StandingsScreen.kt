@@ -3,15 +3,13 @@ package com.adammcneilly.pwhl.mobile.shared.standings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.annotation.KoinExperimentalAPI
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 @Composable
-@OptIn(KoinExperimentalAPI::class)
 fun StandingsScreen(
     onTeamClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: StandingsViewModel = koinViewModel(),
+    viewModel: StandingsViewModel = metroViewModel(),
 ) {
     val state = viewModel.state.collectAsState()
 

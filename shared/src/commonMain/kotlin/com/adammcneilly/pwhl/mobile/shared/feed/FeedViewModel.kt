@@ -2,9 +2,13 @@ package com.adammcneilly.pwhl.mobile.shared.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.displaymodels.GameSummaryDisplayModel
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchRecentGamesUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchUpcomingGamesUseCase
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +17,9 @@ import kotlinx.coroutines.launch
 /**
  * State container for the feed screen of the app.
  */
-class FeedViewModel(
+@ViewModelKey
+@ContributesIntoMap(AppScope::class)
+class FeedViewModel @Inject constructor(
     private val recentGamesUseCase: FetchRecentGamesUseCase,
     private val upcomingGamesUseCase: FetchUpcomingGamesUseCase,
 ) : ViewModel() {

@@ -10,12 +10,16 @@ import com.adammcneilly.pwhl.mobile.shared.data.remote.BaseKtorClient
 import com.adammcneilly.pwhl.mobile.shared.data.repositories.PWHLRepository
 import com.adammcneilly.pwhl.mobile.shared.data.requests.GameListRequest
 import com.adammcneilly.pwhl.mobile.shared.data.requests.StandingsListRequest
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.models.GameDetail
 import com.adammcneilly.pwhl.mobile.shared.models.GameSummary
 import com.adammcneilly.pwhl.mobile.shared.models.Season
 import com.adammcneilly.pwhl.mobile.shared.models.StandingsRow
 import com.adammcneilly.pwhl.mobile.shared.models.playbyplay.PlayByPlayEvent
 import com.adammcneilly.pwhl.mobile.shared.time.TimeProvider
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.daysUntil
 
@@ -23,7 +27,9 @@ import kotlinx.datetime.daysUntil
  * This implementation of [PWHLRepository] makes all requests to the supplied
  * hockey tech [apiClient].
  */
-class HockeyTechPWHLService(
+@SingleIn(AppScope::class)
+@ContributesBinding(AppScope::class)
+class HockeyTechPWHLService @Inject constructor(
     private val apiClient: BaseKtorClient,
     private val timeProvider: TimeProvider,
 ) : PWHLRepository {

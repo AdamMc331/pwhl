@@ -2,7 +2,11 @@ package com.adammcneilly.pwhl.mobile.shared.standings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchStandingsUseCase
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -13,7 +17,9 @@ import kotlinx.coroutines.launch
 /**
  * State container for the standings screen.
  */
-class StandingsViewModel(
+@ViewModelKey
+@ContributesIntoMap(AppScope::class)
+class StandingsViewModel @Inject constructor(
     private val fetchStandingsUseCase: FetchStandingsUseCase,
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(StandingsState.Default)
