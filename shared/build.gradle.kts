@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.dev.zacsweers.metro)
     alias(libs.plugins.kotlinx.serialization)
 }
 
@@ -68,15 +69,15 @@ kotlin {
             implementation(libs.jetbrains.compose.runtime)
             implementation(libs.jetbrains.compose.ui)
             implementation(libs.jetbrains.compose.ui.tooling.preview)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            implementation(libs.koin.core)
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.material.kolor)
+            implementation(libs.metro.runtime)
+            implementation(libs.metrox.viewmodel)
+            implementation(libs.metrox.viewmodel.compose)
         }
 
         androidMain.dependencies {
@@ -94,9 +95,9 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.ktor.client.testing)
+            implementation(libs.metro.runtime)
             implementation(libs.varabyte.truthish)
         }
     }

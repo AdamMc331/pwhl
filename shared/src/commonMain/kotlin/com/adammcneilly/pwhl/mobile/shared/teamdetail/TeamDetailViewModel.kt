@@ -2,16 +2,24 @@ package com.adammcneilly.pwhl.mobile.shared.teamdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchMostRecentGameForTeamUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchNextGameForTeamUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchTeamUseCase
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+@AssistedInject
 class TeamDetailViewModel(
-    private val teamId: String,
+    @Assisted private val teamId: String,
     private val fetchMostRecentGameUseCase: FetchMostRecentGameForTeamUseCase,
     private val fetchNextGameUseCase: FetchNextGameForTeamUseCase,
     private val fetchTeamUseCase: FetchTeamUseCase,
@@ -63,5 +71,14 @@ class TeamDetailViewModel(
                 }
             }
         }
+    }
+
+    @AssistedFactory
+    @ManualViewModelAssistedFactoryKey
+    @ContributesIntoMap(AppScope::class)
+    interface Factory : ManualViewModelAssistedFactory {
+        fun create(
+            teamId: String,
+        ): TeamDetailViewModel
     }
 }

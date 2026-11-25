@@ -5,9 +5,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import com.adammcneilly.pwhl.mobile.shared.di.appModules
+import com.adammcneilly.pwhl.mobile.shared.di.AppGraph
 import com.adammcneilly.pwhl.mobile.shared.navigation.AppNavHost
 import com.adammcneilly.pwhl.mobile.shared.scaffold.LocalSharedTransitionScope
 import com.adammcneilly.pwhl.mobile.shared.scaffold.app.AppState
@@ -17,8 +18,8 @@ import com.adammcneilly.pwhl.mobile.shared.ui.theme.LocalDimensions
 import com.adammcneilly.pwhl.mobile.shared.ui.theme.PWHLTheme
 import com.adammcneilly.pwhl.mobile.shared.xr.LocalXRSession
 import com.adammcneilly.pwhl.mobile.shared.xr.currentXRSession
-import org.koin.compose.KoinApplication
-import org.koin.dsl.koinConfiguration
+import dev.zacsweers.metro.createGraph
+import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
 
 @Composable
 fun PWHLApp() {
@@ -37,6 +38,10 @@ fun PWHLApp() {
         AppState()
     }
 
+    val appGraph = remember {
+        createGraph<AppGraph>()
+    }
+
     SharedTransitionLayout(
         modifier = Modifier
             .fillMaxSize(),
@@ -46,19 +51,11 @@ fun PWHLApp() {
             LocalDimensions provides dimensions,
             LocalAppState provides appState,
             LocalSharedTransitionScope provides this,
+            LocalMetroViewModelFactory provides appGraph.viewModelFactory,
         ) {
-            KoinApplication(
-                configuration = koinConfiguration(
-                    declaration = {
-                        modules(appModules)
-                    },
-                ),
-                content = {
-                    PWHLTheme {
-                        AppNavHost()
-                    }
-                },
-            )
+            PWHLTheme {
+                AppNavHost()
+            }
         }
     }
 }

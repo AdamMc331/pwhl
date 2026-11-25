@@ -2,8 +2,15 @@ package com.adammcneilly.pwhl.mobile.shared.gamedetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.adammcneilly.pwhl.mobile.shared.di.AppScope
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchGameDetailUseCase
 import com.adammcneilly.pwhl.mobile.shared.domain.usecases.FetchPlayByPlayUseCase
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,8 +22,9 @@ import kotlin.collections.orEmpty
  * This is the state container for a game detail screen, managing data requests
  * for a specific [gameId].
  */
+@AssistedInject
 class GameDetailViewModel(
-    private val gameId: String,
+    @Assisted private val gameId: String,
     fetchGameDetailUseCase: FetchGameDetailUseCase,
     fetchPlayByPlayUseCase: FetchPlayByPlayUseCase,
 ) : ViewModel() {
@@ -92,5 +100,14 @@ class GameDetailViewModel(
                 )
             }
         }
+    }
+
+    @AssistedFactory
+    @ManualViewModelAssistedFactoryKey
+    @ContributesIntoMap(AppScope::class)
+    interface Factory : ManualViewModelAssistedFactory {
+        fun create(
+            gameId: String,
+        ): GameDetailViewModel
     }
 }
